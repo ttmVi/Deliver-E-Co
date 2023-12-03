@@ -15,8 +15,6 @@ public class XRayView : MonoBehaviour
     {
         // Get the Renderer component from the object
         objRenderer = GetComponent<Renderer>();
-        // Assume the object starts with its original material
-        objRenderer.material = originalMaterial;
 
         player = GameObject.Find("Player");
         cam = GameObject.Find("Main Camera");
@@ -24,32 +22,44 @@ public class XRayView : MonoBehaviour
 
     void Update()
     {
-        RaycastHit hit;
+        RaycastHit[] hits;
         Vector3 direction = player.transform.position - cam.transform.position;
+        float distance = Vector3.Distance(cam.transform.position, player.transform.position);
 
-        if (Physics.Raycast(cam.transform.position, direction, out hit))
+        hits = Physics.RaycastAll(cam.transform.position, direction, distance);
+        bool buildingInWay = false;
+
+        foreach (var hit in hits)
         {
             if (hit.collider.gameObject == this.gameObject)
             {
-                EnableXRayView();
+                buildingInWay = true;
+                break;
             }
-            else
-            {
-                DisableXRayView();
-            }
+        }
+
+        if (buildingInWay)
+        {
+            EnableXRayView();
+        }
+        else
+        {
+            DisableXRayView();
         }
     }
 
     // Method to enable X-Ray view
     public void EnableXRayView()
     {
-        objRenderer.material = transparentMaterial;
+        //objRenderer.material = transparentMaterial;
+        GetComponent<Renderer>().enabled = false;
     }
 
     // Method to disable X-Ray view
     public void DisableXRayView()
     {
-        objRenderer.material = originalMaterial;
+        //objRenderer.material = originalMaterial;
+        GetComponent<Renderer>().enabled = true;
     }
 }
 

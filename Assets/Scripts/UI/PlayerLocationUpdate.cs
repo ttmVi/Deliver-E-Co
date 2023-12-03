@@ -1,40 +1,89 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerLocationUpdate : MonoBehaviour
 {
-    private GameObject player;
-    private GameObject map3D;
-    private GameObject map2D;
+    public GameObject player;
+    public GameObject map3D;
+    public RectTransform map2D;
 
-    public Vector3 realPos;
-    public Vector2 localPos;
-    public Vector3 worldPos;
-    // Start is called before the first frame update
+    private BoxCollider map3DCollider;
+
     void Start()
     {
         player = GameObject.Find("Player");
         map3D = GameObject.Find("Map 3D");
-        map2D = GameObject.Find("Map");
+        map2D = GameObject.Find("Map").GetComponent<RectTransform>();
 
-        Debug.Log(map2D.GetComponent<RectTransform>().sizeDelta.x);
-        Debug.Log(map2D.GetComponent<RectTransform>().sizeDelta.y);
+        // Check if the necessary GameObjects are assigned
+        if (!player)
+        {
+            Debug.LogError("Player GameObject is not assigned.");
+            return;
+        }
+
+        if (!map3D)
+        {
+            Debug.LogError("3D Map GameObject is not assigned.");
+            return;
+        }
+
+        if (!map2D)
+        {
+            Debug.LogError("2D Map RectTransform is not assigned.");
+            return;
+        }
+
+        map3DCollider = map3D.GetComponent<BoxCollider>();
+        if (!map3DCollider)
+        {
+            Debug.LogError("BoxCollider component missing on the 3D map GameObject.");
+            return;
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        worldPos = player.transform.position - (map3D.transform.position + map3D.GetComponent<BoxCollider>().center);
-        localPos.x = worldPos.x / (map3D.GetComponent<BoxCollider>().size.x);
-        localPos.y = worldPos.z / (map3D.GetComponent<BoxCollider>().size.y);
-        // Get position ratio
+        if (!player || !map3DCollider || !map2D)
+        {
+            return; // Essential components are not set
+        }
 
-        realPos.x = localPos.x * (map2D.GetComponent<RectTransform>().sizeDelta.x);
-        realPos.y = localPos.y * (map2D.GetComponent<RectTransform>().sizeDelta.y);
-        // Normalized position to 2d map coordinates
+        // Calculate the player's position relative to the 3D map's bounds
+        Vector3 relativePosition = player.transform.position - map3D.transform.position;
+        Debug.Log("Relative position (before center adjustment): " + relativePosition);
 
+        relativePosition.x += map3DCollider.center.x * map3D.transform.localScale.x;
+        relativePosition.z += map3DCollider.center.y * map3D.transform.localScale.y;
+        Debug.Log("Relative position (after center adjustment): " + relativePosition);
+
+        // Normalize the position to a range of [0, 1]
+        Vector2 normalizedPos;
+        normalizedPos.x = (relativePosition.x / (map3DCollider.size.x * map3D.transform.localScale.x)) + 0.5f;
+        normalizedPos.y = (relativePosition.z / (map3DCollider.size.y * map3D.transform.localScale.y)) + 0.5f;
+
+        // Clamp values to ensure they are within [0, 1]
+        normalizedPos.x = Mathf.Clamp(normalizedPos.x, 0, 1);
+        normalizedPos.y = Mathf.Clamp(normalizedPos.y, 0, 1);
+        Debug.Log("Normalized position: " + normalizedPos);
+
+        // Convert normalized position to 2D map coordinates
+        Vector2 mapPosition;
+        mapPosition.x = normalizedPos.x * map2D.sizeDelta.x - (map2D.sizeDelta.x * 0.5f);
+        mapPosition.y = normalizedPos.y * map2D.sizeDelta.y - (map2D.sizeDelta.y * 0.5f);
+
+        // Update player icon's position on the 2D map
         RectTransform playerIconRectTransform = GetComponent<RectTransform>();
-        playerIconRectTransform.anchoredPosition = new Vector3(realPos.x, realPos.y, 13.6f);
+        if (playerIconRectTransform)
+        {
+            playerIconRectTransform.anchoredPosition = -mapPosition;
+            Debug.Log("Updated player icon position: " + mapPosition);
+        }
+        else
+        {
+            Debug.LogError("Missing RectTransform on the player icon.");
+        }
+
+        // Debugging player movement
+        Debug.Log("Player world position: " + player.transform.position);
     }
 }

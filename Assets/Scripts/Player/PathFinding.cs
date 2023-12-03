@@ -9,7 +9,7 @@ public class PathFinding : MonoBehaviour
     private bool pathFinder = false;
     private float laneWidth = 2f;
 
-    private float direction = 2;
+    private float direction = 50;
     private float lastVelocityDirection;
     private float targetRotatingAngle = 0f;
 
@@ -31,13 +31,27 @@ public class PathFinding : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && !turning)
         {
-            direction -= 1;
+            if (velDirection != Vector3.zero)
+            {
+                direction -= 1;
+            }
+            else
+            {
+                lastVelocityDirection -= 1;
+            }
             targetRotatingAngle = -90f;
             StartCoroutine(SmoothRotating(gameObject, targetRotatingAngle, player));
         }
         else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && !turning)
         {
-            direction += 1;
+            if (velDirection != Vector3.zero)
+            {
+                direction += 1;
+            }
+            else
+            {
+                lastVelocityDirection += 1;
+            }
             targetRotatingAngle = 90f;
             StartCoroutine(SmoothRotating(gameObject, targetRotatingAngle, player));
         }
