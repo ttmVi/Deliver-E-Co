@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
-    bool mapIsLoaded = false;
+    public bool mapIsLoaded = false;
 
     // Start is called before the first frame update
     void Start()

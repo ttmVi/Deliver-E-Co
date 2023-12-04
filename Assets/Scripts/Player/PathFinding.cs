@@ -17,6 +17,7 @@ public class PathFinding : MonoBehaviour
     public Vector3 velDirection;
     public GameObject player;
     public float speed;
+    public SceneManager sceneManager;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,8 @@ public class PathFinding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        StartCoroutine(LoadingUI());
+
         if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && !turning)
         {
             targetRotatingAngle = -90f;
@@ -116,6 +119,21 @@ public class PathFinding : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    IEnumerator LoadingUI()
+    {
+        while (sceneManager.mapIsLoaded)
+        {
+            if (velDirection != Vector3.zero)
+            {
+                lastVelocityDirection = direction;
+                direction += 0.5f; 
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return)) { direction = lastVelocityDirection; }
+        }
+        yield return null;
     }
 
     /*    void Turning()
