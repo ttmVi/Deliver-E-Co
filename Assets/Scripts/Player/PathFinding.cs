@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class PathFinding : MonoBehaviour
 {
-    private float inputTime = 0;
-    private bool pathFinder = false;
-    private float laneWidth = 2f;
+    //private float inputTime = 0;
+    //private bool pathFinder = false;
+    //private float laneWidth = 2f;
 
     private float direction = 50;
     private float lastVelocityDirection;
