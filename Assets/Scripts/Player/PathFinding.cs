@@ -31,6 +31,11 @@ public class PathFinding : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && !turning)
         {
+            targetRotatingAngle = -90f;
+            //transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
+            //player.transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
+            StartCoroutine(SmoothRotating(gameObject, targetRotatingAngle, player));
+
             if (velDirection != Vector3.zero)
             {
                 direction -= 1;
@@ -39,11 +44,14 @@ public class PathFinding : MonoBehaviour
             {
                 lastVelocityDirection -= 1;
             }
-            targetRotatingAngle = -90f;
-            StartCoroutine(SmoothRotating(gameObject, targetRotatingAngle, player));
         }
         else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && !turning)
         {
+            targetRotatingAngle = 90f;
+            //transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
+            //player.transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
+            StartCoroutine(SmoothRotating(gameObject, targetRotatingAngle, player));
+
             if (velDirection != Vector3.zero)
             {
                 direction += 1;
@@ -52,8 +60,6 @@ public class PathFinding : MonoBehaviour
             {
                 lastVelocityDirection += 1;
             }
-            targetRotatingAngle = 90f;
-            StartCoroutine(SmoothRotating(gameObject, targetRotatingAngle, player));
         }
 
         switch (direction % 4)
@@ -87,7 +93,9 @@ public class PathFinding : MonoBehaviour
     IEnumerator SmoothRotating(GameObject rotatingObject, float targetAngle, GameObject rotationCenter)
     {
         turning = true;
-        float rotationSpeed = 75f;
+        float rotationSpeed = 100f;
+
+        //yield return new WaitForSeconds(0.5f);
 
         while (turning)
         {
