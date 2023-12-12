@@ -39,6 +39,6 @@ public class Moving : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, previousPosition, segmentDistance / (temp - previousPosition).magnitude);
         //}
             
-        //previousPosition = temp;
+        previousPosition = temp;
     }
 }

@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class PathFinding : MonoBehaviour
 {
-    //private float inputTime = 0;
+    private float inputTime = 0;
     //private bool pathFinder = false;
     //private float laneWidth = 2f;
+    private bool inputting = false;
 
     private float direction = 50;
     private float lastVelocityDirection;
@@ -19,54 +20,154 @@ public class PathFinding : MonoBehaviour
     public float speed;
     public SceneManager sceneManager;
 
+    public GameObject[] horizontalLanes;
+    public GameObject[] verticalLanes;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
-        lastVelocityDirection = 0;
-        velDirection = new Vector3(1, 0, 0);
+
+        // Define initial direction
+
+        Vector3 initialDirection = transform.position - player.transform.position;
+        if (initialDirection.z > 0)
+        {
+            if (initialDirection.x > 0)
+            {
+                lastVelocityDirection = 2;
+            }
+            else
+            {
+                lastVelocityDirection = 1;
+            }
+        }
+        else
+        {
+            if (initialDirection.x > 0)
+            {
+                lastVelocityDirection = 3;
+            }
+            else
+            {
+                lastVelocityDirection = 0;
+            }
+        }
+        direction = 1.5f;
+        velDirection = new Vector3(0, 0, 0);
+
+        // Adding lanes into arrays
+
+        int horizontalLaneCount = GameObject.Find("HorizontalLanes").transform.childCount;
+        horizontalLanes = new GameObject[horizontalLaneCount];
+
+        for (int i = 0; i < GameObject.Find("HorizontalLanes").transform.childCount; i++)
+        {
+            horizontalLanes[i] = GameObject.Find("HorizontalLanes").transform.GetChild(i).gameObject;
+            Debug.Log(horizontalLanes[i].name);
+        }
+
+        int verticalLaneCount = GameObject.Find("VerticalLanes").transform.childCount;
+        verticalLanes = new GameObject[verticalLaneCount];
+
+        for (int i = 0; i < GameObject.Find("VerticalLanes").transform.childCount; i++)
+        {
+            verticalLanes[i] = GameObject.Find("VerticalLanes").transform.GetChild(i).gameObject;
+            Debug.Log(verticalLanes[i].name);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(LoadingUI());
+        //StartCoroutine(LaneChangingOrTurning());
 
-        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && !turning)
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && !turning)
         {
-            targetRotatingAngle = -90f;
-            //transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
-            //player.transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
-            StartCoroutine(SmoothRotating(gameObject, targetRotatingAngle, player));
-
-            if (velDirection != Vector3.zero)
-            {
-                direction -= 1;
-            }
-            else
-            {
-                lastVelocityDirection -= 1;
-            }
+            inputting = true;
+            inputTime += Time.deltaTime;
         }
-        else if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && !turning)
+        else if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && !turning)
         {
-            targetRotatingAngle = 90f;
-            //transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
-            //player.transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
-            StartCoroutine(SmoothRotating(gameObject, targetRotatingAngle, player));
-
-            if (velDirection != Vector3.zero)
-            {
-                direction += 1;
-            }
-            else
-            {
-                lastVelocityDirection += 1;
-            }
+            inputting = true;
+            inputTime += Time.deltaTime;
         }
 
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+                inputting = false;
+
+                if (inputTime > 0.5f)
+                {
+                    Debug.Log(inputTime.ToString());
+
+                    inputTime = 0f;
+
+                    targetRotatingAngle = -90f;
+                    //transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
+                    //player.transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
+                    StartCoroutine(SmoothRotating(gameObject, targetRotatingAngle, player));
+
+                    if (velDirection != Vector3.zero)
+                    {
+                        direction -= 1;
+                    }
+                    else
+                    {
+                        lastVelocityDirection -= 1;
+                    }
+                }
+
+                if (inputTime <= 0.5f)
+                {
+                    Debug.Log(inputTime.ToString());
+
+                    inputTime = 0f;
+
+                    //ChangingLanes();
+                }
+        }
+        else if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))
+            {
+                inputting = false;
+
+                if (inputTime > 0.5f)
+                {
+                    Debug.Log(inputTime.ToString());
+
+                    inputTime = 0f;
+
+                    targetRotatingAngle = -90f;
+                    //transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
+                    //player.transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
+                    StartCoroutine(SmoothRotating(gameObject, targetRotatingAngle, player));
+
+                    if (velDirection != Vector3.zero)
+                    {
+                        direction += 1;
+                    }
+                    else
+                    {
+                        lastVelocityDirection += 1;
+                    }
+                }
+
+                if (inputTime <= 0.5f)
+                {
+                    Debug.Log(inputTime.ToString());
+
+                    inputTime = 0f;
+
+                    //ChangingLanes();
+                }
+        }
+
+        // Define velocity direction
         switch (direction % 4)
         {
+            case -3: velDirection = new Vector3(0, 0, 1); break;
+            case -2: velDirection = new Vector3(1, 0, 0); break;
+            case -1: velDirection = new Vector3(0, 0, -1); break;
             case 0: velDirection = new Vector3(-1, 0, 0); break;
             case 1: velDirection = new Vector3(0, 0, 1); break;
             case 2: velDirection = new Vector3(1, 0, 0); break;
@@ -74,6 +175,7 @@ public class PathFinding : MonoBehaviour
             default: velDirection = new Vector3(0, 0, 0); break;
         }
 
+        // Stop and Go
         if (Input.GetKeyDown(KeyCode.S))
         {
             if (velDirection != Vector3.zero)
@@ -91,6 +193,16 @@ public class PathFinding : MonoBehaviour
         }
 
         transform.Translate(velDirection * speed * Time.deltaTime, Space.World);
+    }
+
+    IEnumerator LaneChangingOrTurning()
+    {
+        while (inputting)
+        {
+            inputTime += Time.deltaTime;
+        }
+
+        yield return null;
     }
 
     IEnumerator SmoothRotating(GameObject rotatingObject, float targetAngle, GameObject rotationCenter)
@@ -134,6 +246,11 @@ public class PathFinding : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return)) { direction = lastVelocityDirection; }
         }
         yield return null;
+    }
+
+    void ChangingLanes()
+    {
+
     }
 
     /*    void Turning()

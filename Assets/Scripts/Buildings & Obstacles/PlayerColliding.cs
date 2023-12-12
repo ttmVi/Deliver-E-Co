@@ -8,7 +8,12 @@ public class PlayerColliding : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerCollider = GameObject.Find("Player & Camera (Intermediate Parent)");
+        playerCollider = GameObject.Find("Player");
+    }
+
+    private void Update()
+    {
+        //OnTriggerEnter(playerCollider.GetComponent<Collider>());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -17,6 +22,7 @@ public class PlayerColliding : MonoBehaviour
         {
             Debug.Log("Gotohell");
             Destroy(other.gameObject);
+            Application.Quit();
         }
     }
 }
