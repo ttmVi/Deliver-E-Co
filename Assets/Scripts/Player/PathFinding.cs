@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Reporting;
 using UnityEditor.Rendering;
 using UnityEngine;
 
@@ -7,18 +8,19 @@ public class PathFinding : MonoBehaviour
 {
     private float inputTime = 0;
     //private bool pathFinder = false;
-    //private float laneWidth = 2f;
     private bool inputting = false;
 
     private float direction = 50;
     private float lastVelocityDirection;
     private float targetRotatingAngle = 0f;
 
+    public bool changingLane = false;
     public bool turning = false;
     public Vector3 velDirection;
     public GameObject player;
     public float speed;
     public SceneManager sceneManager;
+    public LaneState laneState;
 
     public GameObject[] horizontalLanes;
     public GameObject[] verticalLanes;
@@ -27,6 +29,7 @@ public class PathFinding : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        laneState = GameObject.Find("LaneIndicator").GetComponent<LaneState>();
 
         // Define initial direction
 
@@ -118,17 +121,19 @@ public class PathFinding : MonoBehaviour
                     }
                 }
 
-                if (inputTime <= 0.5f)
+                else if (inputTime <= 0.5f)
                 {
                     Debug.Log(inputTime.ToString());
-
                     inputTime = 0f;
 
-                    //ChangingLanes();
+                    if (velDirection != Vector3.zero && !changingLane)
+                    {
+                        StartCoroutine(ChangingLanes(-1f));
+                    }
                 }
         }
         else if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))
-            {
+        {
                 inputting = false;
 
                 if (inputTime > 0.5f)
@@ -137,7 +142,7 @@ public class PathFinding : MonoBehaviour
 
                     inputTime = 0f;
 
-                    targetRotatingAngle = -90f;
+                    targetRotatingAngle = 90f;
                     //transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
                     //player.transform.RotateAround(player.transform.position, Vector3.up, targetRotatingAngle);
                     StartCoroutine(SmoothRotating(gameObject, targetRotatingAngle, player));
@@ -152,13 +157,15 @@ public class PathFinding : MonoBehaviour
                     }
                 }
 
-                if (inputTime <= 0.5f)
+                else if (inputTime <= 0.5f)
                 {
                     Debug.Log(inputTime.ToString());
-
                     inputTime = 0f;
-
-                    //ChangingLanes();
+                    
+                    if (velDirection != Vector3.zero && !changingLane)
+                    {
+                        StartCoroutine(ChangingLanes(1f));
+                    }
                 }
         }
 
@@ -193,16 +200,6 @@ public class PathFinding : MonoBehaviour
         }
 
         transform.Translate(velDirection * speed * Time.deltaTime, Space.World);
-    }
-
-    IEnumerator LaneChangingOrTurning()
-    {
-        while (inputting)
-        {
-            inputTime += Time.deltaTime;
-        }
-
-        yield return null;
     }
 
     IEnumerator SmoothRotating(GameObject rotatingObject, float targetAngle, GameObject rotationCenter)
@@ -248,49 +245,44 @@ public class PathFinding : MonoBehaviour
         yield return null;
     }
 
-    void ChangingLanes()
+    IEnumerator ChangingLanes(float changeLane)
     {
+        changingLane = true;
+        float stepleft = laneState.laneWidth;
 
-    }
-
-    /*    void Turning()
+        if (velDirection.x != 0)
         {
-            if (Input.GetAxis("Horizontal") != 0)
+            while (changingLane)
             {
-                inputTime += Time.deltaTime;
-                pathFinder = true;
-
-                if ((Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow)) && inputTime <= 0.5f)
+                if (stepleft > 0.01f)
                 {
-                    transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z + laneWidth);
-                    inputTime = 0;
-                    pathFinder= false;
+                    transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Lerp(transform.position.z, transform.position.z + -velDirection.x * changeLane * laneState.laneWidth, Time.deltaTime));
+                    stepleft -= Time.deltaTime;
                 }
-                else if ((Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow)) && inputTime <= 0.5f)
+                else
                 {
-
-                    transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - laneWidth);
-                    inputTime = 0;
-                    pathFinder = false;
+                    transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Lerp(transform.position.z, transform.position.z + -velDirection.x * changeLane * laneState.laneWidth, stepleft));
+                    changingLane = false;
                 }
-
-                else if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && inputTime > 0.5f)
-                {
-                    direction -= 1;
-                    transform.RotateAround(transform.position, Vector3.up, -90f);
-                    player.transform.RotateAround(player.transform.position, Vector3.up, -90f);
-                    inputTime = 0;
-                }
-                else if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && inputTime > 0.5f)
-                {
-                    direction += 1;
-                    transform.RotateAround(transform.position, Vector3.up, 90f);
-                    player.transform.RotateAround(player.transform.position, Vector3.up, 90f);
-                    inputTime = 0;
-                }
+                yield return null;
             }
-
-            inputTime = 0;
         }
-    */
+        else if (velDirection.z != 0)
+        {
+            while (changingLane)
+            {
+                if (stepleft > 0.01f)
+                {
+                    transform.position = new Vector3(Mathf.Lerp(transform.position.x, transform.position.x + velDirection.z * changeLane * laneState.laneWidth, Time.deltaTime), transform.position.y, transform.position.z);
+                    stepleft -= Time.deltaTime;
+                }
+                else
+                {
+                    transform.position = new Vector3(Mathf.Lerp(transform.position.x, transform.position.x + velDirection.z * changeLane * laneState.laneWidth, stepleft), transform.position.y, transform.position.z);
+                    changingLane = false;
+                }
+                yield return null;
+            }
+        }
+    }
 }

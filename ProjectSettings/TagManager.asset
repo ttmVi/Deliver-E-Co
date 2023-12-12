@@ -8,6 +8,8 @@ TagManager:
   - Buildings
   - Horizontal Lanes
   - Vertical Lanes
+  - '- Horizontal Lanes'
+  - '- Vertical Lanes'
   layers:
   - Default
   - TransparentFX

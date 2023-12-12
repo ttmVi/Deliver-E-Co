@@ -123,6 +123,78 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &51183223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 51183224}
+  - component: {fileID: 51183225}
+  - component: {fileID: 51183226}
+  m_Layer: 0
+  m_Name: LaneIndicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &51183224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51183223}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 490015541}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &51183225
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51183223}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.75, y: 0.25, z: 0.75}
+  m_Center: {x: 0, y: -0.25, z: 0}
+--- !u!114 &51183226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51183223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17b4d694258ddb744b1c181a11dad451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInHorizontalLane: 0
+  isInVerticalLane: 0
+  laneWidth: 0.85
+  onLanes: []
+  laneDirection: []
+  laneState: 
 --- !u!64 &199172191
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -374,7 +446,7 @@ GameObject:
   - component: {fileID: 447127397}
   m_Layer: 7
   m_Name: Lane 2
-  m_TagString: Untagged
+  m_TagString: '- Vertical Lanes'
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -463,7 +535,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.99999994, y: 0.99999994, z: 0}
+  m_Size: {x: 0, y: 1, z: 1}
   m_Center: {x: -0.000000059604645, y: 0.0000019073486, z: 0}
 --- !u!64 &489907692
 MeshCollider:
@@ -519,6 +591,7 @@ Transform:
   m_Children:
   - {fileID: 739372405}
   - {fileID: 961739753}
+  - {fileID: 51183224}
   m_Father: {fileID: 1719361612}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &490015542
@@ -571,7 +644,7 @@ GameObject:
   - component: {fileID: 501683883}
   m_Layer: 7
   m_Name: Lane 4
-  m_TagString: Untagged
+  m_TagString: Vertical Lanes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -660,7 +733,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.99999994, y: 0.99999994, z: 0}
+  m_Size: {x: 0, y: 1, z: 1}
   m_Center: {x: -0.000000059604645, y: 0.0000019073486, z: 0}
 --- !u!1 &521258007
 GameObject:
@@ -676,7 +749,7 @@ GameObject:
   - component: {fileID: 521258011}
   m_Layer: 7
   m_Name: Lane 3
-  m_TagString: Untagged
+  m_TagString: Vertical Lanes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -765,7 +838,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.99999994, y: 0.99999994, z: 0}
+  m_Size: {x: 0, y: 1, z: 1}
   m_Center: {x: -0.000000059604645, y: 0.0000019073486, z: 0}
 --- !u!1 &522990190
 GameObject:
@@ -781,7 +854,7 @@ GameObject:
   - component: {fileID: 522990194}
   m_Layer: 7
   m_Name: Lane 1
-  m_TagString: Untagged
+  m_TagString: Horizontal Lanes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -870,8 +943,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.99999994, y: 0.99999994, z: 0}
-  m_Center: {x: -0.000000059604645, y: 0.0000019073486, z: 0}
+  m_Size: {x: 1, y: 1, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &552186659
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,7 +959,7 @@ GameObject:
   - component: {fileID: 552186663}
   m_Layer: 7
   m_Name: Lane 4
-  m_TagString: Untagged
+  m_TagString: Horizontal Lanes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -900,8 +973,8 @@ Transform:
   m_GameObject: {fileID: 552186659}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.4400005, y: 13.74, z: -8.560001}
-  m_LocalScale: {x: 0, y: 0.73, z: 49.4}
+  m_LocalPosition: {x: 11.8, y: 13.74, z: -9.194}
+  m_LocalScale: {x: 41.6, y: 0.73, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1025978641}
@@ -1451,11 +1524,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2895c384a3211448a250b7fbc5886eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changingLane: 0
   turning: 0
   velDirection: {x: 0, y: 0, z: 0}
   player: {fileID: 0}
   speed: 2
   sceneManager: {fileID: 0}
+  laneState: {fileID: 0}
   horizontalLanes: []
   verticalLanes: []
 --- !u!54 &595027317
@@ -1989,7 +2064,6 @@ Transform:
   - {fileID: 1378605099}
   - {fileID: 552186660}
   - {fileID: 1472957802}
-  - {fileID: 1997745314}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1070999827
@@ -2224,7 +2298,7 @@ GameObject:
   - component: {fileID: 1220555719}
   m_Layer: 7
   m_Name: Lane 1
-  m_TagString: Untagged
+  m_TagString: '- Vertical Lanes'
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2313,7 +2387,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.99999994, y: 0.99999994, z: 0}
+  m_Size: {x: 0, y: 1, z: 1}
   m_Center: {x: -0.000000059604645, y: 0.0000019073486, z: 0}
 --- !u!64 &1279498577
 MeshCollider:
@@ -2677,7 +2751,7 @@ GameObject:
   - component: {fileID: 1378605102}
   m_Layer: 7
   m_Name: Lane 3
-  m_TagString: Untagged
+  m_TagString: '- Horizontal Lanes'
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2691,8 +2765,8 @@ Transform:
   m_GameObject: {fileID: 1378605098}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5900002, y: 13.74, z: -8.560001}
-  m_LocalScale: {x: 0, y: 0.73, z: 49.4}
+  m_LocalPosition: {x: 11.8, y: 13.74, z: -8.204}
+  m_LocalScale: {x: 41.6, y: 0.73, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1025978641}
@@ -3532,7 +3606,7 @@ GameObject:
   - component: {fileID: 1472957805}
   m_Layer: 7
   m_Name: Lane 5
-  m_TagString: Untagged
+  m_TagString: Horizontal Lanes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3546,8 +3620,8 @@ Transform:
   m_GameObject: {fileID: 1472957801}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.2800007, y: 13.74, z: -8.560001}
-  m_LocalScale: {x: 0, y: 0.73, z: 49.4}
+  m_LocalPosition: {x: 11.8, y: 13.74, z: -10.18}
+  m_LocalScale: {x: 41.6, y: 0.73, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1025978641}
@@ -3929,111 +4003,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -153830957423991239, guid: 7342921b5737f2a458ac27cd89c35cff, type: 3}
---- !u!1 &1997745313
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1997745314}
-  - component: {fileID: 1997745316}
-  - component: {fileID: 1997745315}
-  - component: {fileID: 1997745317}
-  m_Layer: 7
-  m_Name: Lane 6
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1997745314
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997745313}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.130001, y: 13.74, z: -8.560001}
-  m_LocalScale: {x: 0, y: 0.73, z: 49.4}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1025978641}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1997745315
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997745313}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1997745316
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997745313}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &1997745317
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997745313}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.99999994, y: 0.99999994, z: 0}
-  m_Center: {x: -0.000000059604645, y: 0.0000019073486, z: 0}
 --- !u!1 &2002063513
 GameObject:
   m_ObjectHideFlags: 0
@@ -4048,7 +4017,7 @@ GameObject:
   - component: {fileID: 2002063517}
   m_Layer: 7
   m_Name: Lane 2
-  m_TagString: Untagged
+  m_TagString: '- Horizontal Lanes'
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4137,8 +4106,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.99999994, y: 0.99999994, z: 0}
-  m_Center: {x: -0.000000059604645, y: 0.0000019073486, z: 0}
+  m_Size: {x: 1, y: 1, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2020556836
 GameObject:
   m_ObjectHideFlags: 0
