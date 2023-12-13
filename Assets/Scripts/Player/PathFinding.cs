@@ -7,7 +7,6 @@ using UnityEngine;
 public class PathFinding : MonoBehaviour
 {
     private float inputTime = 0;
-    //private bool pathFinder = false;
     private bool inputting = false;
 
     private float direction = 50;
@@ -83,8 +82,7 @@ public class PathFinding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //StartCoroutine(LaneChangingOrTurning());
-
+        // Determine if the player is pressing the key or holding the key
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && !turning)
         {
             inputting = true;
@@ -96,11 +94,12 @@ public class PathFinding : MonoBehaviour
             inputTime += Time.deltaTime;
         }
 
+        // Turning or Changing lanes when the player release the key
         if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow))
         {
                 inputting = false;
 
-                if (inputTime > 0.5f)
+                if (inputTime > 0.5f && laneState.onLanes.Length >= 2) // Turning
                 {
                     Debug.Log(inputTime.ToString());
 
@@ -121,7 +120,7 @@ public class PathFinding : MonoBehaviour
                     }
                 }
 
-                else if (inputTime <= 0.5f)
+                else if (inputTime <= 0.5f) // Changing lanes
                 {
                     Debug.Log(inputTime.ToString());
                     inputTime = 0f;
@@ -136,7 +135,7 @@ public class PathFinding : MonoBehaviour
         {
                 inputting = false;
 
-                if (inputTime > 0.5f)
+                if (inputTime > 0.5f && laneState.onLanes.Length >= 2) // Turning
                 {
                     Debug.Log(inputTime.ToString());
 
@@ -157,7 +156,7 @@ public class PathFinding : MonoBehaviour
                     }
                 }
 
-                else if (inputTime <= 0.5f)
+                else if (inputTime <= 0.5f) // Changing lanes
                 {
                     Debug.Log(inputTime.ToString());
                     inputTime = 0f;
@@ -168,6 +167,11 @@ public class PathFinding : MonoBehaviour
                     }
                 }
         }
+
+        //Turning logic:
+        //if get key up and input time > 0.5f and have 2 vars in laneDirection[]
+        //wait until the player is in the middle of the lane?
+        //turn the player
 
         // Define velocity direction
         switch (direction % 4)
@@ -199,6 +203,12 @@ public class PathFinding : MonoBehaviour
             }
         }
 
+        // Check if the player is in the correct lane direction
+        if (!changingLane && !turning)
+        {
+            IsInCorrectLaneDirection();
+        }
+
         transform.Translate(velDirection * speed * Time.deltaTime, Space.World);
     }
 
@@ -228,21 +238,6 @@ public class PathFinding : MonoBehaviour
             }
             yield return null;
         }
-    }
-
-    IEnumerator LoadingUI()
-    {
-        while (sceneManager.mapIsLoaded)
-        {
-            if (velDirection != Vector3.zero)
-            {
-                lastVelocityDirection = direction;
-                direction += 0.5f; 
-            }
-
-            if (Input.GetKeyDown(KeyCode.Return)) { direction = lastVelocityDirection; }
-        }
-        yield return null;
     }
 
     IEnumerator ChangingLanes(float changeLane)
@@ -284,5 +279,32 @@ public class PathFinding : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+    void IsInCorrectLaneDirection()
+    {
+        for (int i = 0; i < laneState.laneDirection.Length; i++)
+        {
+            if (velDirection.x * laneState.laneDirection[i].x == -1 || velDirection.z * laneState.laneDirection[i].z == -1)
+            {
+                Debug.Log("Lose");
+                return;
+            }
+        }
+    }
+
+    IEnumerator LoadingUI()
+    {
+        while (sceneManager.mapIsLoaded)
+        {
+            if (velDirection != Vector3.zero)
+            {
+                lastVelocityDirection = direction;
+                direction += 0.5f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return)) { direction = lastVelocityDirection; }
+        }
+        yield return null;
     }
 }

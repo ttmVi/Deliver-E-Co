@@ -7,7 +7,11 @@ using UnityEngine.UI;
 
 public class MissionManager : MonoBehaviour
 {
-    public Mission[] missions;
+    public static MissionManager missionManager;
+
+    public List<Mission> missions = new List<Mission>();
+
+    //public Mission[] missions;
     public Mission[] availableMissions;
     public Mission[] acceptedMissions;
 

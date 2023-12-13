@@ -8,8 +8,8 @@ public class LaneState : MonoBehaviour
     public bool isInHorizontalLane = false;
     public bool isInVerticalLane = false;
     public float laneWidth;
-    public GameObject[] onLanes = new GameObject[2];
-    public Vector3[] laneDirection = new Vector3[2];
+    public Collider[] onLanes;
+    public Vector3[] laneDirection;
     public string laneState;
 
     private BoxCollider indicatorBounds;
@@ -28,46 +28,43 @@ public class LaneState : MonoBehaviour
     {
         for (int i = 0; i < onLanes.Length; i++)
         {
-            if (onLanes[i].CompareTag("Horizontal Lanes"))
+            if (onLanes[i].gameObject.CompareTag("Horizontal Lanes"))
             {
                 isInHorizontalLane = true;
-                if (onLanes[i].CompareTag("- Horizontal Lanes"))
-                {
-                    laneDirection[i] = new Vector3(-1, 0, 0);
-                }
-                else
-                {
-                    laneDirection[i] = new Vector3(1, 0, 0);
-                }
+                laneDirection[i] = new Vector3(1, 0, 0);
             }
-            else if (onLanes[i].CompareTag("Vertical Lanes"))
+            else if (onLanes[i].gameObject.CompareTag("- Horizontal Lanes"))
+            {
+                isInHorizontalLane = true;
+                laneDirection[i] = new Vector3(-1, 0, 0);
+            }
+            else if (onLanes[i].gameObject.CompareTag("Vertical Lanes"))
             {
                 isInVerticalLane = true;
-                if (onLanes[i].CompareTag("- Vertical Lanes"))
-                {
-                    laneDirection[i] = new Vector3(0, 0, -1);
-                }
-                else
-                {
-                    laneDirection[i] = new Vector3(0, 0, 1);
-                }
+                laneDirection[i] = new Vector3(0, 0, 1);
             }
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        onLanes.Append(other.gameObject);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        for (int i = 0; i < onLanes.Length; i++)
-        {
-            if (onLanes[i] == other.gameObject)
+            else if (onLanes[i].gameObject.CompareTag("- Vertical Lanes"))
             {
-                onLanes[i] = null;
+                isInVerticalLane = true;
+                laneDirection[i] = new Vector3(0, 0, -1);
             }
         }
     }
+
+    private void FixedUpdate()
+    {
+        laneDetection();
+    }
+
+    void laneDetection()
+    {
+        onLanes = Physics.OverlapBox(transform.position + indicatorBounds.center, indicatorBounds.size / 2, Quaternion.identity, LayerMask.GetMask("Road Lanes"));
+        laneDirection = new Vector3[onLanes.Length];
+    }
+
+    /*private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position + indicatorBounds.center, indicatorBounds.size);
+    }*/
 }

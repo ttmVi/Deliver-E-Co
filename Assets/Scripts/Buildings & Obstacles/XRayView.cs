@@ -14,7 +14,9 @@ public class XRayView : MonoBehaviour
     void Start()
     {
         // Get the Renderer component from the object
-        objRenderer = GetComponent<Renderer>();
+        objRenderer = GetComponent<MeshRenderer>();
+
+        originalMaterial = objRenderer.material;
 
         player = GameObject.Find("Player");
         cam = GameObject.Find("Main Camera");
@@ -51,15 +53,19 @@ public class XRayView : MonoBehaviour
     // Method to enable X-Ray view
     public void EnableXRayView()
     {
-        //objRenderer.material = transparentMaterial;
-        GetComponent<Renderer>().enabled = false;
+        objRenderer.material = transparentMaterial;
     }
 
     // Method to disable X-Ray view
     public void DisableXRayView()
     {
-        //objRenderer.material = originalMaterial;
-        GetComponent<Renderer>().enabled = true;
+        objRenderer.material = originalMaterial;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(cam.transform.position, player.transform.position);
     }
 }
 
