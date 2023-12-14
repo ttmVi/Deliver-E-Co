@@ -5,14 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class Mission : MonoBehaviour
 {
+    private LaneState laneWidth;
+
     public string description;
 
     public float timeLimit;
     public float timeRemaining;
-    public float timeToAccept;
+    public float timeToAccept = 100f;
 
-    public Vector3[] PickUpLocations;
-    public Vector3 DropOffLocation;
+    public GameObject pickUpLocation;
+    public GameObject dropOffLocation;
     public bool isPickedUp;
     public bool isDroppedOff;
 
@@ -20,14 +22,45 @@ public class Mission : MonoBehaviour
     public int penalty;
 
     public bool isAccepted;
+    public bool isDeclined;
     public bool isCompleted;
     public bool isFailed;
 
     public string eventsTriggered;
 
-    public Mission()
+    public Mission(string description, GameObject pickUpLocation, GameObject dropOffLocation, float timeLimit, int reward, int penalty)
     {
+        this.description = description;
+        this.pickUpLocation = pickUpLocation;
+        this.dropOffLocation = dropOffLocation;
+        this.timeLimit = timeLimit;
+        this.reward = reward;
+        this.penalty = penalty;
+    }
 
+    public void Update()
+    {
+        timeToAccept -= Time.deltaTime;
+        if (timeToAccept <= 0)
+        {
+            DeclineMission();
+        }
+
+        if (isAccepted && !isCompleted && !isFailed && !isPickedUp)
+        {
+            if (CheckPickUpAndDropOff(pickUpLocation.GetComponent<BoxCollider>()))
+            {
+                GetPickingUp();
+            }
+        }
+        else if (isAccepted && !isCompleted && !isFailed && isPickedUp)
+        {
+            if (CheckPickUpAndDropOff(dropOffLocation.GetComponent<BoxCollider>()))
+            {
+                isDroppedOff = true;
+                CompleteMission();
+            }
+        }
     }
 
     public void DisplayMission()
@@ -44,7 +77,7 @@ public class Mission : MonoBehaviour
     
     public void DeclineMission()
     {
-        isAccepted = false;
+        isDeclined = false;
     }
 
     public void StartMission()
@@ -66,9 +99,29 @@ public class Mission : MonoBehaviour
         isFailed = true;
         //penalize player
     }
+
+    public void GetPickingUp()
+    {
+        isPickedUp = true;
+    }
+
+    public bool CheckPickUpAndDropOff(BoxCollider location)
+    {
+        bool isPickedUpOrDroppedOff = false;
+        Vector3 triggerArea = new Vector3(location.size.x + laneWidth.laneWidth * 2, location.size.y, location.size.z + laneWidth.laneWidth * 2);
+        Collider[] shipper = Physics.OverlapBox(location.transform.position, triggerArea / 2, Quaternion.identity, LayerMask.GetMask("Player"));
+
+        if (shipper.Length > 0)
+        {
+            isPickedUpOrDroppedOff = true;
+        }
+        else { isPickedUpOrDroppedOff = false;}
+
+        return isPickedUpOrDroppedOff;
+    }
 }
 
-public class PackageMission : Mission
+/*public class PackageMission : Mission
 {
     public PackageMission()
     {
@@ -82,4 +135,4 @@ public class PassengerMission : Mission
     {
 
     }
-}
+}*/

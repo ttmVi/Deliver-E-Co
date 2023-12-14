@@ -1844,7 +1844,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cb36b2bd5a97c438943b1fab7c903f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingInWay: 0
   originalMaterial: {fileID: 0}
   transparentMaterial: {fileID: 0}
   player: {fileID: 0}
@@ -2406,6 +2405,79 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0, y: 1, z: 1}
   m_Center: {x: -0.000000059604645, y: 0.0000019073486, z: 0}
+--- !u!1001 &1272953837
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1320712112450649062, guid: 5956d80eef665ac429a3fbedfca61c20,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320712112450649062, guid: 5956d80eef665ac429a3fbedfca61c20,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320712112450649062, guid: 5956d80eef665ac429a3fbedfca61c20,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320712112450649062, guid: 5956d80eef665ac429a3fbedfca61c20,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320712112450649062, guid: 5956d80eef665ac429a3fbedfca61c20,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320712112450649062, guid: 5956d80eef665ac429a3fbedfca61c20,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320712112450649062, guid: 5956d80eef665ac429a3fbedfca61c20,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320712112450649062, guid: 5956d80eef665ac429a3fbedfca61c20,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320712112450649062, guid: 5956d80eef665ac429a3fbedfca61c20,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320712112450649062, guid: 5956d80eef665ac429a3fbedfca61c20,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2709479778874330391, guid: 5956d80eef665ac429a3fbedfca61c20,
+        type: 3}
+      propertyPath: m_Name
+      value: MissionsManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5498520496790767593, guid: 5956d80eef665ac429a3fbedfca61c20,
+        type: 3}
+      propertyPath: pickUpLocations.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5956d80eef665ac429a3fbedfca61c20, type: 3}
 --- !u!64 &1279498577
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3649,7 +3721,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cb36b2bd5a97c438943b1fab7c903f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingInWay: 0
   originalMaterial: {fileID: 0}
   transparentMaterial: {fileID: 2100000, guid: 2d5a28be638c55840b83573de531bab4, type: 2}
   player: {fileID: 0}
@@ -3771,7 +3842,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cb36b2bd5a97c438943b1fab7c903f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingInWay: 0
   originalMaterial: {fileID: 0}
   transparentMaterial: {fileID: 0}
   player: {fileID: 0}
@@ -3810,7 +3880,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cb36b2bd5a97c438943b1fab7c903f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingInWay: 0
   originalMaterial: {fileID: 0}
   transparentMaterial: {fileID: 0}
   player: {fileID: 0}
@@ -3849,7 +3918,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cb36b2bd5a97c438943b1fab7c903f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingInWay: 0
   originalMaterial: {fileID: 0}
   transparentMaterial: {fileID: 0}
   player: {fileID: 0}
@@ -3888,7 +3956,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cb36b2bd5a97c438943b1fab7c903f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingInWay: 0
   originalMaterial: {fileID: 0}
   transparentMaterial: {fileID: 0}
   player: {fileID: 0}
@@ -4313,7 +4380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cb36b2bd5a97c438943b1fab7c903f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingInWay: 0
   originalMaterial: {fileID: 0}
   transparentMaterial: {fileID: 2100000, guid: 61223f2bc79d1a746931770c2bdbc3ec, type: 2}
   player: {fileID: 0}
@@ -4333,3 +4399,4 @@ SceneRoots:
   - {fileID: 1436701800}
   - {fileID: 1025978641}
   - {fileID: 2020556837}
+  - {fileID: 1272953837}
