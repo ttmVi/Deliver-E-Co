@@ -10,6 +10,7 @@ TagManager:
   - Vertical Lanes
   - '- Horizontal Lanes'
   - '- Vertical Lanes'
+  - Sidewalk
   layers:
   - Default
   - TransparentFX
