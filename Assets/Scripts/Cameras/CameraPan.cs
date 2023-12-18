@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraPan : MonoBehaviour
 {
-    [SerializeField] Transform lookatObj;
+    public static Transform lookatObj;
+
     [SerializeField] Vector3 offset;
     [SerializeField] float rotationSpeed;
     [SerializeField] float minDistance;

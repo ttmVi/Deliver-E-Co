@@ -18,7 +18,7 @@ public class PathFinding : MonoBehaviour
     public Vector3 velDirection;
     public GameObject player;
     public float speed;
-    public SceneManager sceneManager;
+    public GameSceneManager sceneManager;
     public LaneState laneState;
 
     public GameObject[] horizontalLanes;
@@ -99,7 +99,7 @@ public class PathFinding : MonoBehaviour
         {
                 inputting = false;
 
-                if (inputTime > 0.5f && laneState.onLanes.Length >= 2) // Turning
+                if (inputTime > 0.5f && laneState.onLanes.Length > 2) // Turning
                 {
                     Debug.Log(inputTime.ToString());
 
@@ -136,7 +136,7 @@ public class PathFinding : MonoBehaviour
         {
                 inputting = false;
 
-                if (inputTime > 0.5f && laneState.onLanes.Length >= 2) // Turning
+                if (inputTime > 0.5f && laneState.onLanes.Length > 2) // Turning
                 {
                     Debug.Log(inputTime.ToString());
 
@@ -169,11 +169,6 @@ public class PathFinding : MonoBehaviour
                     }
                 }
         }
-
-        //Turning logic:
-        //if get key up and input time > 0.5f and have 2 vars in laneDirection[]
-        //wait until the player is in the middle of the lane?
-        //turn the player
 
         // Define velocity direction
         switch (direction % 4)
