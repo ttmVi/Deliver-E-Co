@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissionLocationUpdate : MonoBehaviour
+public class VehicleManager : MonoBehaviour
 {
+    public static VehicleManager vehicleManager;
+
     // Start is called before the first frame update
     void Start()
     {

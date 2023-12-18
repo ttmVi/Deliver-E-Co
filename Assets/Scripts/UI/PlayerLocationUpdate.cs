@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PlayerLocationUpdate : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject map3D;
-    public RectTransform map2D;
+    private GameObject player;
+    private GameObject map3D;
+    private RectTransform map2D;
 
     private BoxCollider map3DCollider;
 
@@ -14,31 +14,7 @@ public class PlayerLocationUpdate : MonoBehaviour
         map3D = GameObject.Find("Map 3D");
         map2D = GameObject.Find("Map").GetComponent<RectTransform>();
 
-        // Check if the necessary GameObjects are assigned
-        if (!player)
-        {
-            Debug.LogError("Player GameObject is not assigned.");
-            return;
-        }
-
-        if (!map3D)
-        {
-            Debug.LogError("3D Map GameObject is not assigned.");
-            return;
-        }
-
-        if (!map2D)
-        {
-            Debug.LogError("2D Map RectTransform is not assigned.");
-            return;
-        }
-
         map3DCollider = map3D.GetComponent<BoxCollider>();
-        if (!map3DCollider)
-        {
-            Debug.LogError("BoxCollider component missing on the 3D map GameObject.");
-            return;
-        }
     }
 
     void Update()
@@ -50,11 +26,11 @@ public class PlayerLocationUpdate : MonoBehaviour
 
         // Calculate the player's position relative to the 3D map's bounds
         Vector3 relativePosition = player.transform.position - map3D.transform.position;
-        Debug.Log("Relative position (before center adjustment): " + relativePosition);
+        //Debug.Log("Relative position (before center adjustment): " + relativePosition);
 
         relativePosition.x += map3DCollider.center.x * map3D.transform.localScale.x;
         relativePosition.z += map3DCollider.center.y * map3D.transform.localScale.y;
-        Debug.Log("Relative position (after center adjustment): " + relativePosition);
+        //Debug.Log("Relative position (after center adjustment): " + relativePosition);
 
         // Normalize the position to a range of [0, 1]
         Vector2 normalizedPos;
@@ -64,7 +40,7 @@ public class PlayerLocationUpdate : MonoBehaviour
         // Clamp values to ensure they are within [0, 1]
         normalizedPos.x = Mathf.Clamp(normalizedPos.x, 0, 1);
         normalizedPos.y = Mathf.Clamp(normalizedPos.y, 0, 1);
-        Debug.Log("Normalized position: " + normalizedPos);
+        //Debug.Log("Normalized position: " + normalizedPos);
 
         // Convert normalized position to 2D map coordinates
         Vector2 mapPosition;
@@ -75,8 +51,8 @@ public class PlayerLocationUpdate : MonoBehaviour
         RectTransform playerIconRectTransform = GetComponent<RectTransform>();
         if (playerIconRectTransform)
         {
-            playerIconRectTransform.anchoredPosition = -mapPosition;
-            Debug.Log("Updated player icon position: " + mapPosition);
+            playerIconRectTransform.anchoredPosition = mapPosition;
+            //Debug.Log("Updated player icon position: " + mapPosition);
         }
         else
         {
@@ -84,6 +60,6 @@ public class PlayerLocationUpdate : MonoBehaviour
         }
 
         // Debugging player movement
-        Debug.Log("Player world position: " + player.transform.position);
+        //Debug.Log("Player world position: " + player.transform.position);
     }
 }

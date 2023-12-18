@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
+    public Canvas mapCanvas;
+
     public bool mapIsLoaded = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        //UnityEngine.SceneManagement.SceneManager.LoadScene("Main Moving Scene");
+        mapCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        mapCanvas.enabled = false;
     }
 
     // Update is called once per frame
@@ -21,13 +24,13 @@ public class SceneManager : MonoBehaviour
 
             if (mapIsLoaded)
             {
-                UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync("Route Map Plan");
+                mapCanvas.enabled = false;
                 Debug.Log("Unloaded Route Map Plan");
                 mapIsLoaded = false;
             }
             else
             {
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Route Map Plan", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                mapCanvas.enabled = true;
                 Debug.Log("Loaded Route Map Plan");
                 mapIsLoaded = true;
             }

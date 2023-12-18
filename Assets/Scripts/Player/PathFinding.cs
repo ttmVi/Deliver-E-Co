@@ -128,6 +128,7 @@ public class PathFinding : MonoBehaviour
                     if (velDirection != Vector3.zero && !changingLane)
                     {
                         StartCoroutine(ChangingLanes(-1f));
+                        Debug.Log("Changing lanes");
                     }
                 }
         }
@@ -164,6 +165,7 @@ public class PathFinding : MonoBehaviour
                     if (velDirection != Vector3.zero && !changingLane)
                     {
                         StartCoroutine(ChangingLanes(1f));
+                        Debug.Log("Changing lanes");
                     }
                 }
         }

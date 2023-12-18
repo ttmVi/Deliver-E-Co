@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,10 +9,11 @@ public class MissionManager : MonoBehaviour
     public static MissionManager missionManager;
 
     public List<Mission> missions = new List<Mission>();
+    public int currentMissionID;
 
-    //public Mission[] missions;
-    public Mission[] availableMissions;
-    public Mission[] acceptedMissions;
+    public static List<Mission> availableMissions = new List<Mission>();
+    public static List<Mission> acceptedMissions = new List<Mission>();
+    public static List<Mission> completedMissions = new List<Mission>();
 
     public List<GameObject> pickUpLocations = new List<GameObject>();
     public List<GameObject> dropOffLocations = new List<GameObject>();
@@ -25,23 +25,73 @@ public class MissionManager : MonoBehaviour
     public Text missionReward;
     public Text missionStatus;
 
+    public float randomRegenerationTime;
+
+    void Awake()
+    {
+        if (missionManager == null)
+        {
+            missionManager = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (missionManager != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentMissionID = 0;
+        //public Mission(string description, GameObject pickUpLocation, GameObject dropOffLocation, float timeLimit, int reward, int penalty)
+
+        //Chapter 1 missions
+        AddNewMission("Pick up the package from the warehouse and drop it off at the customer", pickUpLocations[0], dropOffLocations[0], 100f, 100, 50);
+        AddNewMission("Pick up the parcel from the warehouse and deliver it to the ... house", pickUpLocations[0], dropOffLocations[1], 100f, 100, 50);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //Display available missions
+        //DisplayAvailableMission(Input.mousePosition);
+
+        //Update remaining time to accept available missions
+        for (int i = 0; i < availableMissions.Count; i++)
+        {
+            availableMissions[i].UpdateAvailableMission();
+        }
+
+        //Accept new missions
+
+        //Update status of accepted missions
+
+        for (int i = 0; i < acceptedMissions.Count; i++)
+        {
+            acceptedMissions[i].StartMission();
+            acceptedMissions[i].UpdateAcceptedMission();
+        }
+
+        // Generate random missions after a random time
+        if (randomRegenerationTime <= 0f)
+        {
+            GenerateRandomMissions(Random.Range(1,3));
+            randomRegenerationTime = Random.Range(50f, 100f);
+        }
+        else
+        {
+            randomRegenerationTime -= Time.deltaTime;
+        }
     }
 
-    // create an array storing predefined missions and randomly add one into the available missions array
     public void AddNewMission(string description, GameObject pickUpLocation, GameObject dropOffLocation, float timeLimit, int reward, int penalty)
     {
-        Mission mission = new Mission(description, pickUpLocation, dropOffLocation, timeLimit, reward, penalty);
-        availableMissions.Append(mission);
+        currentMissionID++;
+        Mission mission = new Mission(description, pickUpLocation, dropOffLocation, timeLimit, reward, penalty, currentMissionID);
+        availableMissions.Add(mission);
+
+        Debug.Log($"New mission added: {mission.description}");
     }
 
     public void GenerateRandomMissions(int numberOfMissionsGenerated)
@@ -61,8 +111,13 @@ public class MissionManager : MonoBehaviour
 
     public void DisplayAvailableMission(Vector2 mousePosition)
     {
-        for (int i = 0; i < availableMissions.Length; i++)
+        for (int i = 0; i < availableMissions.Count; i++)
         {
+            if (availableMissions[i] == null)
+            {
+                continue;
+            }
+
             //if (availableMissions[i].position == mousePosition)
             //{
             missionDescription.text = availableMissions[i].description;
@@ -76,59 +131,76 @@ public class MissionManager : MonoBehaviour
 
     public void AcceptNewMission(Mission mission)
     {
-        for (int i = 0; i < availableMissions.Length; i++)
+        mission.AcceptMission();
+        for (int i = 0; i < availableMissions.Count; i++)
         {
             if (mission == availableMissions[i])
             {
-                acceptedMissions.Prepend(mission);
-                availableMissions[i] = null;
+                acceptedMissions.Add(mission);
+                availableMissions.RemoveAt(i);
             }
         }
-        mission.AcceptMission();
     }
 
-    public void DeclineNewMission() //Or remove mission when timeToAccept is 0
+    public void DeclineNewMission(Mission mission) //Or remove mission when timeToAccept is 0
     {
-        for (int i = 0; i < availableMissions.Length; i++)
+        for (int i = 0; i < availableMissions.Count; i++)
         {
-            if (availableMissions[i].timeToAccept == 0)
+            if (availableMissions[i] == mission)
+            //if (availableMissions[i].timeToAccept == 0)
             {
-                availableMissions[i] = null;
+                availableMissions.RemoveAt(i);
             }
+            mission.DeclineMission();
         }
     }
 
-    public void DisplayAcceptedMissions()
+    public void DisplayAcceptedMissions(Vector2 mousePosition)
     {
-        for (int i = 0; i < acceptedMissions.Length; i++)
+        for (int i = 0; i < acceptedMissions.Count; i++)
         {
+            if (acceptedMissions[i] == null)
+            {
+                continue;
+            }
+
+            //if (acceptedMissions[i].position == mousePosition)
             missionDescription.text = acceptedMissions[i].description;
             missionTimeLimit.text = $"Time remaining for the mission is: {Mathf.RoundToInt(acceptedMissions[i].timeRemaining)}";
-            missionStatus.text = $"The package is picked up: {acceptedMissions[i].isPickedUp}\n The package is dropped: {acceptedMissions[i].isDroppedOff}";
+            missionStatus.text = $"The package is picked up: {acceptedMissions[i].isPickedUp}";
         }
     }
 
-    public void CompleteMission(Mission mission)
+    public void CompleteMission(int i)
     {
-        for (int i = 0; i < acceptedMissions.Length; i++)
-        {
-            if (mission == acceptedMissions[i])
-            {
-                acceptedMissions[i] = null;
-            }
-        }
-        mission.CompleteMission();
+        acceptedMissions.RemoveAt(i);
+        //Add reward to player
     }
 
-    public void FailMission(Mission mission)
+    public void FailMission(int i)
     {
-        for (int i = 0; i < acceptedMissions.Length; i++)
+        acceptedMissions.RemoveAt(i);
+        //Add penalty to player
+    }
+
+    public void UpdateFinishedMissions()
+    {
+        for (int i = 0; i < acceptedMissions.Count; i++)
         {
-            if (mission == acceptedMissions[i])
+            if (acceptedMissions[i].isCompleted)
             {
-                acceptedMissions[i] = null;
+                CompleteMission(i);
+                acceptedMissions.RemoveAt(i);
+                completedMissions.Add(acceptedMissions[i]);
+                //Add reward to player
+            }
+            else if (acceptedMissions[i].isFailed)
+            {
+                FailMission(i);
+                acceptedMissions.RemoveAt(i);
+                completedMissions.Add(acceptedMissions[i]);
+                //Add penalty to player
             }
         }
-        mission.FailMission();
     }
 }

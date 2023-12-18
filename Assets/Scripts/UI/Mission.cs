@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Mission : MonoBehaviour
+public class Mission
 {
     private LaneState laneWidth;
 
     public string description;
+    public int missionID;
 
     public float timeLimit;
     public float timeRemaining;
@@ -28,7 +29,7 @@ public class Mission : MonoBehaviour
 
     public string eventsTriggered;
 
-    public Mission(string description, GameObject pickUpLocation, GameObject dropOffLocation, float timeLimit, int reward, int penalty)
+    public Mission(string description, GameObject pickUpLocation, GameObject dropOffLocation, float timeLimit, int reward, int penalty, int missionID)
     {
         this.description = description;
         this.pickUpLocation = pickUpLocation;
@@ -36,16 +37,45 @@ public class Mission : MonoBehaviour
         this.timeLimit = timeLimit;
         this.reward = reward;
         this.penalty = penalty;
+        this.missionID = missionID;
     }
 
-    public void Update()
+    public void DisplayMission()
+    {
+        isAccepted = false;
+        timeToAccept -= Time.deltaTime;
+    }
+
+    public void UpdateAvailableMission()
     {
         timeToAccept -= Time.deltaTime;
         if (timeToAccept <= 0)
         {
             DeclineMission();
         }
+    }
 
+    public void AcceptMission()
+    {
+        isAccepted = true;
+        timeRemaining = timeLimit;
+    }
+    
+    public void DeclineMission()
+    {
+        isDeclined = true;
+    }
+
+    public void StartMission()
+    {
+        if (isAccepted)
+        {
+            timeRemaining -= Time.deltaTime;
+        }
+    }
+
+    public void UpdateAcceptedMission()
+    {
         if (isAccepted && !isCompleted && !isFailed && !isPickedUp)
         {
             if (CheckPickUpAndDropOff(pickUpLocation.GetComponent<BoxCollider>()))
@@ -60,31 +90,6 @@ public class Mission : MonoBehaviour
                 isDroppedOff = true;
                 CompleteMission();
             }
-        }
-    }
-
-    public void DisplayMission()
-    {
-        isAccepted = false;
-        timeToAccept -= Time.deltaTime;
-    }
-
-    public void AcceptMission()
-    {
-        isAccepted = true;
-        timeRemaining = timeLimit;
-    }
-    
-    public void DeclineMission()
-    {
-        isDeclined = false;
-    }
-
-    public void StartMission()
-    {
-        if (isAccepted)
-        {
-            timeRemaining -= Time.deltaTime;
         }
     }
 
