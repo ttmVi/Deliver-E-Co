@@ -29,6 +29,9 @@ public class MissionManager : MonoBehaviour
 
     void Awake()
     {
+        pickUpLocations = GameObject.FindGameObjectsWithTag("Buildings").ToList();
+        dropOffLocations = GameObject.FindGameObjectsWithTag("Buildings").ToList();
+
         if (missionManager == null)
         {
             missionManager = this;
