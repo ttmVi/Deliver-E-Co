@@ -27,11 +27,12 @@ public class PathFinding : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        speed = VehicleManager.playerVehicle.vehicleSpeed;
+
         player = GameObject.Find("Player");
         laneState = GameObject.Find("LaneIndicator").GetComponent<LaneState>();
 
         // Define initial direction
-
         Vector3 initialDirection = transform.position - player.transform.position;
         if (initialDirection.z > 0)
         {
@@ -57,8 +58,6 @@ public class PathFinding : MonoBehaviour
         }
         direction = 1.5f;
         velDirection = new Vector3(0, 0, 0);
-
-        // Adding lanes into arrays
 
         int horizontalLaneCount = GameObject.Find("HorizontalLanes").transform.childCount;
         horizontalLanes = new GameObject[horizontalLaneCount];

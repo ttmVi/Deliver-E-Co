@@ -11,7 +11,7 @@ using static VehicleFactory;
 public class VehicleManager : MonoBehaviour
 {
     public static VehicleManager vehicleManager;
-    public Vehicle playerVehicle;
+    public static Vehicle playerVehicle;
     public VehicleType[] availableVehicles = { VehicleType.Bicycle, VehicleType.Motorbike, VehicleType.Updating };
     private int currentVehicleIndex = 0;
 
