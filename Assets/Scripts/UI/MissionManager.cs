@@ -73,7 +73,7 @@ public class MissionManager : MonoBehaviour
         for (int i = 0; i < acceptedMissions.Count; i++)
         {
             acceptedMissions[i].StartMission();
-            acceptedMissions[i].UpdateAcceptedMission();
+            UpdateAcceptedMission(acceptedMissions[i]);
         }
 
         // Generate random missions after a random time
@@ -85,6 +85,31 @@ public class MissionManager : MonoBehaviour
         else
         {
             randomRegenerationTime -= Time.deltaTime;
+        }
+    }
+
+    public void UpdateAcceptedMission(Mission mission)
+    {
+        if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && !mission.isPickedUp)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (mission.CheckPickUpAndDropOff(mission.pickUpLocation.GetComponent<BoxCollider>()) == true)
+                {
+                    mission.GetPickingUp();
+                }
+            }
+        }
+        else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && mission.isPickedUp)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (mission.CheckPickUpAndDropOff(mission.dropOffLocation.GetComponent<BoxCollider>()))
+                {
+                    mission.isDroppedOff = true;
+                    mission.CompleteMission();
+                }
+            }
         }
     }
 

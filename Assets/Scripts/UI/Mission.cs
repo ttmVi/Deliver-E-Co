@@ -74,25 +74,6 @@ public class Mission
         }
     }
 
-    public void UpdateAcceptedMission()
-    {
-        if (isAccepted && !isCompleted && !isFailed && !isPickedUp)
-        {
-            if (CheckPickUpAndDropOff(pickUpLocation.GetComponent<BoxCollider>()))
-            {
-                GetPickingUp();
-            }
-        }
-        else if (isAccepted && !isCompleted && !isFailed && isPickedUp)
-        {
-            if (CheckPickUpAndDropOff(dropOffLocation.GetComponent<BoxCollider>()))
-            {
-                isDroppedOff = true;
-                CompleteMission();
-            }
-        }
-    }
-
     public void CompleteMission()
     {
         isCompleted = true;
@@ -113,14 +94,24 @@ public class Mission
     public bool CheckPickUpAndDropOff(BoxCollider location)
     {
         bool isPickedUpOrDroppedOff = false;
-        Vector3 triggerArea = new Vector3(location.size.x + laneWidth.laneWidth * 2, location.size.y, location.size.z + laneWidth.laneWidth * 2);
+        Vector3 triggerArea = new Vector3(location.size.x + laneWidth.laneWidth * 2, location.size.y + laneWidth.laneWidth * 2, location.size.z + laneWidth.laneWidth * 2);
         Collider[] shipper = Physics.OverlapBox(location.transform.position, triggerArea / 2, Quaternion.identity, LayerMask.GetMask("Player"));
+        Debug.Log("Trigger area: " + triggerArea);
 
         if (shipper.Length > 0)
         {
-            isPickedUpOrDroppedOff = true;
+            Debug.Log("Player detected");
+            for (int i = 0; i < shipper.Length; i++)
+            {
+                if (shipper[i].gameObject.name == "Player")
+                {
+                    isPickedUpOrDroppedOff = true;
+                }
+            }
         }
-        else { isPickedUpOrDroppedOff = false;}
+        else { 
+            Debug.Log("Player not detected");
+            isPickedUpOrDroppedOff = false;}
 
         return isPickedUpOrDroppedOff;
     }

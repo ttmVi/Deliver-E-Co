@@ -9,23 +9,33 @@ public class LaneState : MonoBehaviour
     public bool isInVerticalLane = false;
     public float laneWidth;
     public Collider[] onLanes;
-    public Vector3[] laneDirection;
-    public string laneState;
+    public Vector3[] laneDirection = new Vector3[5];
 
     private BoxCollider indicatorBounds;
 
     // Start is called before the first frame update
     void Start()
     {
+        laneWidth = 2f;
+
+        GameObject TrafficLanes = GameObject.Find("TrafficLanes");
+        for (int i = 0; i < TrafficLanes.transform.childCount; i++)
+        {
+            TrafficLanes.transform.GetChild(i).gameObject.AddComponent<BoxCollider>();
+            TrafficLanes.transform.GetChild(i).gameObject.GetComponent<BoxCollider>().isTrigger = true;
+        }
+
         indicatorBounds = GetComponent<BoxCollider>();
 
         indicatorBounds.size = new Vector3(laneWidth - 0.1f, 0.25f, laneWidth - 0.1f);
-        indicatorBounds.center = new Vector3(0, -0.25f, 0);
+        indicatorBounds.center = new Vector3(0, -0.25f, 0);        
     }
 
     // Update is called once per frame
     void Update()
     {
+        laneDetection();
+
         for (int i = 0; i < onLanes.Length; i++)
         {
             if (onLanes[i].gameObject.CompareTag("Horizontal Lanes"))
@@ -53,7 +63,6 @@ public class LaneState : MonoBehaviour
 
     private void FixedUpdate()
     {
-        laneDetection();
     }
 
     void laneDetection()
@@ -62,9 +71,9 @@ public class LaneState : MonoBehaviour
         laneDirection = new Vector3[onLanes.Length];
     }
 
-    /*private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position + indicatorBounds.center, indicatorBounds.size);
-    }*/
+    }
 }

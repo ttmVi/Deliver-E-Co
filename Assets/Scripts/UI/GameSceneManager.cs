@@ -41,5 +41,6 @@ public class GameSceneManager : MonoBehaviour
     public void StartDelivering()
     {
         SceneManager.LoadScene("Main Moving Scene");
+        mapCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
     }
 }

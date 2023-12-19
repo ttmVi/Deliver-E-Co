@@ -21,7 +21,7 @@ public class VehicleManager : MonoBehaviour
 
     private void Awake()
     {
-        vehicleCanvas = GameObject.Find("Vehicle Selection").GetComponent<Canvas>();
+        vehicleCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         displayedVehicleName = GameObject.Find("Vehicle").GetComponent<TextMeshProUGUI>();
         displayedVehicleProperties = GameObject.Find("Vehicle Properties").GetComponent<TextMeshProUGUI>();
     }
@@ -29,7 +29,7 @@ public class VehicleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        DisplayVehicleProperties(GetVehicleProperties(availableVehicles[currentVehicleIndex]));
     }
 
     // Update is called once per frame

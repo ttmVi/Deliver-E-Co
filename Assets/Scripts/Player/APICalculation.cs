@@ -12,14 +12,11 @@ public class APICalculation : MonoBehaviour
     
     private Rigidbody player;
 
-    private void Awake()
-    {
-        APISlider = GameObject.Find("API Bar").GetComponent<Slider>();
-    }
 
     // Start is called before the first frame update
     void Start()
     {
+        APISlider = GameObject.Find("API Slider").GetComponent<Slider>();
         player = GameObject.Find("Direction").GetComponent<Rigidbody>();
         APISlider.highValue = 1000f;
     }

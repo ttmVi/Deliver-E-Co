@@ -97,12 +97,12 @@ public class MissionUIUpdate : MonoBehaviour
     {
         Vector3 relativePosition = location.transform.position - map3D.transform.position;
 
-        relativePosition.x += map3DCollider.center.x * map3D.transform.localScale.x;
-        relativePosition.z += map3DCollider.center.y * map3D.transform.localScale.y;
+        relativePosition.x -= map3DCollider.center.x * map3D.transform.localScale.x;
+        relativePosition.z -= map3DCollider.center.z * map3D.transform.localScale.z;
 
         Vector2 normalizedPos;
         normalizedPos.x = (relativePosition.x / (map3DCollider.size.x * map3D.transform.localScale.x)) + 0.5f;
-        normalizedPos.y = (relativePosition.z / (map3DCollider.size.y * map3D.transform.localScale.y)) + 0.5f;
+        normalizedPos.y = (relativePosition.z / (map3DCollider.size.z * map3D.transform.localScale.z)) + 0.5f;
 
         normalizedPos.x = Mathf.Clamp(normalizedPos.x, 0, 1);
         normalizedPos.y = Mathf.Clamp(normalizedPos.y, 0, 1);
