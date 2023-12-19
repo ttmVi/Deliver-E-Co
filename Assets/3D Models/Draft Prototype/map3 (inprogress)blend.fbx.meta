@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Grass
-    second: {fileID: 2100000, guid: d3a196e5642b53e4283d3b3dacbfd167, type: 2}
+    second: {fileID: 2100000, guid: 4368327f422b7894aaca4f735cae2688, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -23,22 +23,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: do rat nhat
-    second: {fileID: 2100000, guid: 1fd6b124c2669384ca9b2e1fb59a7f41, type: 2}
+    second: {fileID: 2100000, guid: 3faec4b76e282b940b7da000c80b8b04, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: do trang
-    second: {fileID: 2100000, guid: 4a4c4d1876de1c849b49a33b8167e65d, type: 2}
+    second: {fileID: 2100000, guid: 8feea7ec065f55848b47943742a13fec, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: road
-    second: {fileID: 2100000, guid: a36b2f4a100d6c94cb22a58573b0d4f2, type: 2}
+    second: {fileID: 2100000, guid: 5a96013e2b0006e49996ae43bde04e62, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: roadside
-    second: {fileID: 2100000, guid: 159c7542f8eb5f14aa805ad3395f1253, type: 2}
+    second: {fileID: 2100000, guid: 7c98321d06b2325439f7544d40ad3f3d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -48,7 +48,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: tim nhat
-    second: {fileID: 2100000, guid: f4bb939a517d1b04980faf0df390e1e4, type: 2}
+    second: {fileID: 2100000, guid: 4fdf2b72a06785e4d94d1db8612472d0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -63,7 +63,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: white
-    second: {fileID: 2100000, guid: d456c40b316137f4b90fb8a91997eaf4, type: 2}
+    second: {fileID: 2100000, guid: c96518a24e77e99488c872f095294a23, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
