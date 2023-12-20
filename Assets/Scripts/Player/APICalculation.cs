@@ -16,9 +16,9 @@ public class APICalculation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        APISlider = GameObject.Find("API Slider").GetComponent<Slider>();
+        //APISlider = GameObject.Find("API Slider").GetComponent<Slider>();
         player = GameObject.Find("Direction").GetComponent<Rigidbody>();
-        APISlider.highValue = 1000f;
+        //APISlider.highValue = 1000f;
     }
 
     // Update is called once per frame
@@ -26,16 +26,18 @@ public class APICalculation : MonoBehaviour
     {
         currentMPG = VehicleManager.playerVehicle.vehicleMPG;
 
-        APISlider.value = CalculateAPI();
+        realAPI_Index = CalculateAPI();
+        //APISlider.value = realAPI_Index;
     }
 
     public float CalculateAPI()
     {
         if (SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
+            Debug.Log("is in main moving scene");
             if (player.velocity != Vector3.zero)
             {
-                realAPI_Index += player.velocity.magnitude * currentMPG;
+                realAPI_Index += currentMPG;
             }
         }
         else if (SceneManager.GetActiveScene().name == "Vehicle Customize")
