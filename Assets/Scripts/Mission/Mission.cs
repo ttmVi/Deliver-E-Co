@@ -12,7 +12,7 @@ public class Mission
 
     public float timeLimit;
     public float timeRemaining;
-    public float timeToAccept = 100f;
+    public float timeToAccept = 30f;
 
     public GameObject pickUpLocation;
     public GameObject dropOffLocation;
@@ -89,31 +89,6 @@ public class Mission
     public void GetPickingUp()
     {
         isPickedUp = true;
-    }
-
-    public bool CheckPickUpAndDropOff(BoxCollider location)
-    {
-        bool isPickedUpOrDroppedOff = false;
-        Vector3 triggerArea = new Vector3(location.size.x + laneWidth.laneWidth * 2, location.size.y + laneWidth.laneWidth * 2, location.size.z + laneWidth.laneWidth * 2);
-        Collider[] shipper = Physics.OverlapBox(location.transform.position, triggerArea / 2, Quaternion.identity, LayerMask.GetMask("Player"));
-        Debug.Log("Trigger area: " + triggerArea);
-
-        if (shipper.Length > 0)
-        {
-            Debug.Log("Player detected");
-            for (int i = 0; i < shipper.Length; i++)
-            {
-                if (shipper[i].gameObject.name == "Player")
-                {
-                    isPickedUpOrDroppedOff = true;
-                }
-            }
-        }
-        else { 
-            Debug.Log("Player not detected");
-            isPickedUpOrDroppedOff = false;}
-
-        return isPickedUpOrDroppedOff;
     }
 }
 

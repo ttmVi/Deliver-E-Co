@@ -10,26 +10,30 @@ using static VehicleFactory;
 
 public class VehicleManager : MonoBehaviour
 {
+    public GameSceneManager gameSceneManager;
+
     public static VehicleManager vehicleManager;
     public static Vehicle playerVehicle;
-    public VehicleType[] availableVehicles = { VehicleType.Bicycle, VehicleType.Motorbike, VehicleType.Updating };
+    public VehicleType[] vehicles = { VehicleType.Bicycle, VehicleType.Motorbike, VehicleType.Updating };
+    public bool[] vehicleIsUnlocked = { false, false, false };
+    public int[] vehiclePrices = { 0, 100, 0 };
     private int currentVehicleIndex = 0;
 
     private Canvas vehicleCanvas;
-    private TextMeshProUGUI displayedVehicleName;
+    private TextMeshProUGUI selectButton;
     private TextMeshProUGUI displayedVehicleProperties;
 
     private void Awake()
     {
         vehicleCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-        displayedVehicleName = GameObject.Find("Vehicle").GetComponent<TextMeshProUGUI>();
+        selectButton = GameObject.Find("Vehicle").GetComponent<TextMeshProUGUI>();
         displayedVehicleProperties = GameObject.Find("Vehicle Properties").GetComponent<TextMeshProUGUI>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        DisplayVehicleProperties(GetVehicleProperties(availableVehicles[currentVehicleIndex]));
+        DisplayVehicleProperties(GetVehicleProperties(vehicles[currentVehicleIndex]));
     }
 
     // Update is called once per frame
@@ -49,43 +53,63 @@ public class VehicleManager : MonoBehaviour
 
     public void NextVehicle()
     {
-        currentVehicleIndex = (currentVehicleIndex + 1) % availableVehicles.Length;
-        DisplayVehicleProperties(GetVehicleProperties(availableVehicles[currentVehicleIndex]));
+        currentVehicleIndex = (currentVehicleIndex + 1) % vehicles.Length;
+        DisplayVehicleProperties(GetVehicleProperties(vehicles[currentVehicleIndex]));
     }
 
     public void PreviousVehicle()
     {
         if (currentVehicleIndex == 0)
         {
-            currentVehicleIndex = availableVehicles.Length - 1;
+            currentVehicleIndex = vehicles.Length - 1;
         }
         else
         {
             currentVehicleIndex--;
         }
-        DisplayVehicleProperties(GetVehicleProperties(availableVehicles[currentVehicleIndex]));
+        DisplayVehicleProperties(GetVehicleProperties(vehicles[currentVehicleIndex]));
     }
 
     public void DisplayVehicleProperties(Vehicle vehicle)
     {
-        VehicleType currentVehicleType = availableVehicles[currentVehicleIndex];
+        VehicleType currentVehicleType = vehicles[currentVehicleIndex];
         Vehicle previewVehicle = GetVehicleProperties(currentVehicleType);
-        displayedVehicleName.text = currentVehicleType.ToString();
-        if (currentVehicleType != VehicleType.Updating)
+        if (vehicleIsUnlocked[currentVehicleIndex])
         {
             displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\nSpeed: {previewVehicle.vehicleSpeed}\nMPG: {previewVehicle.vehicleMPG}\nFuel Capacity: {previewVehicle.vehicleFuel}\nPackage Capacity: {previewVehicle.vehicleCapacity}";
+            selectButton.text = "Start";
+        }
+        else if (currentVehicleType == VehicleType.Updating)
+        {
+            displayedVehicleProperties.text = "Coming soon...";
+            selectButton.text = "Updating";
         }
         else
         {
-            displayedVehicleProperties.text = "Not yet unlocked";
+            displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\nSpeed: {previewVehicle.vehicleSpeed}\nMPG: {previewVehicle.vehicleMPG}\nFuel Capacity: {previewVehicle.vehicleFuel}\nPackage Capacity: {previewVehicle.vehicleCapacity}";
+            selectButton.text = $"Price: {vehiclePrices[currentVehicleIndex]}";
         }
     }
 
     public void SelectVehicle()
     {
-        if (availableVehicles[currentVehicleIndex] != VehicleType.Updating)
+        if (vehicleIsUnlocked[currentVehicleIndex])
         {
-            StartLevelWithVehicleProperties(availableVehicles[currentVehicleIndex]);
+            StartLevelWithVehicleProperties(vehicles[currentVehicleIndex]);
+        }
+        else
+        {
+            UnlockVehicle();
+        }
+    }
+
+    public void UnlockVehicle()
+    {
+        if (MoneyManager.money >= vehiclePrices[currentVehicleIndex] && vehicles[currentVehicleIndex] != VehicleType.Updating)
+        {
+            MoneyManager.money -= vehiclePrices[currentVehicleIndex];
+            vehicleIsUnlocked[currentVehicleIndex] = true;
+            DisplayVehicleProperties(GetVehicleProperties(vehicles[currentVehicleIndex]));
         }
     }
 }

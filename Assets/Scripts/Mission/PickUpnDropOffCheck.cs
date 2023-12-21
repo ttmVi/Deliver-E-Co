@@ -29,10 +29,12 @@ public class PickUpnDropOffCheck : MonoBehaviour
                 mission.isPickedUp = CheckPickUpAndDropOff(mission, mission.pickUpLocation.GetComponent<BoxCollider>());
                 Debug.Log("Picked up: " + mission.isPickedUp);
             }
-        }
-        else if (Input.GetKeyDown(KeyCode.F) && mission.isAccepted && !mission.isDroppedOff)
-        {
-            mission.isDroppedOff = CheckPickUpAndDropOff(mission, mission.dropOffLocation.GetComponent<BoxCollider>());
+            else if (mission.isAccepted && mission.isPickedUp && !mission.isDroppedOff)
+            {
+                mission.isDroppedOff = CheckPickUpAndDropOff(mission, mission.dropOffLocation.GetComponent<BoxCollider>());
+                mission.isCompleted = mission.isDroppedOff;
+                Debug.Log("Dropped off: " + mission.isDroppedOff);
+            }
         }
     }
 

@@ -50,3 +50,20 @@ public class Motorbike : Vehicle
         Debug.Log("Motorbike started");
     }
 }
+
+public class Updating : Vehicle
+{
+    public Updating(float speed, float MPG, float fuel, string feature, int capacity)
+    {
+        vehicleSpeed = speed;
+        vehicleMPG = MPG;
+        vehicleFuel = fuel;
+        vehicleFeature = feature;
+        vehicleCapacity = capacity;
+    }
+
+    public override void StartVehicle()
+    {
+        Debug.Log("Still updating");
+    }
+}

@@ -9,12 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Main Moving Scene.unity
-    guid: a9e8bb3bd255f1a42ba822aa3a581c11
-  - enabled: 1
-    path: Assets/Scenes/Route Map Plan.unity
-    guid: e1e32e4d7fe37d641bc925779abbbdaf
-  - enabled: 0
     path: Assets/Scenes/Vehicle Customize.unity
     guid: 2a7da48d7800b484f9b5f2391dd26c73
+  - enabled: 0
+    path: Assets/Scenes/Route Map Plan.unity
+    guid: e1e32e4d7fe37d641bc925779abbbdaf
+  - enabled: 1
+    path: Assets/Scenes/Main Moving Scene.unity
+    guid: a9e8bb3bd255f1a42ba822aa3a581c11
   m_configObjects: {}

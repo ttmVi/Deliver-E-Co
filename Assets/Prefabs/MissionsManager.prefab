@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missions: []
+  currentMissionID: 0
   pickUpLocations:
   - {fileID: 0}
   - {fileID: 0}
@@ -56,6 +57,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  PickUpnDropOffCheck: {fileID: 0}
   missionDescription: {fileID: 0}
   missionTimeLimit: {fileID: 0}
   missionTimeRemaining: {fileID: 0}
@@ -77,3 +79,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickUpLocationIcon: {fileID: 0}
   dropOffLocationIcon: {fileID: 0}
+  mapCanvas: {fileID: 0}
+  canvas: {fileID: 0}

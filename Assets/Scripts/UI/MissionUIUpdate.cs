@@ -5,6 +5,7 @@ using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class MissionUIUpdate : MonoBehaviour
@@ -15,7 +16,8 @@ public class MissionUIUpdate : MonoBehaviour
 
     public GameObject pickUpLocationIcon;
     public GameObject dropOffLocationIcon;
-    public Canvas mapCanvas;
+    public static GameObject mapCanvas;
+    public Canvas canvas;
 
     private List<int> instantiatedPickUpIconsID;
     private List<int> instantiatedDropOffIconsID;
@@ -28,7 +30,8 @@ public class MissionUIUpdate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mapCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        mapCanvas = GameObject.Find("Map Canvas");
         map3D = GameObject.Find("Map 3D");
         map2D = GameObject.Find("Map").GetComponent<RectTransform>();
 
@@ -47,50 +50,97 @@ public class MissionUIUpdate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Update locations for available missions
-        for (int i = 0; i < MissionManager.availableMissions.Count; i++)
+        if (SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
-            if (!instantiatedPickUpIconsID.Contains(MissionManager.availableMissions[i].missionID))
+            // Update locations for available missions
+            for (int i = 0; i < MissionManager.availableMissions.Count; i++)
             {
-                SpawnLocationIcon(MissionManager.availableMissions[i].pickUpLocation, pickUpLocationIcon, MissionManager.availableMissions[i]);
-                instantiatedPickUpIconsID.Add(MissionManager.availableMissions[i].missionID);
-            }
-        }
-
-        // Update locations for accepted missions
-        for (int i = 0; i < MissionManager.acceptedMissions.Count; i++)
-        {
-            if (!instantiatedPickUpIconsID.Contains(MissionManager.acceptedMissions[i].missionID))
-            {
-                SpawnLocationIcon(MissionManager.acceptedMissions[i].pickUpLocation, pickUpLocationIcon, MissionManager.acceptedMissions[i]);
-                instantiatedPickUpIconsID.Add(MissionManager.acceptedMissions[i].missionID);
-
-                SpawnLocationIcon(MissionManager.acceptedMissions[i].dropOffLocation, dropOffLocationIcon, MissionManager.acceptedMissions[i]);
-                instantiatedDropOffIconsID.Add(MissionManager.acceptedMissions[i].missionID);
-            }
-        }
-
-        // Destroy icons for completed missions
-        for (int i = 0; i < MissionManager.completedMissions.Count; i++)
-        {
-            for (int j = 0; j < instantiatedPickUpIconsID.Count; j++)
-            {
-                if (instantiatedPickUpIconsID[j] == MissionManager.completedMissions[i].missionID &&
-                    instantiatedDropOffIconsID[j] == MissionManager.completedMissions[i].missionID)
+                if (!instantiatedPickUpIconsID.Contains(MissionManager.availableMissions[i].missionID))
                 {
-                    Destroy(GameObject.Find($"PickUpLocation_{MissionManager.completedMissions[i].missionID}"));
-                    instantiatedPickUpIconsID.Remove(instantiatedPickUpIconsID[j]);
+                    SpawnLocationIcon(MissionManager.availableMissions[i].pickUpLocation, pickUpLocationIcon, MissionManager.availableMissions[i]);
+                    instantiatedPickUpIconsID.Add(MissionManager.availableMissions[i].missionID);
 
-                    Destroy(GameObject.Find($"DropOffLocation_{MissionManager.completedMissions[i].missionID}"));
-                    instantiatedDropOffIconsID.Remove(instantiatedDropOffIconsID[j]);
-
-                    MissionManager.completedMissions.RemoveAt(i);
+                    missionInfoPanel.transform.SetAsLastSibling();
                 }
-                else { continue; }
             }
-        }
 
-        StartCoroutine(UpdateMissionInfoRealTime());
+            // Update locations for accepted missions
+            for (int i = 0; i < MissionManager.acceptedMissions.Count; i++)
+            {
+                if (!instantiatedPickUpIconsID.Contains(MissionManager.acceptedMissions[i].missionID))
+                {
+                    SpawnLocationIcon(MissionManager.acceptedMissions[i].pickUpLocation, pickUpLocationIcon, MissionManager.acceptedMissions[i]);
+                    instantiatedPickUpIconsID.Add(MissionManager.acceptedMissions[i].missionID);
+
+                    SpawnLocationIcon(MissionManager.acceptedMissions[i].dropOffLocation, dropOffLocationIcon, MissionManager.acceptedMissions[i]);
+                    instantiatedDropOffIconsID.Add(MissionManager.acceptedMissions[i].missionID);
+
+                    missionInfoPanel.transform.SetAsLastSibling();
+                }
+            }
+
+            // Destroy icons for completed missions
+            for (int i = MissionManager.completedMissions.Count - 1; i >= 0; i--)
+            {
+                if (MissionManager.completedMissions[i] == null) { continue; }
+
+                for (int j = instantiatedPickUpIconsID.Count - 1; j >= 0; j--)
+                {
+                    if (MissionManager.completedMissions[i] != null &&
+                        instantiatedPickUpIconsID[j] == MissionManager.completedMissions[i].missionID)
+                    {
+                        if (mapCanvas.activeSelf)
+                        {
+                            missionInfoPanel.SetActive(false);
+                        }
+
+                        Destroy(GameObject.Find($"PickUpLocation_{MissionManager.completedMissions[i].missionID}"));
+                        instantiatedPickUpIconsID.RemoveAt(j);
+
+                        break;
+                    }
+                    else { continue; }
+                }
+
+                for (int j = instantiatedDropOffIconsID.Count - 1; j >= 0; j--)
+                {
+                    if (MissionManager.completedMissions[i] != null &&
+                        instantiatedDropOffIconsID[j] == MissionManager.completedMissions[i].missionID)
+                    {
+                        missionInfoPanel.SetActive(false);
+
+                        Destroy(GameObject.Find($"DropOffLocation_{MissionManager.completedMissions[i].missionID}"));
+                        instantiatedDropOffIconsID.RemoveAt(j);
+
+                        break;
+                    }
+                    else { continue; }
+                }
+
+                MissionManager.completedMissions[i] = null;
+            }
+
+            StartCoroutine(UpdateMissionInfoRealTime());
+        }
+    }
+
+    public void StopDelivering()
+    {
+        foreach (int missionID in instantiatedPickUpIconsID)
+        {
+            Destroy(GameObject.Find($"PickUpLocation_{missionID}"));
+        }
+        instantiatedPickUpIconsID.Clear();
+
+        foreach (int missionID in instantiatedDropOffIconsID)
+        {
+            Destroy(GameObject.Find($"DropOffLocation_{missionID}"));
+        }
+        instantiatedDropOffIconsID.Clear();
+
+        MissionManager.availableMissions.Clear();
+        MissionManager.acceptedMissions.Clear();
+        MissionManager.completedMissions.Clear();
     }
 
     public Vector2 Get2DMapCoordinate(GameObject location)
@@ -121,6 +171,7 @@ public class MissionUIUpdate : MonoBehaviour
         Vector2 mapPosition = Get2DMapCoordinate(location);
         GameObject locationIcon = Instantiate(icon, mapPosition, Quaternion.identity, mapCanvas.transform);
         locationIcon.name = $"{icon.name}_{mission.missionID}";
+        locationIcon.transform.SetParent(mapCanvas.transform);
 
         locationIcon.GetComponent<RectTransform>().anchoredPosition = mapPosition;
 
@@ -150,7 +201,7 @@ public class MissionUIUpdate : MonoBehaviour
 
             if (!mission.isAccepted)
             {
-                missionInfo.text = $"Pick up the package from {mission.pickUpLocation.name} and deliver to {mission.dropOffLocation.name}. \n" +
+                missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
                     $"Time limit: {mission.timeLimit}. \n" +
                     $"Reward: {mission.reward}. \n" +
                     $"Penalty: {mission.penalty}. \n" +
@@ -178,7 +229,7 @@ public class MissionUIUpdate : MonoBehaviour
             }
             else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && !mission.isPickedUp)
             {
-                missionInfo.text = $"Pick up the package from {mission.pickUpLocation.name} and deliver to {mission.dropOffLocation.name}. \n" +
+                missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
                     $"Time limit: {Mathf.RoundToInt(mission.timeRemaining)}. \n" +
                     $"Reward: {mission.reward}. \n" +
                     $"Penalty: {mission.penalty}.";
@@ -187,7 +238,7 @@ public class MissionUIUpdate : MonoBehaviour
             }
             else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && mission.isPickedUp && !mission.isDroppedOff)
             {
-                missionInfo.text = $"Pick up the package from {mission.pickUpLocation.name} and deliver to {mission.dropOffLocation.name}. \n" +
+                missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
                     $"Time limit: {Mathf.RoundToInt(mission.timeRemaining)}. \n" +
                     $"Reward: {mission.reward}. \n" +
                     $"Penalty: {mission.penalty}.";
@@ -246,12 +297,27 @@ public class MissionUIUpdate : MonoBehaviour
         }
     }
 
+    public void AlternativeAcceptMission()
+    {
+        for (int i = 0; i < MissionManager.availableMissions.Count; i++)
+        {
+            if (MissionManager.availableMissions[i].missionID == int.Parse(missionInfo.name.Split('_')[1]))
+            {
+                MissionManager.availableMissions[i].isAccepted = true;
+                MissionManager.availableMissions[i].pickUpLocation.AddComponent<PickUpnDropOffCheck>();
+
+                MissionManager.acceptedMissions.Add(MissionManager.availableMissions[i]);
+                MissionManager.availableMissions.RemoveAt(i);
+            }
+        }
+    }
+
     public void GetMissionInfoText(Mission mission)
     {
         if (!mission.isAccepted)
         {
-            missionInfo.text = $"Pick up the package from {mission.pickUpLocation.name} and deliver to {mission.dropOffLocation.name}. \n" +
-                $"Time limit: {mission.timeLimit}. \n" +
+            missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
+            $"Time limit: {mission.timeLimit}. \n" +
                 $"Reward: {mission.reward}. \n" +
                 $"Penalty: {mission.penalty}. \n" +
                 $"Time to accept: {mission.timeToAccept}.";
@@ -260,8 +326,8 @@ public class MissionUIUpdate : MonoBehaviour
         }
         else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && !mission.isPickedUp)
         {
-            missionInfo.text = $"Pick up the package from {mission.pickUpLocation.name} and deliver to {mission.dropOffLocation.name}. \n" +
-                $"Time limit: {Mathf.RoundToInt(mission.timeRemaining)}. \n" +
+            missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
+            $"Time limit: {Mathf.RoundToInt(mission.timeRemaining)}. \n" +
                 $"Reward: {mission.reward}. \n" +
                 $"Penalty: {mission.penalty}.";
 
@@ -269,8 +335,8 @@ public class MissionUIUpdate : MonoBehaviour
         }
         else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && mission.isPickedUp && !mission.isDroppedOff)
         {
-            missionInfo.text = $"Pick up the package from {mission.pickUpLocation.name} and deliver to {mission.dropOffLocation.name}. \n" +
-                $"Time limit: {Mathf.RoundToInt(mission.timeRemaining)}. \n" +
+            missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
+            $"Time limit: {Mathf.RoundToInt(mission.timeRemaining)}. \n" +
                 $"Reward: {mission.reward}. \n" +
                 $"Penalty: {mission.penalty}.";
 
@@ -284,7 +350,7 @@ public class MissionUIUpdate : MonoBehaviour
 
     public IEnumerator UpdateMissionInfoRealTime()
     {
-        while (missionInfoPanel.activeInHierarchy)
+        while (missionInfoPanel.activeInHierarchy && SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
             int missionID = -1;
             if (!int.TryParse(missionInfo.name.Split('_')[1], out missionID))
