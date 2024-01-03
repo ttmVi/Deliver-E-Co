@@ -34,14 +34,14 @@ public class AQICalculation : MonoBehaviour
             realAQI_Index = CalculateAQI();
         }
 
-        AQIBar.fillAmount = realAQI_Index / 1000f;
+        AQIBar.fillAmount = realAQI_Index / 7500f;
     }
 
     public float CalculateAQI()
     {
-        if (vel.velDirection != Vector3.zero)
+        if (vel.velDirection != Vector3.zero && currentMPG != 0)
         {
-            realAQI_Index += currentMPG * Time.deltaTime;
+            realAQI_Index += ( 1000f / currentMPG ) * Time.deltaTime;
         }
         return realAQI_Index;
     }

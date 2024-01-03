@@ -2,14 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using TMPro;
 
 public class PickUpnDropOffCheck : MonoBehaviour
 {
     public int missionID;
     private Mission mission;
 
+    private TextMeshProUGUI status;
+
+    public AudioSource audioSource;
+    public AudioClip[] soundEffects;
+
     private void Start()
     {
+        status = GameObject.Find("Status").GetComponent<TextMeshProUGUI>();
+        status.text = "";
+
+        audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
+        soundEffects = GameObject.Find("Direction").GetComponent<PathFinding>().soundEffects;
+
         for (int i = 0; i < MissionManager.availableMissions.Count; i++)
         {
             if (MissionManager.availableMissions[i].missionID == missionID)
@@ -24,13 +36,19 @@ public class PickUpnDropOffCheck : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("F pressed");
-            if (mission.isAccepted && !mission.isPickedUp)
+            if (mission.isAccepted && !mission.isPickedUp && !mission.isDroppedOff)
             {
+                PlayPickUpSound();
+
+                status.text = "Package is picked up";
                 mission.isPickedUp = CheckPickUpAndDropOff(mission, mission.pickUpLocation.GetComponent<BoxCollider>());
                 Debug.Log("Picked up: " + mission.isPickedUp);
             }
             else if (mission.isAccepted && mission.isPickedUp && !mission.isDroppedOff)
             {
+                PlayDropOffSound();
+
+                status.text = "Package is dropped off";
                 mission.isDroppedOff = CheckPickUpAndDropOff(mission, mission.dropOffLocation.GetComponent<BoxCollider>());
                 mission.isCompleted = mission.isDroppedOff;
                 Debug.Log("Dropped off: " + mission.isDroppedOff);
@@ -103,6 +121,17 @@ public class PickUpnDropOffCheck : MonoBehaviour
                 MissionManager.missionManager.missions[i].isDroppedOff = mission.isDroppedOff;
             }
         }
+    }
 
+    public void PlayPickUpSound()
+    {
+        audioSource.clip = soundEffects[2];
+        audioSource.Play();
+    }
+
+    public void PlayDropOffSound()
+    {
+        audioSource.clip = soundEffects[3];
+        audioSource.Play();
     }
 }

@@ -22,6 +22,9 @@ public class PathFinding : MonoBehaviour
     public LaneState laneState;
     public Vector3[] LaneDirection;
 
+    public AudioSource audioSource;
+    public AudioClip[] soundEffects;
+
     private void Awake()
     {
         initialDirection = transform.position - player.transform.position;
@@ -52,6 +55,7 @@ public class PathFinding : MonoBehaviour
 
         player = GameObject.Find("Player");
         laneState = GameObject.Find("LaneIndicator").GetComponent<LaneState>();
+        audioSource = player.GetComponent<AudioSource>();
 
         direction = 1.5f;
         velDirection = new Vector3(0, 0, 0);
@@ -59,7 +63,7 @@ public class PathFinding : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         LaneDirection = laneState.laneDirection;
 
         // Determine if the player is pressing the key or holding the key
@@ -168,6 +172,8 @@ public class PathFinding : MonoBehaviour
             {
                 lastVelocityDirection = direction;
                 direction += 0.5f;
+
+                StopVehicleSound();
             }
         }
         else if (Input.GetKeyDown(KeyCode.W))
@@ -175,6 +181,8 @@ public class PathFinding : MonoBehaviour
             if (velDirection == Vector3.zero)
             {
                 direction = lastVelocityDirection;
+
+                PlayVehicleSound();
             }
         }
 
@@ -281,5 +289,27 @@ public class PathFinding : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return)) { direction = lastVelocityDirection; }
         }
         yield return null;
+    }
+
+    public void PlayVehicleSound()
+    {
+        if (VehicleManager.playerVehicle.vehicleSpeed == 2f)
+        {
+            Debug.Log("Bicycle Moving");
+            audioSource.clip = soundEffects[0];
+        }
+        else if (VehicleManager.playerVehicle.vehicleSpeed == 5f)
+        {
+            audioSource.clip = soundEffects[1];
+        }
+
+        audioSource.loop = true;
+        audioSource.Play();        
+    }
+
+    public void StopVehicleSound()
+    {
+        audioSource.loop = false;
+        audioSource.Stop();
     }
 }

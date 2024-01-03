@@ -9,6 +9,7 @@ public class VehicleFactory
     {
         Bicycle,
         Motorbike,
+        Car,
         Updating
     }
 
@@ -19,7 +20,9 @@ public class VehicleFactory
             case VehicleType.Bicycle:
                 return new Bicycle(2f, 0f, -1f, "package", 3); //(speed, MPG, fuel, feature, capacity)
             case VehicleType.Motorbike:
-                return new Motorbike(5f, 10f, 10f, "package", 10); //(speed, MPG, fuel, feature, capacity)
+                return new Motorbike(5f, 55f, 10f, "package", 10); //(speed, MPG, fuel, feature, capacity)
+            case VehicleType.Car:
+                return new Car(7f, 35f, 20f, "package", 20); //(speed, MPG, fuel, feature, capacity)
             case VehicleType.Updating:
                 return new Updating(0f, 0f, 0f, "none", 0);
             default:

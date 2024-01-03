@@ -14,9 +14,9 @@ public class VehicleManager : MonoBehaviour
 
     public static VehicleManager vehicleManager;
     public static Vehicle playerVehicle;
-    public VehicleType[] vehicles = { VehicleType.Bicycle, VehicleType.Motorbike, VehicleType.Updating };
-    public bool[] vehicleIsUnlocked = { false, false, false };
-    public int[] vehiclePrices = { 0, 100, 0 };
+    public VehicleType[] vehicles = { VehicleType.Bicycle, VehicleType.Motorbike, VehicleType.Car, VehicleType.Updating };
+    public bool[] vehicleIsUnlocked = { false, false, false, false };
+    public int[] vehiclePrices = { 0, 100, 1000, 0 };
     private int currentVehicleIndex = 0;
 
     private Canvas vehicleCanvas;

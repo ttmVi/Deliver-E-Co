@@ -27,7 +27,7 @@ public class LaneState : MonoBehaviour
 
         indicatorBounds = GetComponent<BoxCollider>();
 
-        indicatorBounds.size = new Vector3(laneWidth - 0.1f, 0.25f, laneWidth - 0.1f);
+        indicatorBounds.size = new Vector3(laneWidth - 0.1f, 1f, laneWidth - 0.1f);
         indicatorBounds.center = new Vector3(0, -0.25f, 0);        
     }
 
