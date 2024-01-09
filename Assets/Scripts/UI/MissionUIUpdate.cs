@@ -179,16 +179,21 @@ public class MissionUIUpdate : MonoBehaviour
         EventTrigger trigger = locationIcon.AddComponent<EventTrigger>();
         var pointerEnter = new EventTrigger.Entry();
         pointerEnter.eventID = EventTriggerType.PointerEnter;
-        pointerEnter.callback.AddListener((e) => ShowMissionInfo(e, mission, locationIcon));
+        pointerEnter.callback.AddListener((e) => ShowMissionInfo(e, mission));
         trigger.triggers.Add(pointerEnter);
 
         var pointerClick = new EventTrigger.Entry();
         pointerClick.eventID = EventTriggerType.PointerClick;
-        pointerClick.callback.AddListener((e) => HideMissionInfo(e, mission, locationIcon));
+        pointerClick.callback.AddListener((e) => AcceptMission(e, mission));
         trigger.triggers.Add(pointerClick);
+
+        var pointerExit = new EventTrigger.Entry();
+        pointerExit.eventID = EventTriggerType.PointerExit;
+        pointerExit.callback.AddListener((e) => HideMissionInfo(e, mission));
+        trigger.triggers.Add(pointerExit);
     }
 
-    public void ShowMissionInfo(BaseEventData eventData, Mission mission, GameObject locationIcon)
+    public void ShowMissionInfo(BaseEventData eventData, Mission mission)
     {
         PointerEventData pointerData = eventData as PointerEventData;
 
@@ -206,7 +211,7 @@ public class MissionUIUpdate : MonoBehaviour
                     $"Reward: {mission.reward}. \n" +
                     $"Penalty: {mission.penalty}. \n" +
                     $"Time to accept: {mission.timeToAccept}.";
-                missionStatus.text = "Accept";
+                missionStatus.text = "Not Accepted";
 
                 if (!instantiatedDropOffIconsID.Contains(mission.missionID))
                 {
@@ -249,12 +254,6 @@ public class MissionUIUpdate : MonoBehaviour
             {
                 //sth here i dunno yet
             }
-
-            EventTrigger trigger = statusButton.AddComponent<EventTrigger>();
-            var pointerClick = new EventTrigger.Entry();
-            pointerClick.eventID = EventTriggerType.PointerClick;
-            pointerClick.callback.AddListener((e) => AcceptMission(e, mission));
-            trigger.triggers.Add(pointerClick);
         }
         else
         {
@@ -262,7 +261,7 @@ public class MissionUIUpdate : MonoBehaviour
         }
     }
 
-    public void HideMissionInfo(BaseEventData eventData, Mission mission, GameObject locationIcon)
+    public void HideMissionInfo(BaseEventData eventData, Mission mission)
     {
         PointerEventData pointerData = eventData as PointerEventData;
 
@@ -271,7 +270,7 @@ public class MissionUIUpdate : MonoBehaviour
             if (!mission.isAccepted)
             {
                 Destroy(GameObject.Find($"DropOffLocation_{mission.missionID}"));
-                Debug.Log("Destroyed drop off icon");
+                //Debug.Log("Destroyed drop off icon");
 
                 for (int i = 0; i < instantiatedDropOffIconsID.Count; i++)
                 {
@@ -282,6 +281,7 @@ public class MissionUIUpdate : MonoBehaviour
                     else { Debug.Log("No drop off icon ID to remove"); }
                 }
             }
+            //Destroy(statusButton.GetComponent<EventTrigger>());
 
             missionInfoPanel.SetActive(false);
         }
@@ -291,9 +291,10 @@ public class MissionUIUpdate : MonoBehaviour
     {
         PointerEventData pointerData = eventData as PointerEventData;
 
-        if (pointerData != null)
+        if (pointerData != null && !mission.isAccepted)
         {
             MissionManager.missionManager.AcceptNewMission(mission);
+            //Destroy(statusButton.GetComponent<EventTrigger>());
         }
     }
 
@@ -322,7 +323,17 @@ public class MissionUIUpdate : MonoBehaviour
                 $"Penalty: {mission.penalty}. \n" +
                 $"Time to accept: {mission.timeToAccept}.";
 
-            missionStatus.text = "Accept";
+            missionStatus.text = "Not Accepted" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "";
         }
         else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && !mission.isPickedUp)
         {

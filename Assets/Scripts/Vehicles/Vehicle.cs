@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Vehicle
@@ -20,6 +21,28 @@ public abstract class Vehicle
         vehicleCapacity = capacity;
     }
 
+    public struct UpgradableComponent
+    {
+        public string category;
+        public string name;
+        public int price;
+        public bool isUnlocked;
+        public bool isChosen;
+        public string previousComponent;
+
+        public UpgradableComponent(string category, string name, int price, bool isUnlocked, bool isChosen, string previousComponent)
+        {
+            this.category = category;
+            this.name = name;
+            this.price = price;
+            this.isUnlocked = isUnlocked;
+            this.isChosen = isChosen;
+            this.previousComponent = previousComponent;
+        }
+    }
+
+    public static UpgradableComponent[][] upgradeOptions;
+
     public virtual void StartVehicle()
     {
         Debug.Log("Vehicle started");
@@ -28,6 +51,16 @@ public abstract class Vehicle
     public virtual void UpgradeVehicle(string upgradeType)
     {
         Debug.Log($"Vehicle {upgradeType} upgraded");
+    }
+
+    public virtual void UnlockUpgradeComponent(string upgradeCategory, string upgradeComponent) { }
+
+    public virtual void ChooseUpgradeComponent(string upgradeCategory, string upgradeComponent) { }
+
+    public virtual string[] GetEquippedAndUpgradableComponent(string category)
+    {
+        string[] currentlyEquippedComponent = {"none", ""};
+        return currentlyEquippedComponent;
     }
 }
 
@@ -49,18 +82,45 @@ public class Bicycle : Vehicle
 
 public class Motorbike : Vehicle
 {
-    public string engineType { get; set; }
-    public string wheelType { get; set; }
-    public string batteryType { get; set; }
-    public string exhaustSystem { get; set; }
+    public static string engineType = "Combustion Engine";
+    public static string wheelType = "Steel Rims";
+    public static string exhaustSystem = "Standard";
+
+    public enum MotorbikeUpgradableComponents
+    {
+        Engine,
+        Wheels,
+        ExhaustSystem
+    }
 
     public Motorbike(float speed, float MPG, float fuel, string feature, int capacity)
         : base(speed, MPG, fuel, feature, capacity)
     {
-        engineType = "Combustion";
-        wheelType = "Steel";
-        batteryType = "None";
-        exhaustSystem = "";
+        upgradeOptions = new UpgradableComponent[3][];
+
+        // Engine upgrade options
+        upgradeOptions[(int)MotorbikeUpgradableComponents.Engine] = new UpgradableComponent[]
+        {
+            new UpgradableComponent("Engine", "Combustion Engine", 0, true, true, "none"),
+            new UpgradableComponent("Engine", "Hybrid Engine", 200, false, false, "none"),
+            new UpgradableComponent("Engine", "Electric Motor", 300, false, false, "none")
+        };
+
+        // Wheels upgrade options
+        upgradeOptions[(int)MotorbikeUpgradableComponents.Wheels] = new UpgradableComponent[]
+        {
+            new UpgradableComponent("Wheels", "Steel Rims", 0, true, true, "none"),
+            new UpgradableComponent("Wheels", "Alloy Wheels", 200, false, false, "none"),
+            new UpgradableComponent("Wheels", "Magnesium Alloy Rims", 300, false, false, "none")
+        };
+
+        // Exhaust System upgrade options
+        upgradeOptions[(int)MotorbikeUpgradableComponents.ExhaustSystem] = new UpgradableComponent[]
+        {
+            new UpgradableComponent("Exhaust System", "Standard", 0, true, true, "none"),
+            new UpgradableComponent("Exhaust System", "Exhaust Tuning", 100, false, false, "none"),
+            new UpgradableComponent("Exhaust System", "Remove", 0, false, false, "Electric Motor")
+        };
     }
 
     public override void StartVehicle()
@@ -73,23 +133,42 @@ public class Motorbike : Vehicle
         switch (upgradeType)
         {
             case "Engine":
-                if (engineType == "Combustion")
+                for (int i = 0; i < upgradeOptions[(int)MotorbikeUpgradableComponents.Engine].Length; i++)
+                {
+                    if (upgradeOptions[(int)MotorbikeUpgradableComponents.Engine][i].isChosen)
+                    {
+                        engineType = upgradeOptions[(int)MotorbikeUpgradableComponents.Engine][i].name;
+                        break;
+                    }
+                }
+
+                if (engineType.Contains("Combustion"))
                 {
                     vehicleMPG = 55f;
                     vehicleFuel = 10f;
                 }
-                else if (engineType == "Hybrid")
+                else if (engineType.Contains("Hybrid"))
                 {
-                    vehicleMPG = 20f;
+                    vehicleMPG = 70f;
                     vehicleFuel = 8f;
                 }
-                else if (engineType == "Electric")
+                else if (engineType.Contains("Electric"))
                 {
                     vehicleMPG = 0f;
                     vehicleFuel = 5f;
                 }
                 break;
+
             case "Wheels":
+                for (int i = 0; i < upgradeOptions[(int)MotorbikeUpgradableComponents.Wheels].Length; i++)
+                {
+                    if (upgradeOptions[(int)MotorbikeUpgradableComponents.Wheels][i].isChosen)
+                    {
+                        wheelType = upgradeOptions[(int)MotorbikeUpgradableComponents.Wheels][i].name;
+                        break;
+                    }
+                }
+
                 if (wheelType == "Steel")
                 {
                     vehicleSpeed = 5f;
@@ -103,44 +182,174 @@ public class Motorbike : Vehicle
                     vehicleSpeed = 7f;
                 }
                 break;
-            case "Battery":
-                break;
-            case "Exhaust":
-                if (exhaustSystem == "Standard")
-                {
 
-                }
-                else if (exhaustSystem == "Exhaust Tuning")
+            case "Exhaust":
+                for (int i = 0; i < upgradeOptions[(int)MotorbikeUpgradableComponents.ExhaustSystem].Length; i++)
                 {
-                    vehicleMPG -= 10f;
-                    vehicleFuel += 2f;
+                    if (upgradeOptions[(int)MotorbikeUpgradableComponents.ExhaustSystem][i].isChosen)
+                    {
+                        exhaustSystem = upgradeOptions[(int)MotorbikeUpgradableComponents.ExhaustSystem][i].name;
+                    }
+                    else { continue; }
                 }
-                else if (exhaustSystem == "Remove")
+
+                if (exhaustSystem.Contains("Standard"))
+                {
+                }
+                else if (exhaustSystem.Contains("Exhaust Tuning"))
+                {
+                    vehicleMPG += 10f;
+                    vehicleFuel += 2f; ;
+                }
+                else if (exhaustSystem.Contains("Remove"))
                 {
                     vehicleMPG = 0;
                 }
                 break;
             default: break;
         }
+    } //not really compatible with the new upgrade system yet
 
-        Debug.Log($"Motorbike {upgradeType} upgraded");
+    public override void UnlockUpgradeComponent(string upgradeCategory, string upgradeComponent)
+    {
+        for (int i = 0; i < upgradeOptions.Length; i++)
+        {
+            if (upgradeOptions[i][0].category.Contains(upgradeCategory))
+            {
+                for (int j = 0; j < upgradeOptions[i].Length; j++)
+                {
+                    if (upgradeOptions[i][j].name.Contains(upgradeComponent) && upgradeOptions[i][j].previousComponent.Contains("none"))
+                    {
+                        upgradeOptions[i][j].isUnlocked = true;
+                        break;
+                    }
+                    else if (upgradeOptions[i][j].name.Contains(upgradeComponent) && !upgradeOptions[i][j].previousComponent.Contains("none"))
+                    {
+                        //Checking if previous component is unlocked
+                        //...
+
+                        //For now just checking if it's chosen
+                        if (upgradeOptions[i][j].previousComponent == engineType || upgradeOptions[i][j].previousComponent == wheelType || upgradeOptions[i][j].previousComponent == exhaustSystem)
+                        {
+                            upgradeOptions[i][j].isUnlocked = true;
+                            break;
+                        }
+                    }
+                    else { continue;}
+                }
+            }
+            else { continue; }
+        }
+    }
+
+    public override void ChooseUpgradeComponent(string upgradeCategory, string upgradeComponent)
+    {
+        for (int i = 0; i < upgradeOptions.Length; i++)
+        {
+            if (upgradeOptions[i][0].category.Contains(upgradeCategory))
+            {
+                for (int j = 0; j < upgradeOptions[i].Length; j++)
+                {
+                    if (upgradeOptions[i][j].name.Contains(upgradeComponent) && upgradeOptions[i][j].isUnlocked)
+                    {
+                        upgradeOptions[i][j].isChosen = true;
+                        upgradeOptions[i][j - 1].isChosen = false;
+                    }
+                    else
+                    {
+                        upgradeOptions[i][j].isChosen = false;
+                    }
+
+                    Debug.Log($"Choosing {upgradeOptions[i][j].name}: {upgradeOptions[i][j].isChosen}");
+                }
+            }
+            else { continue; }
+        }
+    }
+
+    public override string[] GetEquippedAndUpgradableComponent(string category) //For now it does nothing
+    {
+        string[] currentlyEquippedComponent = { "...", "" };
+
+        for (int i = 0; i < upgradeOptions.Length; i++)
+        {
+            if (upgradeOptions[i][0].category.Contains(category))
+            {
+                for (int j = 0; j < upgradeOptions[i].Length; j++)
+                {
+                    if (upgradeOptions[i][j].isChosen)
+                    {
+                        currentlyEquippedComponent[0] = upgradeOptions[i][j].name;
+                        if (j + 1 < upgradeOptions[i].Length)
+                        {
+                            currentlyEquippedComponent[1] = upgradeOptions[i][j + 1].price.ToString();
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+            else { continue; }
+        }
+
+        return currentlyEquippedComponent;
     }
 }
 
 public class Car : Vehicle
 {
-    public string engineType { get; set; }
-    public string wheelType { get; set; }
-    public string batteryType { get; set; }
-    public string exhaustSystem { get; set; }
+    public static string engineType = "Combustion";
+    public static string wheelType = "Steel";
+    public static string batteryType = "None";
+    public static string exhaustSystem = "Standard";
+
+    public enum CarUpgradableComponents
+    {
+        Engine,
+        Wheels,
+        Battery,
+        ExhaustSystem
+    }
 
     public Car(float speed, float MPG, float fuel, string feature, int capacity)
         : base(speed, MPG, fuel, feature, capacity)
     {
-        engineType = "Combustion";
-        wheelType = "Steel";
-        batteryType = "None";
-        exhaustSystem = "Standard";
+        upgradeOptions = new UpgradableComponent[4][];
+
+        // Engine upgrade options
+        upgradeOptions[(int)CarUpgradableComponents.Engine] = new UpgradableComponent[]
+        {
+            new UpgradableComponent("Engine", "Combustion", 0, true, true, "none"),
+            new UpgradableComponent("Engine", "Hybrid", 200, false, false, "none"),
+            new UpgradableComponent("Engine", "Electric", 300, false, false, "none")
+        };
+
+        // Wheels upgrade options
+        upgradeOptions[(int)CarUpgradableComponents.Wheels] = new UpgradableComponent[]
+        {
+            new UpgradableComponent("Wheels", "Steel", 0, true, true, "none"),
+            new UpgradableComponent("Wheels", "Carbon Fiber", 200, false, false, "none"),
+            new UpgradableComponent("Wheels", "Titanium", 300, false, false, "none")
+        };
+
+        // Battery upgrade options
+        upgradeOptions[(int)CarUpgradableComponents.Battery] = new UpgradableComponent[]
+        {
+            new UpgradableComponent("Battery", "None", 0, true, true, "none"),
+            new UpgradableComponent("Battery", "Lithium", 200, false, false, "none"),
+            new UpgradableComponent("Battery", "Sodium", 300, false, false, "none")
+        };
+
+        // Exhaust System upgrade options
+        upgradeOptions[(int)CarUpgradableComponents.ExhaustSystem] = new UpgradableComponent[]
+        {
+            new UpgradableComponent("Exhaust System", "Standard", 0, true, true, "none"),
+            new UpgradableComponent("Exhaust System", "Exhaust Tuning", 100, false, false, "none"),
+            new UpgradableComponent("Exhaust System", "Remove", 0, false, false, "Electric")
+        };
     }
 
     public override void StartVehicle()
@@ -160,7 +369,7 @@ public class Car : Vehicle
                 }
                 else if (engineType == "Hybrid")
                 {
-                    vehicleMPG = 20f;
+                    vehicleMPG = 45f;
                     vehicleFuel = 16f;
                 }
                 else if (engineType == "Electric")
@@ -172,18 +381,31 @@ public class Car : Vehicle
             case "Wheels":
                 if (wheelType == "Steel")
                 {
-                    vehicleSpeed = 5f;
+                    vehicleSpeed = 7f;
                 }
-                else if (wheelType == "Alloy")
+                else if (wheelType == "Carbon Fiber")
                 {
                     vehicleSpeed = 6f;
                 }
-                else if (wheelType == "Magnesium Alloy")
+                else if (wheelType == "Titanium")
                 {
                     vehicleSpeed = 7f;
                 }
                 break;
             case "Battery":
+                if (batteryType == "None")
+                {
+
+                }
+                else if (batteryType == "Lithium")
+                {
+                    
+                }
+                else if (batteryType == "Sodium")
+                {
+                    vehicleMPG += 10f;
+                    vehicleFuel += 4f;
+                }
                 break;
             case "Exhaust":
                 if (exhaustSystem == "Standard")
@@ -192,7 +414,7 @@ public class Car : Vehicle
                 }
                 else if (exhaustSystem == "Exhaust Tuning")
                 {
-                    vehicleMPG -= 10f;
+                    vehicleMPG += 10f;
                     vehicleFuel += 5f;
                 }
                 else if (exhaustSystem == "Remove")
@@ -203,7 +425,64 @@ public class Car : Vehicle
             default: break;
         }
 
-        Debug.Log($"Motorbike {upgradeType} upgraded");
+        Debug.Log($"Car {upgradeType} upgraded");
+    }
+
+    public override void UnlockUpgradeComponent(string upgradeCategory, string upgradeComponent)
+    {
+        for (int i = 0; i < upgradeOptions.Length; i++)
+        {
+            if (upgradeOptions[i][0].category.Contains(upgradeCategory))
+            {
+                for (int j = 0; j < upgradeOptions[i].Length; j++)
+                {
+                    if (upgradeOptions[i][j].name.Contains(upgradeComponent) && upgradeOptions[i][j].previousComponent.Contains("none"))
+                    {
+                        upgradeOptions[i][j].isUnlocked = true;
+                        break;
+                    }
+                    else if (upgradeOptions[i][j].name.Contains(upgradeComponent) && !upgradeOptions[i][j].previousComponent.Contains("none"))
+                    {
+                        //Checking if previous component is unlocked
+                        //...
+
+                        //For now just checking if it's chosen
+                        if (upgradeOptions[i][j].previousComponent == engineType || upgradeOptions[i][j].previousComponent == wheelType || upgradeOptions[i][j].previousComponent == exhaustSystem)
+                        {
+                            upgradeOptions[i][j].isUnlocked = true;
+                            break;
+                        }
+                    }
+                    else { continue; }
+                }
+            }
+            else { continue; }
+        }
+    }
+
+    public override void ChooseUpgradeComponent(string upgradeCategory, string upgradeComponent)
+    {
+        for (int i = 0; i < upgradeOptions.Length; i++)
+        {
+            if (upgradeOptions[i][0].category.Contains(upgradeCategory))
+            {
+                for (int j = 0; j < upgradeOptions[i].Length; j++)
+                {
+                    if (upgradeOptions[i][j].name.Contains(upgradeComponent) && upgradeOptions[i][j].isUnlocked)
+                    {
+                        upgradeOptions[i][j].isChosen = true;
+                        upgradeOptions[i][j - 1].isChosen = false;
+                    }
+                    else
+                    {
+                        upgradeOptions[i][j].isChosen = false;
+                    }
+
+                    Debug.Log($"Choosing {upgradeOptions[i][j].name}: {upgradeOptions[i][j].isChosen}");
+                }
+            }
+            else { continue; }
+        }
     }
 }
 

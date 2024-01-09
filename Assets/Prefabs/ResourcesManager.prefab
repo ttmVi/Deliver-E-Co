@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   realAQI_Index: 0
+  timeAQIStays: 0
 --- !u!114 &8958369514615264261
 MonoBehaviour:
   m_ObjectHideFlags: 0

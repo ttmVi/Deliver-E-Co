@@ -13,20 +13,52 @@ public class VehicleFactory
         Updating
     }
 
+    private static Dictionary<VehicleType, Vehicle> vehicleCache = new Dictionary<VehicleType, Vehicle>();
+
     public static Vehicle GetVehicleProperties(VehicleType vehicleType)
     {
-        switch (vehicleType)
+        if (!vehicleCache.TryGetValue(vehicleType, out Vehicle vehicle))
         {
-            case VehicleType.Bicycle:
-                return new Bicycle(2f, 0f, -1f, "package", 3); //(speed, MPG, fuel, feature, capacity)
-            case VehicleType.Motorbike:
-                return new Motorbike(5f, 55f, 10f, "package", 10); //(speed, MPG, fuel, feature, capacity)
-            case VehicleType.Car:
-                return new Car(7f, 35f, 20f, "package", 20); //(speed, MPG, fuel, feature, capacity)
-            case VehicleType.Updating:
-                return new Updating(0f, 0f, 0f, "none", 0);
-            default:
-                return null;
+            switch (vehicleType)
+            {
+                case VehicleType.Bicycle:
+                    vehicle = new Bicycle(2f, 0f, -1f, "package", 3); // (Speed, MPG, fuel, feature, capacity)
+                    break;
+                case VehicleType.Motorbike:
+                    vehicle = new Motorbike(5f, 55f, 10f, "package", 5); // (Speed, MPG, fuel, feature, capacity)
+                    break;
+                case VehicleType.Car:
+                    vehicle = new Car(7f, 35f, 20f, "package", 15); // (Speed, MPG, fuel, feature, capacity)
+                    break;
+                case VehicleType.Updating:
+                    vehicle = new Updating(0f, 0f, 0f, "none", 0);
+                    break;
+                default:
+                    return null;
+            }
+            vehicleCache[vehicleType] = vehicle;
         }
+        else
+        {
+            switch (vehicleType)
+            {
+                case VehicleType.Bicycle: break;
+                case VehicleType.Motorbike:
+                    vehicle.UpgradeVehicle("Engine");
+                    vehicle.UpgradeVehicle("Wheels");
+                    vehicle.UpgradeVehicle("Exhaust");
+                    break;
+                case VehicleType.Car:
+                    vehicle.UpgradeVehicle("Engine");
+                    vehicle.UpgradeVehicle("Wheels");
+                    vehicle.UpgradeVehicle("Battery");
+                    vehicle.UpgradeVehicle("Exhaust");
+                    break;
+                case VehicleType.Updating: break;
+                default: break;
+            }
+        }
+        return vehicle;
     }
+
 }

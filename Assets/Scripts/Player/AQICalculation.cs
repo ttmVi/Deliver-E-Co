@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class AQICalculation : MonoBehaviour
 {
     private float currentMPG;
+
     private Image AQIBar;
-    public float realAQI_Index;
+    public static float realAQI_Index;
+    public float timeAQIStays;
 
     private PathFinding vel;
     private Rigidbody player;
@@ -41,8 +43,22 @@ public class AQICalculation : MonoBehaviour
     {
         if (vel.velDirection != Vector3.zero && currentMPG != 0)
         {
-            realAQI_Index += ( 1000f / currentMPG ) * Time.deltaTime;
+            realAQI_Index += (1000f / currentMPG) * Time.deltaTime;
+            timeAQIStays = 0f;
         }
+        else if (SceneManager.GetActiveScene().name != "Vehicle Customize") //reduce AQI if it doesn't increase for 20 seconds
+        {
+            timeAQIStays += Time.deltaTime;
+            if (timeAQIStays >= 20f && realAQI_Index > 0)
+            {
+                if (realAQI_Index > 0f)
+                {
+                    realAQI_Index -= 100f * Time.deltaTime;
+                }
+                else { realAQI_Index = 0f; }
+            }
+        }
+
         return realAQI_Index;
     }
 }

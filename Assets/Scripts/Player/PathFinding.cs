@@ -6,7 +6,7 @@ using UnityEngine;
 public class PathFinding : MonoBehaviour
 {
     private float inputTime = 0;
-    private bool inputting = false;
+    //private bool inputting = false;
 
     private float direction;
     public float lastVelocityDirection;
@@ -69,21 +69,21 @@ public class PathFinding : MonoBehaviour
         // Determine if the player is pressing the key or holding the key
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && !turning)
         {
-            inputting = true;
+            //inputting = true;
             inputTime += Time.deltaTime;
         }
         else if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && !turning)
         {
-            inputting = true;
+            //inputting = true;
             inputTime += Time.deltaTime;
         }
 
         // Turning or Changing lanes when the player release the key
         if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow))
         {
-                inputting = false;
+                //inputting = false;
 
-                if (inputTime > 0.5f && LaneDirection.Length >= 2) // Turning
+                if (inputTime > 0.5f) //&& LaneDirection.Length >= 2) // Turning
                 {
                     Debug.Log(inputTime.ToString());
 
@@ -116,9 +116,9 @@ public class PathFinding : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow))
         {
-                inputting = false;
+                //inputting = false;
 
-                if (inputTime > 0.5f && LaneDirection.Length >= 2) // Turning
+                if (inputTime > 0.5f)// && LaneDirection.Length >= 2) // Turning
                 {
                     Debug.Log(inputTime.ToString());
 
@@ -198,7 +198,7 @@ public class PathFinding : MonoBehaviour
     IEnumerator SmoothRotating(GameObject rotatingObject, float targetAngle, GameObject rotationCenter)
     {
         turning = true;
-        float rotationSpeed = 100f;
+        float rotationSpeed = 165f;
 
         //yield return new WaitForSeconds(0.5f);
 

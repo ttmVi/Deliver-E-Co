@@ -77,13 +77,11 @@ public class Mission
     public void CompleteMission()
     {
         isCompleted = true;
-        //reward player
     }
 
     public void FailMission()
     {
         isFailed = true;
-        //penalize player
     }
 
     public void GetPickingUp()

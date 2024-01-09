@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 492838080856503864}
   - component: {fileID: 3306120339179600528}
+  - component: {fileID: 3913666416555656897}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -45,4 +46,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapCanvas: {fileID: 0}
+  backToCustomizing: {fileID: 0}
   mapIsLoaded: 0
+--- !u!114 &3913666416555656897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7237369811780435016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180cc20e281b0a044a1cdab5b5169646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
