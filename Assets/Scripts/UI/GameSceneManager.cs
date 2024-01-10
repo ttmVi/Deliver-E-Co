@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,13 +24,17 @@ public class GameSceneManager : MonoBehaviour
         backToCustomizing = GameObject.Find("Back To Customizing");
         backToCustomizing.SetActive(false);
 
-        //if (SceneManager.GetActiveScene().name == "Main Moving Scene")
-        //{
-        //    loseText = GameObject.Find("Losing").GetComponent<TextMeshProUGUI>();
-        //    loseText.text = "";
-        //}
-        //else { loseText = null; }
-
+        if (SceneManager.GetActiveScene().name == "Main Moving Scene")
+        {
+            GameObject[] Obstacles = GameObject.FindGameObjectsWithTag("Sidewalk").Concat(GameObject.FindGameObjectsWithTag("Road Barriers")).ToArray();
+            Debug.Log($"Found {Obstacles.Length} obstacles.");
+            foreach (var obstacle in Obstacles)
+            {
+                obstacle.AddComponent<BoxCollider>();
+                //obstacle.GetComponent<BoxCollider>().isTrigger = true;
+                obstacle.AddComponent<PlayerColliding>();
+            }
+        }
         //missionManager.GetComponent<MissionManager>().enabled = false;
         //missionManager.GetComponent<MissionUIUpdate>().enabled = false;
     }
@@ -65,29 +70,30 @@ public class GameSceneManager : MonoBehaviour
         }
     }
 
-    public void StartDelivering()
+    public static void StartDelivering()
     {
         if (VehicleManager.playerVehicle != null)
         {
             SceneManager.LoadScene("Main Moving Scene");
-            GameObject missionManager = GameObject.Find("MissionsManager");
 
+            GameObject missionManager = GameObject.Find("MissionsManager");
             missionManager.GetComponent<MissionManager>().enabled = true;
             missionManager.GetComponent<MissionUIUpdate>().enabled = true;
             MissionUIUpdate.mapCanvas = GameObject.Find("Map Canvas");
         }
-
-
     }
 
-    public void StartCustomizing()
+    public static void StartCustomizing()
     {
-        GameObject missionManager = GameObject.Find("MissionsManager");
-        missionManager.GetComponent<MissionManager>().enabled = false;
-        missionManager.GetComponent<MissionUIUpdate>().enabled = false;
+        if (MissionManager.missionManager.successfulMissionCount >= MissionManager.missionManager.requiredSuccessfulMissions)
+        {
+            GameObject missionManager = GameObject.Find("MissionsManager");
+            missionManager.GetComponent<MissionManager>().enabled = false;
+            missionManager.GetComponent<MissionUIUpdate>().enabled = false;
 
-        SceneManager.LoadScene("Vehicle Customize");
-        VehicleManager.playerVehicle = null;
+            SceneManager.LoadScene("Vehicle Customize");
+            VehicleManager.playerVehicle = null;
+        }
     }
 
     public static IEnumerator LoseLevel(string loseReason)
@@ -99,6 +105,7 @@ public class GameSceneManager : MonoBehaviour
 
         loseText.text = "";
         loseText = null;
+        MoneyManager.money -= 100;
         SceneManager.LoadScene("Vehicle Customize");
     }
 }

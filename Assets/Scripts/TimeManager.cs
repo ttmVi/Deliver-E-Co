@@ -23,9 +23,12 @@ public class TimeManager : MonoBehaviour
         {
             if (levelTimeLimit <= 0)
             {
-                Debug.Log("Time's up!");
-                StartCoroutine(GameSceneManager.LoseLevel("you ran out of time!"));
-                MoneyManager.money -= 100;
+                if (MissionManager.missionManager.successfulMissionCount < MissionManager.missionManager.requiredSuccessfulMissions)
+                {
+                    Debug.Log("Time's up!");
+                    StartCoroutine(GameSceneManager.LoseLevel("you ran out of time!"));
+                }
+                else { GameSceneManager.StartCustomizing(); }
             }
         }
     }

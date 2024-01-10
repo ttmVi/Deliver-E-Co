@@ -12,6 +12,7 @@ TagManager:
   - '- Vertical Lanes'
   - Sidewalk
   - PickUp & DropOff
+  - Road Barriers
   layers:
   - Default
   - TransparentFX

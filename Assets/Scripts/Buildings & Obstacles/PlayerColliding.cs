@@ -1,28 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerColliding : MonoBehaviour
 {
-    private GameObject playerCollider;
-    // Start is called before the first frame update
-    void Start()
+    private void OnCollisionEnter(Collision collision)
     {
-        playerCollider = GameObject.Find("Player");
-    }
+        Debug.Log("Collided");
 
-    private void Update()
-    {
-        //OnTriggerEnter(playerCollider.GetComponent<Collider>());
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == playerCollider)
+        if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Gotohell");
-            Destroy(other.gameObject);
-            Application.Quit();
+            StartCoroutine(GameSceneManager.LoseLevel($"you crashed into the {tag}"));
         }
     }
 }

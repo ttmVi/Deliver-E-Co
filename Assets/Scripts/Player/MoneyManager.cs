@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
 {
-    public static int money = 400;
+    public static int money = 0;
     private int lastMoneyCount = 0;
 
     private TextMeshProUGUI moneyText;

@@ -294,6 +294,7 @@ public class MissionUIUpdate : MonoBehaviour
         if (pointerData != null && !mission.isAccepted)
         {
             MissionManager.missionManager.AcceptNewMission(mission);
+            //ShowMissionInfo(eventData, mission);
             //Destroy(statusButton.GetComponent<EventTrigger>());
         }
     }

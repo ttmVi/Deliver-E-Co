@@ -10,6 +10,8 @@ public class MissionManager : MonoBehaviour
 
     public List<Mission> missions = new List<Mission>();
     public int currentMissionID;
+    public int successfulMissionCount;
+    public int requiredSuccessfulMissions;
 
     public static List<Mission> availableMissions = new List<Mission>();
     public static List<Mission> acceptedMissions = new List<Mission>();
@@ -29,9 +31,29 @@ public class MissionManager : MonoBehaviour
         pickUpLocations = GameObject.FindGameObjectsWithTag("PickUp & DropOff").ToList();
         dropOffLocations = GameObject.FindGameObjectsWithTag("PickUp & DropOff").ToList();
 
-
         currentMissionID = 0;
+        successfulMissionCount = 0;
+        availableMissions.Clear();
+        acceptedMissions.Clear();
+        completedMissions.Clear();
         //public Mission(string description, GameObject pickUpLocation, GameObject dropOffLocation, float timeLimit, int reward, int penalty)
+
+        if (VehicleManager.playerVehicle.vehicleCapacity <= 2)
+        {
+            requiredSuccessfulMissions = 1;
+        }
+        else if (VehicleManager.playerVehicle.vehicleCapacity <= 4)
+        {
+            requiredSuccessfulMissions = 5;
+        }
+        else if (VehicleManager.playerVehicle.vehicleCapacity <= 10)
+        {
+            requiredSuccessfulMissions = 15;
+        }
+        else
+        {
+            requiredSuccessfulMissions = 4;
+        }
 
         //Chapter 1 missions
         AddNewMission("Pick up the package from the warehouse and drop it off at the customer", pickUpLocations[2], dropOffLocations[0], 100f, 100, 50);
@@ -143,6 +165,7 @@ public class MissionManager : MonoBehaviour
             if (acceptedMissions[i].isCompleted)
             {
                 MoneyManager.money += acceptedMissions[i].reward;
+                successfulMissionCount++;
 
                 //Destroy(acceptedMissions[i].pickUpLocation.GetComponent<PickUpnDropOffCheck>());
                 //Destroy(acceptedMissions[i].dropOffLocation.GetComponent<PickUpnDropOffCheck>());

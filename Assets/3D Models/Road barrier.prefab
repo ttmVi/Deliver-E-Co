@@ -1,0 +1,235 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6220294956985035371
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -9215566405012100485, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -8966187501107405427, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -8705894617232107617, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -8697854814548805210, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8623338151855991695, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -8169898235772726340, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -7393173805708680310, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -7195908159276872593, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -6731188236179096579, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -6588475976372666323, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -6402216017306402466, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -4471455630026525990, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -4468124244380030593, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -3275817139223602420, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -2945614833361968330, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -2437243154902818710, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -1913489087011985639, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -1908166044517420437, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -166756326817134085, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 341619978875376438, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_Name
+      value: Road barrier
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 2006271336302479219, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174036941304978893, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212902157976061368, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237926971200667998, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 3817963747456318452, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 4637466033382311317, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472581396878834993, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 5917849253485566906, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449438769850043244, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 7243525666188634826, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 8418361234419348912, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760344184099951221, guid: 432b63e96d7aa3d47baf26ec7cbd096c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 432b63e96d7aa3d47baf26ec7cbd096c, type: 3}
