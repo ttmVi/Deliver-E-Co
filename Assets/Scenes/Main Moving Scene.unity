@@ -4153,7 +4153,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2dae6386af3d255499be93989eee6ad2,
         type: 3}
       propertyPath: m_Name
-      value: Houses 3
+      value: Houses
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2dae6386af3d255499be93989eee6ad2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
