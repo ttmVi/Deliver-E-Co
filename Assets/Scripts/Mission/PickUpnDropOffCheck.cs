@@ -35,14 +35,12 @@ public class PickUpnDropOffCheck : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("F pressed");
             if (mission.isAccepted && !mission.isPickedUp && !mission.isDroppedOff)
             {
                 PlayPickUpSound();
 
                 status.text = "Package is picked up";
                 mission.isPickedUp = CheckPickUpAndDropOff(mission, mission.pickUpLocation.GetComponent<BoxCollider>());
-                Debug.Log("Picked up: " + mission.isPickedUp);
             }
             else if (mission.isAccepted && mission.isPickedUp && !mission.isDroppedOff)
             {
@@ -51,7 +49,6 @@ public class PickUpnDropOffCheck : MonoBehaviour
                 status.text = "Package is dropped off";
                 mission.isDroppedOff = CheckPickUpAndDropOff(mission, mission.dropOffLocation.GetComponent<BoxCollider>());
                 mission.isCompleted = mission.isDroppedOff;
-                Debug.Log("Dropped off: " + mission.isDroppedOff);
             }
         }
     }
@@ -80,11 +77,9 @@ public class PickUpnDropOffCheck : MonoBehaviour
         bool isPickedUpOrDroppedOff = false;
         Vector3 triggerArea = new Vector3(location.size.x * location.transform.localScale.x + 2f * 2, location.size.y * location.transform.localScale.y + 2f * 2, location.size.z * location.transform.localScale.z + 2f * 2);
         Collider[] shipper = Physics.OverlapBox(location.transform.position, triggerArea / 2, Quaternion.identity, LayerMask.GetMask("Player"));
-        Debug.Log("Trigger area: " + triggerArea);
 
         if (shipper.Length > 0)
         {
-            Debug.Log("Player detected");
             for (int i = 0; i < shipper.Length; i++)
             {
                 if (shipper[i].gameObject.name == "Player")
@@ -96,10 +91,8 @@ public class PickUpnDropOffCheck : MonoBehaviour
         else
         {
             isPickedUpOrDroppedOff = false;
-            Debug.Log("Player not detected");
         }
 
-        Debug.Log("Finish checking for player");
         return isPickedUpOrDroppedOff;
     }
 

@@ -8,16 +8,18 @@ public class PathFinding : MonoBehaviour
     private float inputTime = 0;
     //private bool inputting = false;
 
+    private Vector3 initialDirection;
+    public Vector3 velDirection;
     private float direction;
     public float lastVelocityDirection;
     private float targetRotatingAngle = 0f;
-
-    public bool changingLane = false;
-    public bool turning = false;
-    private Vector3 initialDirection;
-    public Vector3 velDirection;
-    public GameObject player;
     public float speed;
+    public static float energy;
+
+    private bool changingLane = false;
+    private bool turning = false;
+
+    public GameObject player;
     public GameSceneManager sceneManager;
     public LaneState laneState;
     public Vector3[] LaneDirection;
@@ -50,7 +52,7 @@ public class PathFinding : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        energy = VehicleManager.playerVehicle.vehicleFuel;
         speed = VehicleManager.playerVehicle.vehicleSpeed;
 
         player = GameObject.Find("Player");
@@ -63,7 +65,12 @@ public class PathFinding : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {        
+    {
+        if (velDirection != Vector3.zero)
+        {
+            energy -= Time.deltaTime * 0.05f;
+        }
+
         LaneDirection = laneState.laneDirection;
 
         // Determine if the player is pressing the key or holding the key
@@ -166,7 +173,7 @@ public class PathFinding : MonoBehaviour
         }
 
         // Stop and Go
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (velDirection != Vector3.zero)
             {
@@ -176,7 +183,7 @@ public class PathFinding : MonoBehaviour
                 StopVehicleSound();
             }
         }
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (velDirection == Vector3.zero)
             {
@@ -276,19 +283,9 @@ public class PathFinding : MonoBehaviour
         }
     }
 
-    IEnumerator LoadingUI()
+    public static void RefillEnergy()
     {
-        while (sceneManager.mapIsLoaded)
-        {
-            if (velDirection != Vector3.zero)
-            {
-                lastVelocityDirection = direction;
-                direction += 0.5f;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Return)) { direction = lastVelocityDirection; }
-        }
-        yield return null;
+        energy = VehicleManager.playerVehicle.vehicleFuel;
     }
 
     public void PlayVehicleSound()

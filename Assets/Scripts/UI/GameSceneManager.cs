@@ -34,6 +34,13 @@ public class GameSceneManager : MonoBehaviour
                 //obstacle.GetComponent<BoxCollider>().isTrigger = true;
                 obstacle.AddComponent<PlayerColliding>();
             }
+
+            GameObject[] GasStations = GameObject.FindGameObjectsWithTag("TramXang");
+            Debug.Log($"Found {GasStations.Length} gas stations.");
+            foreach (var gasStation in GasStations)
+            {
+                gasStation.transform.GetChild(0).gameObject.AddComponent<GasStation>();
+            }
         }
         //missionManager.GetComponent<MissionManager>().enabled = false;
         //missionManager.GetComponent<MissionUIUpdate>().enabled = false;

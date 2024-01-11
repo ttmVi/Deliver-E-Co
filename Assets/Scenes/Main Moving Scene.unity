@@ -2540,7 +2540,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d63438dd0286c334aa9e8f84cacd2ba2,
         type: 3}
       propertyPath: m_TagString
-      value: Sidewalk
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1051725167157705435, guid: d63438dd0286c334aa9e8f84cacd2ba2,
         type: 3}
@@ -2947,7 +2947,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &207713066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3030,6 +3030,7 @@ RectTransform:
   - {fileID: 241883419}
   - {fileID: 1430112671}
   - {fileID: 1398105442}
+  - {fileID: 1263713064}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7545,12 +7546,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2895c384a3211448a250b7fbc5886eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastVelocityDirection: 0
-  changingLane: 0
-  turning: 0
   velDirection: {x: 0, y: 0, z: 0}
-  player: {fileID: 739372400}
+  lastVelocityDirection: 0
   speed: 2
+  player: {fileID: 739372400}
   sceneManager: {fileID: 0}
   laneState: {fileID: 0}
   LaneDirection: []
@@ -7740,7 +7739,7 @@ Transform:
   m_GameObject: {fileID: 609868982}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11, y: 0, z: 5.8}
+  m_LocalPosition: {x: 11, y: 0, z: 6.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8159,7 +8158,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 8}
+  m_Size: {x: 1, y: 1, z: 12}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!64 &646125751
 MeshCollider:
@@ -12491,6 +12490,94 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &881830956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 881830957}
+  - component: {fileID: 881830959}
+  - component: {fileID: 881830958}
+  - component: {fileID: 881830960}
+  m_Layer: 5
+  m_Name: Energy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &881830957
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881830956}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: -1, y: 1.12, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1263713064}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &881830958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881830956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.92339617, b: 0.2867924, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 1
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &881830959
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881830956}
+  m_CullTransparentMesh: 1
+--- !u!114 &881830960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881830956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7fe70b4b73b8294198b23cfc48be44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &893864137
 GameObject:
   m_ObjectHideFlags: 0
@@ -16204,7 +16291,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 8, y: 1, z: 1}
+  m_Size: {x: 12, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1237682347
 GameObject:
@@ -16312,6 +16399,82 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 8}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1263713063
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1263713064}
+  - component: {fileID: 1263713066}
+  - component: {fileID: 1263713065}
+  m_Layer: 5
+  m_Name: Energy Bar Frame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1263713064
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263713063}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.51, y: 3.4729998, z: 1.15}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 881830957}
+  m_Father: {fileID: 207713069}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 720.15, y: -237}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1263713065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263713063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1263713066
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263713063}
+  m_CullTransparentMesh: 1
 --- !u!1 &1271832905
 GameObject:
   m_ObjectHideFlags: 0
@@ -27207,6 +27370,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9215566405012100485, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -8966187501107405427, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -8705894617232107617, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -8697854814548805210, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27257,10 +27440,155 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8623338151855991695, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -8169898235772726340, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -7393173805708680310, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -7195908159276872593, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -6731188236179096579, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -6588475976372666323, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -6402216017306402466, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -4471455630026525990, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -4468124244380030593, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -3275817139223602420, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -2945614833361968330, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -2437243154902818710, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -1913489087011985639, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -1908166044517420437, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: -166756326817134085, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 341619978875376438, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
         type: 3}
       propertyPath: m_Name
       value: Road barrier 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 2006271336302479219, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174036941304978893, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 2212902157976061368, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237926971200667998, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 3817963747456318452, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 4637466033382311317, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 5472581396878834993, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 5917849253485566906, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449438769850043244, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 7243525666188634826, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 8418361234419348912, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
+      objectReference: {fileID: 0}
+    - target: {fileID: 8760344184099951221, guid: ebe2c52d78b3e8c4abe16203c31bfaa4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road Barriers
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
