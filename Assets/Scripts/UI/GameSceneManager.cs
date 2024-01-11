@@ -107,5 +107,6 @@ public class GameSceneManager : MonoBehaviour
         loseText = null;
         MoneyManager.money -= 100;
         SceneManager.LoadScene("Vehicle Customize");
+        VehicleManager.playerVehicle = null;
     }
 }
