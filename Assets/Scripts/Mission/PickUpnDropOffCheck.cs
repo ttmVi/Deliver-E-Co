@@ -37,18 +37,36 @@ public class PickUpnDropOffCheck : MonoBehaviour
         {
             if (mission.isAccepted && !mission.isPickedUp && !mission.isDroppedOff)
             {
-                PlayPickUpSound();
+                if (CheckPickUpAndDropOff(mission.pickUpLocation.GetComponent<BoxCollider>()))
+                {
+                    if (PathFinding.currentCapacity >= VehicleManager.playerVehicle.vehicleCapacity)
+                    {
+                        status.text = "You can't pick up more packages";
+                        StartCoroutine(WaitForStatus());
+                    }
+                    else
+                    {
+                        PlayPickUpSound();
 
-                status.text = "Package is picked up";
-                mission.isPickedUp = CheckPickUpAndDropOff(mission, mission.pickUpLocation.GetComponent<BoxCollider>());
+                        status.text = "Package is picked up";
+                        mission.isPickedUp = true;
+                        PathFinding.currentCapacity++;
+                        StartCoroutine(WaitForStatus());
+                    }
+                }
             }
             else if (mission.isAccepted && mission.isPickedUp && !mission.isDroppedOff)
             {
-                PlayDropOffSound();
+                if (CheckPickUpAndDropOff(mission.dropOffLocation.GetComponent<BoxCollider>()))
+                {
+                    PlayDropOffSound();
 
-                status.text = "Package is dropped off";
-                mission.isDroppedOff = CheckPickUpAndDropOff(mission, mission.dropOffLocation.GetComponent<BoxCollider>());
-                mission.isCompleted = mission.isDroppedOff;
+                    status.text = "Package is dropped off";
+                    mission.isDroppedOff = true;
+                    mission.isCompleted = mission.isDroppedOff;
+                    PathFinding.currentCapacity--;
+                    StartCoroutine(WaitForStatus());
+                }
             }
         }
     }
@@ -72,7 +90,7 @@ public class PickUpnDropOffCheck : MonoBehaviour
         }
     }
 
-    public bool CheckPickUpAndDropOff(Mission mission, BoxCollider location)
+    public bool CheckPickUpAndDropOff(BoxCollider location)
     {
         bool isPickedUpOrDroppedOff = false;
         Vector3 triggerArea = new Vector3(location.size.x * location.transform.localScale.x + 2f * 2, location.size.y * location.transform.localScale.y + 2f * 2, location.size.z * location.transform.localScale.z + 2f * 2);
@@ -126,5 +144,11 @@ public class PickUpnDropOffCheck : MonoBehaviour
     {
         audioSource.clip = soundEffects[3];
         audioSource.Play();
+    }
+
+    public IEnumerator WaitForStatus()
+    {
+        yield return new WaitForSeconds(2f);
+        status.text = "";
     }
 }

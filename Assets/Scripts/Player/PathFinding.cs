@@ -15,6 +15,7 @@ public class PathFinding : MonoBehaviour
     private float targetRotatingAngle = 0f;
     public float speed;
     public static float energy;
+    public static int currentCapacity;
 
     private bool changingLane = false;
     private bool turning = false;
@@ -54,6 +55,7 @@ public class PathFinding : MonoBehaviour
     {
         energy = VehicleManager.playerVehicle.vehicleFuel;
         speed = VehicleManager.playerVehicle.vehicleSpeed;
+        currentCapacity = 0;
 
         player = GameObject.Find("Player");
         laneState = GameObject.Find("LaneIndicator").GetComponent<LaneState>();

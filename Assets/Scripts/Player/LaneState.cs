@@ -19,16 +19,31 @@ public class LaneState : MonoBehaviour
         laneWidth = 2f;
 
         GameObject TrafficLanes = GameObject.Find("TrafficLanes");
-        for (int i = 0; i < TrafficLanes.transform.childCount; i++)
+        for (int i = 0; i < TrafficLanes.transform.GetChild(0).childCount; i++)
         {
-            TrafficLanes.transform.GetChild(i).gameObject.AddComponent<BoxCollider>();
-            TrafficLanes.transform.GetChild(i).gameObject.GetComponent<BoxCollider>().isTrigger = true;
+            TrafficLanes.transform.GetChild(0).GetChild(i).gameObject.AddComponent<BoxCollider>();
+            TrafficLanes.transform.GetChild(0).GetChild(i).gameObject.GetComponent<BoxCollider>().isTrigger = true;
+        }
+        for (int i = 0; i < TrafficLanes.transform.GetChild(1).childCount; i++)
+        {
+            TrafficLanes.transform.GetChild(1).GetChild(i).gameObject.AddComponent<BoxCollider>();
+            TrafficLanes.transform.GetChild(1).GetChild(i).gameObject.GetComponent<BoxCollider>().isTrigger = true;
+        }
+        for (int i = 0; i < TrafficLanes.transform.GetChild(2).childCount; i++)
+        {
+            TrafficLanes.transform.GetChild(2).GetChild(i).gameObject.AddComponent<BoxCollider>();
+            TrafficLanes.transform.GetChild(2).GetChild(i).gameObject.GetComponent<BoxCollider>().isTrigger = true;
+        }
+        for (int i = 0; i < TrafficLanes.transform.GetChild(3).childCount; i++)
+        {
+            TrafficLanes.transform.GetChild(3).GetChild(i).gameObject.AddComponent<BoxCollider>();
+            TrafficLanes.transform.GetChild(3).GetChild(i).gameObject.GetComponent<BoxCollider>().isTrigger = true;
         }
 
         indicatorBounds = GetComponent<BoxCollider>();
 
-        indicatorBounds.size = new Vector3(laneWidth - 0.1f, 1f, laneWidth - 0.1f);
-        indicatorBounds.center = new Vector3(0, -0.25f, 0);        
+        indicatorBounds.size = new Vector3(laneWidth - 1.25f, 1f, laneWidth - 1.25f);
+        indicatorBounds.center = new Vector3(0, -0.75f, 0);        
     }
 
     // Update is called once per frame

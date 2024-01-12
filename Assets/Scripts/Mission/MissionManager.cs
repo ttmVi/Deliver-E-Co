@@ -19,7 +19,6 @@ public class MissionManager : MonoBehaviour
 
     public List<GameObject> pickUpLocations = new List<GameObject>();
     public List<GameObject> dropOffLocations = new List<GameObject>();
-    public PickUpnDropOffCheck PickUpnDropOffCheck;
 
     public float randomRegenerationTime;
 
@@ -56,8 +55,8 @@ public class MissionManager : MonoBehaviour
         }
 
         //Chapter 1 missions
-        AddNewMission("Pick up the package from the warehouse and drop it off at the customer", pickUpLocations[2], dropOffLocations[0], 100f, 100, 50);
-        AddNewMission("Pick up the parcel from the warehouse and deliver it to the ... house", pickUpLocations[3], dropOffLocations[1], 100f, 100, 50);
+        AddNewMission($"Pick up the package from {pickUpLocations[0]} and drop it off at {dropOffLocations[1]}", pickUpLocations[0], dropOffLocations[1], 100f, 100, 50);
+        AddNewMission($"Pick up the parcel from {pickUpLocations[0]} and deliver it to {dropOffLocations[1]}", pickUpLocations[1], dropOffLocations[2], 100f, 100, 50);
     }
 
     // Update is called once per frame
