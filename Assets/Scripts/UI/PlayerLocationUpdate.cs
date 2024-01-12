@@ -44,22 +44,18 @@ public class PlayerLocationUpdate : MonoBehaviour
 
         // Convert normalized position to 2D map coordinates
         Vector2 mapPosition;
-        mapPosition.x = normalizedPos.x * map2D.sizeDelta.x - (map2D.sizeDelta.x * 0.5f);
-        mapPosition.y = normalizedPos.y * map2D.sizeDelta.y - (map2D.sizeDelta.y * 0.5f);
+        mapPosition.x = normalizedPos.x * map2D.sizeDelta.x - (map2D.sizeDelta.x * 0.5f) + map2D.anchoredPosition.x;
+        mapPosition.y = normalizedPos.y * map2D.sizeDelta.y - (map2D.sizeDelta.y * 0.5f) + map2D.anchoredPosition.y;
 
         // Update player icon's position on the 2D map
         RectTransform playerIconRectTransform = GetComponent<RectTransform>();
         if (playerIconRectTransform)
         {
             playerIconRectTransform.anchoredPosition = mapPosition;
-            //Debug.Log("Updated player icon position: " + mapPosition);
         }
         else
         {
             Debug.LogError("Missing RectTransform on the player icon.");
         }
-
-        // Debugging player movement
-        //Debug.Log("Player world position: " + player.transform.position);
     }
 }
