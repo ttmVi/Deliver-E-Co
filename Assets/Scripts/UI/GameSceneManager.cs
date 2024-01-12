@@ -13,7 +13,7 @@ public class GameSceneManager : MonoBehaviour
 
     public TextMeshProUGUI loseText;
 
-    public bool mapIsLoaded;
+    public bool mapIsLoaded = false;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +49,7 @@ public class GameSceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mapIsLoaded = mapCanvas.activeSelf;
+        //mapIsLoaded = mapCanvas.activeInHierarchy;
 
         if (Input.GetKeyDown(KeyCode.Return) && SceneManager.GetActiveScene().name == "Main Moving Scene")
         {

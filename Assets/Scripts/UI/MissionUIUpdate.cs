@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class MissionUIUpdate : MonoBehaviour
 {
@@ -204,6 +204,9 @@ public class MissionUIUpdate : MonoBehaviour
             missionInfoPanel.SetActive(true);
             missionInfo.name = $"Mission Info_{mission.missionID}";
 
+            GameObject tempPickUpIcon = GameObject.Find($"PickUpLocation_{mission.missionID}");
+            tempPickUpIcon.GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1.2f, 1.2f);
+
             if (!mission.isAccepted)
             {
                 missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
@@ -217,6 +220,8 @@ public class MissionUIUpdate : MonoBehaviour
                 {
                     SpawnLocationIcon(mission.dropOffLocation, dropOffLocationIcon, mission);
                     instantiatedDropOffIconsID.Add(mission.missionID);
+                    GameObject tempDropOffIcon = GameObject.Find($"DropOffLocation_{mission.missionID}");
+                    tempDropOffIcon.GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1.2f, 1.2f);
                 }
 
                 for (int i = 0; i < MissionManager.availableMissions.Count; i++)
@@ -267,10 +272,12 @@ public class MissionUIUpdate : MonoBehaviour
 
         if (pointerData != null)
         {
+            GameObject tempPickUpIcon = GameObject.Find($"PickUpLocation_{mission.missionID}");
+            tempPickUpIcon.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+
             if (!mission.isAccepted)
             {
                 Destroy(GameObject.Find($"DropOffLocation_{mission.missionID}"));
-                //Debug.Log("Destroyed drop off icon");
 
                 for (int i = 0; i < instantiatedDropOffIconsID.Count; i++)
                 {
@@ -281,7 +288,11 @@ public class MissionUIUpdate : MonoBehaviour
                     else { Debug.Log("No drop off icon ID to remove"); }
                 }
             }
-            //Destroy(statusButton.GetComponent<EventTrigger>());
+            else
+            {
+                GameObject tempDropOffIcon = GameObject.Find($"DropOffLocation_{mission.missionID}");
+                tempDropOffIcon.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+            }
 
             missionInfoPanel.SetActive(false);
         }
