@@ -206,6 +206,7 @@ public class MissionUIUpdate : MonoBehaviour
 
             GameObject tempPickUpIcon = GameObject.Find($"PickUpLocation_{mission.missionID}");
             tempPickUpIcon.GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            tempPickUpIcon.GetComponent<Image>().color = Color.blue;
 
             if (!mission.isAccepted)
             {
@@ -220,8 +221,6 @@ public class MissionUIUpdate : MonoBehaviour
                 {
                     SpawnLocationIcon(mission.dropOffLocation, dropOffLocationIcon, mission);
                     instantiatedDropOffIconsID.Add(mission.missionID);
-                    GameObject tempDropOffIcon = GameObject.Find($"DropOffLocation_{mission.missionID}");
-                    tempDropOffIcon.GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1.2f, 1.2f);
                 }
 
                 for (int i = 0; i < MissionManager.availableMissions.Count; i++)
@@ -259,6 +258,10 @@ public class MissionUIUpdate : MonoBehaviour
             {
                 //sth here i dunno yet
             }
+
+            GameObject tempDropOffIcon = GameObject.Find($"DropOffLocation_{mission.missionID}");
+            tempDropOffIcon.GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            tempDropOffIcon.GetComponent<Image>().color = Color.blue;
         }
         else
         {
@@ -274,6 +277,7 @@ public class MissionUIUpdate : MonoBehaviour
         {
             GameObject tempPickUpIcon = GameObject.Find($"PickUpLocation_{mission.missionID}");
             tempPickUpIcon.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+            tempPickUpIcon.GetComponent<Image>().color = Color.white;
 
             if (!mission.isAccepted)
             {
@@ -292,6 +296,7 @@ public class MissionUIUpdate : MonoBehaviour
             {
                 GameObject tempDropOffIcon = GameObject.Find($"DropOffLocation_{mission.missionID}");
                 tempDropOffIcon.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
+                tempDropOffIcon.GetComponent<Image>().color = Color.white;
             }
 
             missionInfoPanel.SetActive(false);
