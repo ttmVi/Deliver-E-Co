@@ -39,7 +39,7 @@ public class GameSceneManager : MonoBehaviour
             Debug.Log($"Found {GasStations.Length} gas stations.");
             foreach (var gasStation in GasStations)
             {
-                gasStation.transform.GetChild(0).gameObject.AddComponent<GasStation>();
+                gasStation.AddComponent<GasStation>();
             }
         }
         //missionManager.GetComponent<MissionManager>().enabled = false;

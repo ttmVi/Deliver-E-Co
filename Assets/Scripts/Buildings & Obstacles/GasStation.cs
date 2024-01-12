@@ -49,5 +49,4 @@ public class GasStation : MonoBehaviour
         Debug.Log("Finish checking for player");
         return isRefilling;
     }
-
 }
