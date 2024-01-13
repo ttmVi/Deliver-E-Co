@@ -10,8 +10,6 @@ using static VehicleFactory;
 
 public class VehicleManager : MonoBehaviour
 {
-    public GameSceneManager gameSceneManager;
-
     public static VehicleManager vehicleManager;
     public static Vehicle playerVehicle;
 
@@ -31,6 +29,7 @@ public class VehicleManager : MonoBehaviour
     private GameObject upgradeButton;
     private TextMeshProUGUI upgradeButtonText;
     private TextMeshProUGUI displayedVehicleProperties;
+    private GameObject confirmWindow;
 
     private void Awake()
     {
@@ -48,6 +47,8 @@ public class VehicleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        confirmWindow = GameObject.Find("Confirm Window");
+        confirmWindow.SetActive(false);
         upgradeButton.SetActive(false);
 
         DisplayVehicleProperties();
@@ -236,6 +237,7 @@ public class VehicleManager : MonoBehaviour
         }
         else
         {
+            ConfirmWindow($"Are you sure you want to upgrade {vehicles[currentVehicleIndex].ToString().ToLower()}?");
             UpgradeVehicleComponent(GetVehicleProperties(vehicles[currentVehicleIndex]));
         }
     }
@@ -285,7 +287,14 @@ public class VehicleManager : MonoBehaviour
         }
         else
         {
-            UnlockVehicle();
+            if (MoneyManager.money >= vehiclePrices[currentVehicleIndex])
+            {
+                ConfirmWindow($"Are you sure you want to buy {vehicles[currentVehicleIndex].ToString().ToLower()} for {vehiclePrices[currentVehicleIndex]}?");
+            }
+            else
+            {
+
+            }
         }
     }
 
@@ -297,5 +306,35 @@ public class VehicleManager : MonoBehaviour
             vehicleIsUnlocked[currentVehicleIndex] = true;
             DisplayVehicleProperties();
         }
+        else
+        {
+            Debug.Log("You don't have enough money");
+        }
+    }
+
+    public void ConfirmWindow(string message)
+    {
+        confirmWindow.SetActive(true);
+        TextMeshProUGUI confirmMessage = GameObject.Find("Are you sure?").GetComponent<TextMeshProUGUI>();
+        confirmMessage.text = message;
+    }
+
+    public void Confirm()
+    {
+        if (!isInUpgradingUI)
+        {
+            UnlockVehicle();
+        }
+        else
+        {
+            UpgradeVehicleComponent(GetVehicleProperties(vehicles[currentVehicleIndex]));
+        }
+
+        confirmWindow.SetActive(false);
+    }
+
+    public void Cancel()
+    {
+        confirmWindow.SetActive(false);
     }
 }
