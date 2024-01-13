@@ -340,17 +340,7 @@ public class MissionUIUpdate : MonoBehaviour
                 $"Penalty: {mission.penalty}. \n" +
                 $"Time to accept: {mission.timeToAccept}.";
 
-            missionStatus.text = "Not Accepted" +
-                "" +
-                "" +
-                "" +
-                "" +
-                "" +
-                "" +
-                "" +
-                "" +
-                "" +
-                "";
+            missionStatus.text = "Not Accepted";
         }
         else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && !mission.isPickedUp)
         {

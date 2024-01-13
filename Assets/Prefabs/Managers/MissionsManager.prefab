@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missions: []
   currentMissionID: 0
+  successfulMissionCount: 0
+  requiredSuccessfulMissions: 0
   pickUpLocations:
   - {fileID: 0}
   - {fileID: 0}
@@ -57,13 +59,10 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  PickUpnDropOffCheck: {fileID: 0}
-  missionDescription: {fileID: 0}
-  missionTimeLimit: {fileID: 0}
-  missionTimeRemaining: {fileID: 0}
-  missionTimeToAccept: {fileID: 0}
-  missionReward: {fileID: 0}
-  missionStatus: {fileID: 0}
+  pickUpLight: {fileID: 6299151017915187316, guid: 68a56942d1330e246acab3328b04db97,
+    type: 3}
+  dropOffLight: {fileID: 4876459609155777914, guid: bfaa149450e199548b2149ba2f709297,
+    type: 3}
   randomRegenerationTime: 0
 --- !u!114 &1519513308664886214
 MonoBehaviour:
@@ -77,7 +76,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28fb90386d418114692018e0f784e7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpLocationIcon: {fileID: 0}
-  dropOffLocationIcon: {fileID: 0}
-  mapCanvas: {fileID: 0}
+  pickUpLocationIcon: {fileID: 5152888551684515826, guid: d4fa8969bc3491a4a9de71da59769fa5,
+    type: 3}
+  dropOffLocationIcon: {fileID: 6419716189613458255, guid: 09d0fdf9a782e294d8574fef3612363f,
+    type: 3}
   canvas: {fileID: 0}

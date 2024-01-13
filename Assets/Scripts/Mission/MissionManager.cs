@@ -19,6 +19,8 @@ public class MissionManager : MonoBehaviour
 
     public List<GameObject> pickUpLocations = new List<GameObject>();
     public List<GameObject> dropOffLocations = new List<GameObject>();
+    public GameObject pickUpLight;
+    public GameObject dropOffLight;
 
     public float randomRegenerationTime;
 
@@ -136,10 +138,18 @@ public class MissionManager : MonoBehaviour
         {
             if (mission == availableMissions[i])
             {
-                //mission.pickUpLocation.AddComponent<PickUpnDropOffCheck>();
+                Vector3 pickUpLightPosition = new Vector3(mission.pickUpLocation.transform.position.x, mission.pickUpLocation.transform.position.y + 10f, mission.pickUpLocation.transform.position.z);
+                GameObject tempPickUpLight = Instantiate(pickUpLight, pickUpLightPosition, Quaternion.identity);
+                tempPickUpLight.name = $"PickUpLight_{mission.missionID}";
+                tempPickUpLight.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+                Vector3 dropOffLightPosition = new Vector3(mission.dropOffLocation.transform.position.x, mission.dropOffLocation.transform.position.y + 10f, mission.dropOffLocation.transform.position.z);
+                GameObject tempDropOffLight = Instantiate(dropOffLight, dropOffLightPosition, Quaternion.identity);
+                tempDropOffLight.name = $"DropOffLight_{mission.missionID}";
+                tempDropOffLight.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 
                 acceptedMissions.Add(mission);
                 availableMissions.RemoveAt(i);
+                break;
             }
         }
     }
@@ -166,8 +176,8 @@ public class MissionManager : MonoBehaviour
                 MoneyManager.money += acceptedMissions[i].reward;
                 successfulMissionCount++;
 
-                //Destroy(acceptedMissions[i].pickUpLocation.GetComponent<PickUpnDropOffCheck>());
-                //Destroy(acceptedMissions[i].dropOffLocation.GetComponent<PickUpnDropOffCheck>());
+                Destroy(GameObject.Find($"PickUpLight_{acceptedMissions[i].missionID}"));
+                Destroy(GameObject.Find($"DropOffLight_{acceptedMissions[i].missionID}"));
 
                 completedMissions.Add(acceptedMissions[i]);
                 acceptedMissions.RemoveAt(i);
@@ -176,8 +186,8 @@ public class MissionManager : MonoBehaviour
             {
                 MoneyManager.money -= acceptedMissions[i].penalty;
 
-                //Destroy(acceptedMissions[i].pickUpLocation.GetComponent<PickUpnDropOffCheck>());
-                //Destroy(acceptedMissions[i].dropOffLocation.GetComponent<PickUpnDropOffCheck>());
+                Destroy(GameObject.Find($"PickUpLight_{acceptedMissions[i].missionID}"));
+                Destroy(GameObject.Find($"DropOffLight_{acceptedMissions[i].missionID}"));
 
                 completedMissions.Add(acceptedMissions[i]);
                 acceptedMissions.RemoveAt(i);
