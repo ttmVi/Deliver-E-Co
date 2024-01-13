@@ -1,0 +1,345 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6719597720711967241
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -9203324390398772745, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -9068619658319529961, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -8995271579679930556, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8520419181411329417, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -8019028671651874581, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -7988223768601971068, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -7711610082809904590, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -7640558969779515294, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -7046613062614526147, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -6638382919436510182, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -5754060345647867467, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -5653794331996350259, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -4960584510277547667, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -4906838889796845047, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -4851770100157099968, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -4607579965076306765, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -4566169875137798768, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -4058879426038799192, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -4039089586508166098, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -3762967090738830339, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -3540495426589365078, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -3137722172632951806, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -2883731766144651485, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -2372847361076386092, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -1690102145688852833, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -1558709471088140896, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: -74209933945285768, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 28382122182069585, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 233588462237741088, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 281855664364225751, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 388017943894283486, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 781679719685557685, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_Name
+      value: Road (-Z)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1292043252959764498, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1835210009659533079, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325085273785259599, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2550397945253725214, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2596957926113402938, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912366781977761469, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566207899841815972, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3684991429827676534, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3854852587571049761, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4356877828898064976, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483291144272103177, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4504409719310791647, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808003802559169127, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5194334309628646677, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6013317808098860872, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526223092448801408, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7034455982580203672, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691425605029638100, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975042476016782316, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105278354381233813, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416272007918961125, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869669039281602302, guid: 3d6bd5183b8d2aa4983ecc314e99868e,
+        type: 3}
+      propertyPath: m_TagString
+      value: '- Vertical Lanes'
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3d6bd5183b8d2aa4983ecc314e99868e, type: 3}
