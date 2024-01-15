@@ -64,7 +64,7 @@ public class MissionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameSceneManager.gameSceneManager.isPausing)
+        if (!GameSceneManager.isPausing)
         {
             //Update remaining time to accept available missions
             for (int i = 0; i < availableMissions.Count; i++)

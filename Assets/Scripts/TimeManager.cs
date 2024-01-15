@@ -9,6 +9,7 @@ public class TimeManager : MonoBehaviour
     public static TimeManager timeManager;
     public float levelTimeLimit = 90f;
     private TextMeshProUGUI timeText;
+    private bool pausingTime = false;
 
     void Start()
     {
@@ -30,9 +31,10 @@ public class TimeManager : MonoBehaviour
                 else { GameSceneManager.StartCustomizing(); }
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape) && !GameSceneManager.gameSceneManager.isPausing)
+            if (!GameSceneManager.isPausing && pausingTime)
             {
                 StartCoroutine(CountTime());
+                Debug.Log("Resumed Time");
             }
         }
     }
@@ -41,6 +43,7 @@ public class TimeManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
+            pausingTime = false;
             timeText = GameObject.Find("Time").GetComponent<TextMeshProUGUI>();
 
             while (levelTimeLimit > 0)
@@ -49,6 +52,13 @@ public class TimeManager : MonoBehaviour
                 timeText.text = $"Time: {levelTimeLimit.ToString()}";
 
                 yield return new WaitForSeconds(1);
+
+                if (GameSceneManager.isPausing)
+                {
+                    pausingTime = true;
+                    Debug.Log("Paused Time");
+                    yield break;
+                }
             }
         }
         else

@@ -21,7 +21,7 @@ public class GameSceneManager : MonoBehaviour
     public TextMeshProUGUI loseText;
 
     public bool mapIsLoaded = false;
-    public bool isPausing = false;
+    public static bool isPausing = false;
 
     // Start is called before the first frame update
     void Start()
