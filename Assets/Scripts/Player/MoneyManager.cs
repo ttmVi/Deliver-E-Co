@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
 {
-    public static int money = 200;
+    public static int money = 0;
+    public int startingMoney = 0;
     private int lastMoneyCount = 0;
 
     private TextMeshProUGUI moneyText;
@@ -13,6 +14,8 @@ public class MoneyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startingMoney = money;
+
         if (GameObject.Find("Canvas").GetComponent<Canvas>().enabled == false)
         {
 

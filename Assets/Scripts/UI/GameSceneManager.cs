@@ -114,9 +114,12 @@ public class GameSceneManager : MonoBehaviour
 
     public static IEnumerator LoseLevel(string loseReason)
     {
+        yield return new WaitForSeconds(2f);
+
         while (!losingCanvas.activeSelf)
         {
             MoneyManager.money -= 100;
+            break;
         }
         losingCanvas.SetActive(true);
         TextMeshProUGUI completedMissionsCount = GameObject.Find("CompletedMission Count").GetComponent<TextMeshProUGUI>();
@@ -134,7 +137,29 @@ public class GameSceneManager : MonoBehaviour
         //loseText = null;
         //SceneManager.LoadScene("Vehicle Customize");
         VehicleManager.playerVehicle = null;
-        
+    }
+
+    public static IEnumerator WinLevel()
+    {
+        winningCanvas.SetActive(true);
+        TextMeshProUGUI completedMissionsCount = GameObject.Find("CompletedMission Count").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI moneyEarned = GameObject.Find("Money Earned").GetComponent<TextMeshProUGUI>();
+
+        completedMissionsCount.text = $"{MissionManager.missionManager.successfulMissionCount}/{MissionManager.missionManager.requiredSuccessfulMissions}";
+        moneyEarned.text = $"{MoneyManager.money - GameObject.Find("ResourcesManager").GetComponent<MoneyManager>().startingMoney}";
+
+        VehicleManager.playerVehicle = null;
+
         yield return null;
+    }
+
+    public void PauseLevel()
+    {
+
+    }
+
+    public void ResumeLevel()
+    {
+
     }
 }
