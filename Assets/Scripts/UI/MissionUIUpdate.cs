@@ -199,14 +199,11 @@ public class MissionUIUpdate : MonoBehaviour
 
         if (pointerData != null)
         {
-            //locationIcon.GetComponent<Image>().tintColor = Color.red;
-
             missionInfoPanel.SetActive(true);
             missionInfo.name = $"Mission Info_{mission.missionID}";
 
             GameObject tempPickUpIcon = GameObject.Find($"PickUpLocation_{mission.missionID}");
             tempPickUpIcon.GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1.2f, 1.2f);
-            tempPickUpIcon.GetComponent<Image>().color = Color.blue;
 
             if (!mission.isAccepted)
             {
