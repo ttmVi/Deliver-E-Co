@@ -100,6 +100,7 @@ public class MissionUIUpdate : MonoBehaviour
                         }
 
                         Destroy(GameObject.Find($"PickUpLocation_{MissionManager.completedMissions[i].missionID}"));
+                        Debug.Log($"Destroyed PickUpLocation_{MissionManager.completedMissions[i].missionID}");
                         instantiatedPickUpIconsID.RemoveAt(j);
 
                         break;
@@ -115,13 +116,16 @@ public class MissionUIUpdate : MonoBehaviour
                         missionInfoPanel.SetActive(false);
 
                         Destroy(GameObject.Find($"DropOffLocation_{MissionManager.completedMissions[i].missionID}"));
+                        Debug.Log($"Destroyed DropOffLocation_{MissionManager.completedMissions[i].missionID}");
                         instantiatedDropOffIconsID.RemoveAt(j);
+
 
                         break;
                     }
                     else { continue; }
                 }
 
+                GetMissionInfoText(MissionManager.completedMissions[i]);
                 MissionManager.completedMissions[i] = null;
             }
 
@@ -255,7 +259,8 @@ public class MissionUIUpdate : MonoBehaviour
             }
             else if (mission.isCompleted || mission.isFailed)
             {
-                //sth here i dunno yet
+                Destroy(GameObject.Find($"PickUpLocation_{mission.missionID}"));
+                Destroy(GameObject.Find($"DropOffLocation_{mission.missionID}"));
             }
 
             GameObject tempDropOffIcon = GameObject.Find($"DropOffLocation_{mission.missionID}");
@@ -356,7 +361,8 @@ public class MissionUIUpdate : MonoBehaviour
         }
         else if (mission.isCompleted || mission.isFailed)
         {
-            //sth here i dunno yet
+            Destroy(GameObject.Find($"PickUpLocation_{mission.missionID}"));
+            Destroy(GameObject.Find($"DropOffLocation_{mission.missionID}"));
         }
     }
 
