@@ -44,7 +44,7 @@ public class TimeManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
             pausingTime = false;
-            timeText = GameObject.Find("Time").GetComponent<TextMeshProUGUI>();
+            timeText = GameObject.Find("Time Limit").GetComponent<TextMeshProUGUI>();
 
             while (levelTimeLimit > 0)
             {

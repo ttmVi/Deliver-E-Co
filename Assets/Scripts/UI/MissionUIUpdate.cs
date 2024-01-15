@@ -23,10 +23,12 @@ public class MissionUIUpdate : MonoBehaviour
     private List<int> instantiatedPickUpIconsID;
     private List<int> instantiatedDropOffIconsID;
 
+    private GameObject missionInfoPanel;
     private TextMeshProUGUI missionInfo;
     private TextMeshProUGUI missionStatus;
-    private GameObject statusButton;
-    private GameObject missionInfoPanel;
+    private TextMeshProUGUI status;
+    private TextMeshProUGUI missionReward;
+    private TextMeshProUGUI missionTime;
 
     // Start is called before the first frame update
     void Start()
@@ -40,10 +42,12 @@ public class MissionUIUpdate : MonoBehaviour
         instantiatedPickUpIconsID = new List<int>();
         instantiatedDropOffIconsID = new List<int>();
 
-        missionInfo = GameObject.Find("Mission Info").GetComponent<TextMeshProUGUI>();
-        missionStatus = GameObject.Find("Mission Status").GetComponent<TextMeshProUGUI>();
-        statusButton = GameObject.Find("Status Button");
         missionInfoPanel = GameObject.Find("Mission Info Panel");
+        missionInfo = GameObject.Find("Description Text").GetComponent<TextMeshProUGUI>();
+        missionStatus = GameObject.Find("Status Text").GetComponent<TextMeshProUGUI>();
+        status = GameObject.Find("Status").GetComponent<TextMeshProUGUI>();
+        missionReward = GameObject.Find("Reward Text").GetComponent<TextMeshProUGUI>();
+        missionTime = GameObject.Find("Time Text").GetComponent<TextMeshProUGUI>();
 
         missionInfoPanel.SetActive(false);
     }
@@ -208,12 +212,11 @@ public class MissionUIUpdate : MonoBehaviour
 
             if (!mission.isAccepted)
             {
-                missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
-                    $"Time limit: {mission.timeLimit}. \n" +
-                    $"Reward: {mission.reward}. \n" +
-                    $"Penalty: {mission.penalty}. \n" +
-                    $"Time to accept: {mission.timeToAccept}.";
-                missionStatus.text = "Not Accepted";
+                missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}.";
+                missionReward.text = $"{mission.reward}";
+                missionTime.text = $"{Mathf.RoundToInt(mission.timeLimit)}";
+                status.text = "Time to accept";
+                missionStatus.text = $"{Mathf.RoundToInt(mission.timeToAccept)}";
 
                 if (!instantiatedDropOffIconsID.Contains(mission.missionID))
                 {
@@ -236,21 +239,19 @@ public class MissionUIUpdate : MonoBehaviour
             }
             else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && !mission.isPickedUp)
             {
-                missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
-                    $"Time limit: {Mathf.RoundToInt(mission.timeRemaining)}. \n" +
-                    $"Reward: {mission.reward}. \n" +
-                    $"Penalty: {mission.penalty}.";
-
-                missionStatus.text = "Accepted";
+                missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}.";
+                missionReward.text = $"{mission.reward}";
+                missionTime.text = $"{Mathf.RoundToInt(mission.timeRemaining)}";
+                status.text = "Status";
+                missionStatus.text = $"Not picked up";
             }
             else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && mission.isPickedUp && !mission.isDroppedOff)
             {
-                missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
-                    $"Time limit: {Mathf.RoundToInt(mission.timeRemaining)}. \n" +
-                    $"Reward: {mission.reward}. \n" +
-                    $"Penalty: {mission.penalty}.";
-
-                missionStatus.text = "Picked up";
+                missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}.";
+                missionReward.text = $"{mission.reward}";
+                missionTime.text = $"{Mathf.RoundToInt(mission.timeRemaining)}";
+                status.text = "Status";
+                missionStatus.text = $"Picked up";
             }
             else if (mission.isCompleted || mission.isFailed)
             {
@@ -331,31 +332,27 @@ public class MissionUIUpdate : MonoBehaviour
     {
         if (!mission.isAccepted)
         {
-            missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
-            $"Time limit: {mission.timeLimit}. \n" +
-                $"Reward: {mission.reward}. \n" +
-                $"Penalty: {mission.penalty}. \n" +
-                $"Time to accept: {mission.timeToAccept}.";
-
-            missionStatus.text = "Not Accepted";
+            missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}.";
+            missionReward.text = $"{mission.reward}";
+            missionTime.text = $"{Mathf.RoundToInt(mission.timeLimit)}";
+            status.text = "Time to accept";
+            missionStatus.text = $"{Mathf.RoundToInt(mission.timeToAccept)}";
         }
         else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && !mission.isPickedUp)
         {
-            missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
-            $"Time limit: {Mathf.RoundToInt(mission.timeRemaining)}. \n" +
-                $"Reward: {mission.reward}. \n" +
-                $"Penalty: {mission.penalty}.";
-
-            missionStatus.text = "Accepted";
+            missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}.";
+            missionReward.text = $"{mission.reward}";
+            missionTime.text = $"{Mathf.RoundToInt(mission.timeRemaining)}";
+            status.text = "Status";
+            missionStatus.text = $"Not picked up";
         }
         else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && mission.isPickedUp && !mission.isDroppedOff)
         {
-            missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}. \n" +
-            $"Time limit: {Mathf.RoundToInt(mission.timeRemaining)}. \n" +
-                $"Reward: {mission.reward}. \n" +
-                $"Penalty: {mission.penalty}.";
-
-            missionStatus.text = "Picked up";
+            missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}.";
+            missionReward.text = $"{mission.reward}";
+            missionTime.text = $"{Mathf.RoundToInt(mission.timeRemaining)}";
+            status.text = "Status";
+            missionStatus.text = $"Picked up";
         }
         else if (mission.isCompleted || mission.isFailed)
         {
