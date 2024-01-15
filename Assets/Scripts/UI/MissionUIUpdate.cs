@@ -14,8 +14,9 @@ public class MissionUIUpdate : MonoBehaviour
     private BoxCollider map3DCollider;
     private RectTransform map2D;
 
-    public GameObject pickUpLocationIcon;
-    public GameObject dropOffLocationIcon;
+    [SerializeField] GameObject pickUpLocationIcon;
+    [SerializeField] GameObject dropOffLocationIcon;
+    [SerializeField] Sprite acceptedPickUpLocationIcon;
     public static GameObject mapCanvas;
     public Canvas canvas;
 
@@ -67,7 +68,7 @@ public class MissionUIUpdate : MonoBehaviour
             // Update locations for accepted missions
             for (int i = 0; i < MissionManager.acceptedMissions.Count; i++)
             {
-                if (!instantiatedPickUpIconsID.Contains(MissionManager.acceptedMissions[i].missionID))
+                if (!instantiatedPickUpIconsID.Contains(MissionManager.acceptedMissions[i].missionID) & !instantiatedDropOffIconsID.Contains(MissionManager.acceptedMissions[i].missionID))
                 {
                     SpawnLocationIcon(MissionManager.acceptedMissions[i].pickUpLocation, pickUpLocationIcon, MissionManager.acceptedMissions[i]);
                     instantiatedPickUpIconsID.Add(MissionManager.acceptedMissions[i].missionID);
@@ -159,8 +160,8 @@ public class MissionUIUpdate : MonoBehaviour
         //Debug.Log("Normalized position: " + normalizedPos);
 
         Vector2 mapPosition;
-        mapPosition.x = normalizedPos.x * map2D.sizeDelta.x - (map2D.sizeDelta.x * 0.5f);
-        mapPosition.y = normalizedPos.y * map2D.sizeDelta.y - (map2D.sizeDelta.y * 0.5f);
+        mapPosition.x = normalizedPos.x * map2D.sizeDelta.x - (map2D.sizeDelta.x * 0.5f) + map2D.anchoredPosition.x;
+        mapPosition.y = normalizedPos.y * map2D.sizeDelta.y - (map2D.sizeDelta.y * 0.5f) + map2D.anchoredPosition.y;
 
         //Debug.Log("Updated location icon position: " + mapPosition);
         return mapPosition;
@@ -258,7 +259,6 @@ public class MissionUIUpdate : MonoBehaviour
 
             GameObject tempDropOffIcon = GameObject.Find($"DropOffLocation_{mission.missionID}");
             tempDropOffIcon.GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1.2f, 1.2f);
-            tempDropOffIcon.GetComponent<Image>().color = Color.blue;
         }
         else
         {
@@ -274,7 +274,6 @@ public class MissionUIUpdate : MonoBehaviour
         {
             GameObject tempPickUpIcon = GameObject.Find($"PickUpLocation_{mission.missionID}");
             tempPickUpIcon.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
-            tempPickUpIcon.GetComponent<Image>().color = Color.white;
 
             if (!mission.isAccepted)
             {
@@ -293,7 +292,6 @@ public class MissionUIUpdate : MonoBehaviour
             {
                 GameObject tempDropOffIcon = GameObject.Find($"DropOffLocation_{mission.missionID}");
                 tempDropOffIcon.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
-                tempDropOffIcon.GetComponent<Image>().color = Color.white;
             }
 
             missionInfoPanel.SetActive(false);
@@ -307,6 +305,8 @@ public class MissionUIUpdate : MonoBehaviour
         if (pointerData != null && !mission.isAccepted)
         {
             MissionManager.missionManager.AcceptNewMission(mission);
+            GameObject.Find("PickUpLocation_" + mission.missionID).GetComponent<Image>().sprite = acceptedPickUpLocationIcon;
+
             //ShowMissionInfo(eventData, mission);
             //Destroy(statusButton.GetComponent<EventTrigger>());
         }

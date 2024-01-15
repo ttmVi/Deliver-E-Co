@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,6 +11,9 @@ public class GameSceneManager : MonoBehaviour
 {
     public GameObject mapCanvas;
     public GameObject backToCustomizing;
+
+    private static GameObject losingCanvas;
+    private static GameObject winningCanvas;
 
     public TextMeshProUGUI loseText;
 
@@ -26,6 +30,11 @@ public class GameSceneManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
+            losingCanvas = GameObject.Find("Losing Canvas");
+            losingCanvas.SetActive(false);
+            winningCanvas = GameObject.Find("Winning Canvas");
+            winningCanvas.SetActive(false);
+
             GameObject[] Obstacles = GameObject.FindGameObjectsWithTag("Sidewalk").Concat(GameObject.FindGameObjectsWithTag("Road Barriers")).ToArray();
             Debug.Log($"Found {Obstacles.Length} obstacles.");
             foreach (var obstacle in Obstacles)
@@ -92,28 +101,40 @@ public class GameSceneManager : MonoBehaviour
 
     public static void StartCustomizing()
     {
-        if (MissionManager.missionManager.successfulMissionCount >= MissionManager.missionManager.requiredSuccessfulMissions)
-        {
+        //if (MissionManager.missionManager.successfulMissionCount >= MissionManager.missionManager.requiredSuccessfulMissions)
+        //{
             GameObject missionManager = GameObject.Find("MissionsManager");
             missionManager.GetComponent<MissionManager>().enabled = false;
             missionManager.GetComponent<MissionUIUpdate>().enabled = false;
 
             SceneManager.LoadScene("Vehicle Customize");
             VehicleManager.playerVehicle = null;
-        }
+        //}
     }
 
     public static IEnumerator LoseLevel(string loseReason)
     {
-        TextMeshProUGUI loseText = GameObject.Find("Losing").GetComponent<TextMeshProUGUI>();
-        loseText.text = $"You lost because {loseReason}.";
-        Debug.Log($"You lost because {loseReason}.");
-        yield return new WaitForSeconds(3f);
+        while (!losingCanvas.activeSelf)
+        {
+            MoneyManager.money -= 100;
+        }
+        losingCanvas.SetActive(true);
+        TextMeshProUGUI completedMissionsCount = GameObject.Find("CompletedMission Count").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI moneyLost = GameObject.Find("Money Lost").GetComponent<TextMeshProUGUI>();
 
-        loseText.text = "";
-        loseText = null;
-        MoneyManager.money -= 100;
-        SceneManager.LoadScene("Vehicle Customize");
+        completedMissionsCount.text = $"{MissionManager.missionManager.successfulMissionCount}/{MissionManager.missionManager.requiredSuccessfulMissions}";
+        moneyLost.text = "-100";
+
+        //TextMeshProUGUI loseText = GameObject.Find("Losing").GetComponent<TextMeshProUGUI>();
+        //loseText.text = $"You lost because {loseReason}.";
+        //Debug.Log($"You lost because {loseReason}.");
+        //yield return new WaitForSeconds(3f);
+
+        //loseText.text = "";
+        //loseText = null;
+        //SceneManager.LoadScene("Vehicle Customize");
         VehicleManager.playerVehicle = null;
+        
+        yield return null;
     }
 }

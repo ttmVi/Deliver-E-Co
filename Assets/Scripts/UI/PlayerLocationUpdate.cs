@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerLocationUpdate : MonoBehaviour
 {
@@ -8,6 +9,11 @@ public class PlayerLocationUpdate : MonoBehaviour
 
     private BoxCollider map3DCollider;
 
+    private Animator animator;
+    [SerializeField] RuntimeAnimatorController bicycle;
+    [SerializeField] RuntimeAnimatorController motorbike;
+    [SerializeField] RuntimeAnimatorController car;
+
     void Start()
     {
         player = GameObject.Find("Player");
@@ -15,6 +21,21 @@ public class PlayerLocationUpdate : MonoBehaviour
         map2D = GameObject.Find("Map").GetComponent<RectTransform>();
 
         map3DCollider = map3D.GetComponent<BoxCollider>();
+
+        animator = GetComponent<Animator>();
+
+        if (VehicleManager.playerVehicle.vehicleCapacity <= 2)
+        {
+            animator.runtimeAnimatorController = bicycle;
+        }
+        else if (VehicleManager.playerVehicle.vehicleCapacity <= 4)
+        {
+            animator.runtimeAnimatorController = motorbike;
+        }
+        else if (VehicleManager.playerVehicle.vehicleCapacity <= 10)
+        {
+            animator.runtimeAnimatorController = car;
+        }
     }
 
     void Update()
