@@ -28,7 +28,7 @@ public class TimeManager : MonoBehaviour
                 {
                     StartCoroutine(GameSceneManager.LoseLevel("you ran out of time!"));
                 }
-                else { GameSceneManager.StartCustomizing(); }
+                else { GameSceneManager.WinLevel(); }
             }
 
             if (!GameSceneManager.isPausing && pausingTime)
