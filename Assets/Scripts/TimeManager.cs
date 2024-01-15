@@ -29,6 +29,11 @@ public class TimeManager : MonoBehaviour
                 }
                 else { GameSceneManager.StartCustomizing(); }
             }
+
+            if (Input.GetKeyDown(KeyCode.Escape) && !GameSceneManager.gameSceneManager.isPausing)
+            {
+                StartCoroutine(CountTime());
+            }
         }
     }
 

@@ -9,15 +9,19 @@ using UnityEngine.UI;
 
 public class GameSceneManager : MonoBehaviour
 {
+    public static GameSceneManager gameSceneManager;
+
     public GameObject mapCanvas;
     public GameObject backToCustomizing;
 
     private static GameObject losingCanvas;
     private static GameObject winningCanvas;
+    private GameObject pausingCanvas;
 
     public TextMeshProUGUI loseText;
 
     public bool mapIsLoaded = false;
+    public bool isPausing = false;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +38,8 @@ public class GameSceneManager : MonoBehaviour
             losingCanvas.SetActive(false);
             winningCanvas = GameObject.Find("Winning Canvas");
             winningCanvas.SetActive(false);
+            pausingCanvas = GameObject.Find("Pausing Canvas");
+            pausingCanvas.SetActive(false);
 
             GameObject[] Obstacles = GameObject.FindGameObjectsWithTag("Sidewalk").Concat(GameObject.FindGameObjectsWithTag("Road Barriers")).ToArray();
             Debug.Log($"Found {Obstacles.Length} obstacles.");
@@ -63,6 +69,18 @@ public class GameSceneManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) && SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
             LoadMapUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name == "Main Moving Scene")
+        {
+            if (!isPausing)
+            {
+                PauseLevel();
+            }
+            else
+            {
+                ResumeLevel();
+            }
         }
     }
     
@@ -155,11 +173,13 @@ public class GameSceneManager : MonoBehaviour
 
     public void PauseLevel()
     {
-
+        isPausing = true;
+        pausingCanvas.SetActive(true);
     }
 
     public void ResumeLevel()
     {
-
+        isPausing = false;
+        pausingCanvas.SetActive(false);
     }
 }

@@ -64,36 +64,39 @@ public class MissionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Update remaining time to accept available missions
-        for (int i = 0; i < availableMissions.Count; i++)
+        if (!GameSceneManager.gameSceneManager.isPausing)
         {
-            availableMissions[i].UpdateAvailableMission();
-            if (availableMissions[i].timeToAccept <= 0)
+            //Update remaining time to accept available missions
+            for (int i = 0; i < availableMissions.Count; i++)
             {
-                completedMissions.Add(availableMissions[i]);
-                availableMissions.RemoveAt(i);
-                continue;
+                availableMissions[i].UpdateAvailableMission();
+                if (availableMissions[i].timeToAccept <= 0)
+                {
+                    completedMissions.Add(availableMissions[i]);
+                    availableMissions.RemoveAt(i);
+                    continue;
+                }
             }
-        }
 
-        //Update status of accepted missions
-        for (int i = 0; i < acceptedMissions.Count; i++)
-        {
-            acceptedMissions[i].StartMission();
-        }
+            //Update status of accepted missions
+            for (int i = 0; i < acceptedMissions.Count; i++)
+            {
+                acceptedMissions[i].StartMission();
+            }
 
-        // Generate random missions after a random time
-        if (randomRegenerationTime <= 0f)
-        {
-            GenerateRandomMissions(Random.Range(1,3));
-            randomRegenerationTime = Random.Range(50f, 100f);
-        }
-        else
-        {
-            randomRegenerationTime -= Time.deltaTime;
-        }
+            // Generate random missions after a random time
+            if (randomRegenerationTime <= 0f)
+            {
+                GenerateRandomMissions(Random.Range(1, 3));
+                randomRegenerationTime = Random.Range(50f, 100f);
+            }
+            else
+            {
+                randomRegenerationTime -= Time.deltaTime;
+            }
 
-        UpdateFinishedMissions();
+            UpdateFinishedMissions();
+        }
     }
 
     public void AddNewMission(string description, GameObject pickUpLocation, GameObject dropOffLocation, float timeLimit, int reward, int penalty)
