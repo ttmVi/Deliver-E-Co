@@ -76,10 +76,6 @@ public class LaneState : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-    }
-
     void laneDetection()
     {
         onLanes = Physics.OverlapBox(transform.position + indicatorBounds.center, indicatorBounds.size / 2, Quaternion.identity, LayerMask.GetMask("Road Lanes"));
