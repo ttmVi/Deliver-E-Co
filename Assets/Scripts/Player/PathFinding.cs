@@ -175,7 +175,7 @@ public class PathFinding : MonoBehaviour
         }
 
         // Stop and Go
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || GameSceneManager.isPausing)
         {
             if (velDirection != Vector3.zero)
             {

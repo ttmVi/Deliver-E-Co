@@ -10,12 +10,13 @@ public class CameraFixedRotation : MonoBehaviour
     [SerializeField] Vector3 offset;
 
     private float targetAngle = 0f;
+    private float beforeRotation;
 
     public bool isRotating;
 
     void Start()
     {
-
+        beforeRotation = transform.rotation.eulerAngles.y;
     }
 
     // Update is called once per frame
@@ -28,10 +29,12 @@ public class CameraFixedRotation : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q) && !isRotating)
         {
+            beforeRotation = transform.rotation.eulerAngles.y;
             targetAngle = 90f;
         }
         else if (Input.GetKeyDown(KeyCode.E) && !isRotating)
         {
+            beforeRotation = transform.rotation.eulerAngles.y;
             targetAngle = -90f;
         }
 
