@@ -52,6 +52,7 @@ public class PickUpnDropOffCheck : MonoBehaviour
                         mission.isPickedUp = true;
                         PathFinding.currentCapacity++;
                         StartCoroutine(WaitForStatus());
+                        audioSource.Stop();
                     }
                 }
             }
@@ -66,6 +67,7 @@ public class PickUpnDropOffCheck : MonoBehaviour
                     mission.isCompleted = mission.isDroppedOff;
                     PathFinding.currentCapacity--;
                     StartCoroutine(WaitForStatus());
+                    audioSource.Stop();
                 }
             }
         }

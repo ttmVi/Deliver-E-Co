@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,13 +30,17 @@ public class TimeManager : MonoBehaviour
                 {
                     StartCoroutine(GameSceneManager.LoseLevel("you ran out of time!"));
                 }
-                else { GameSceneManager.WinLevel(); }
+                else 
+                { 
+                    StartCoroutine(GameSceneManager.WinLevel()); 
+                    Debug.Log("You won!");
+                }
             }
 
             if (!GameSceneManager.isPausing && pausingTime)
             {
                 StartCoroutine(CountTime());
-                Debug.Log("Resumed Time");
+                //Debug.Log("Resumed Time");
             }
         }
     }
@@ -56,7 +62,7 @@ public class TimeManager : MonoBehaviour
                 if (GameSceneManager.isPausing)
                 {
                     pausingTime = true;
-                    Debug.Log("Paused Time");
+                    //Debug.Log("Paused Time");
                     yield break;
                 }
             }
