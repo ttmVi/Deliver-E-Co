@@ -243,6 +243,8 @@ public class MissionUIUpdate : MonoBehaviour
             }
             else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && !mission.isPickedUp)
             {
+
+
                 missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}.";
                 missionReward.text = $"{mission.reward}";
                 missionTime.text = $"{Mathf.RoundToInt(mission.timeRemaining)}";
@@ -312,6 +314,7 @@ public class MissionUIUpdate : MonoBehaviour
         {
             MissionManager.missionManager.AcceptNewMission(mission);
             GameObject.Find("PickUpLocation_" + mission.missionID).GetComponent<Image>().sprite = acceptedPickUpLocationIcon;
+            GameObject.Find("PickUpLocation_" + mission.missionID).GetComponent<Animator>().enabled = false;
 
             //ShowMissionInfo(eventData, mission);
             //Destroy(statusButton.GetComponent<EventTrigger>());
