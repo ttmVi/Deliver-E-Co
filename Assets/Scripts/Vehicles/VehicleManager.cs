@@ -26,7 +26,7 @@ public class VehicleManager : MonoBehaviour
     private bool isInUpgradingUI = false;
 
     private GameObject vehicleCanvas;
-    private GameObject selectButton;
+    //private GameObject selectButton;
     private TextMeshProUGUI selectButtonText;
     private GameObject upgradeButton;
     private TextMeshProUGUI upgradeButtonText;
@@ -39,8 +39,8 @@ public class VehicleManager : MonoBehaviour
     {
         vehicleCanvas = GameObject.Find("Vehicle Selection Canvas");
 
-        selectButton = GameObject.Find("Select Vehicle Button");
-        selectButtonText = GameObject.Find("Vehicle").GetComponent<TextMeshProUGUI>();
+        //selectButton = GameObject.Find("Select Vehicle Button");
+        //selectButtonText = GameObject.Find("Vehicle").GetComponent<TextMeshProUGUI>();
 
         upgradeButton = GameObject.Find("Upgrade Vehicle Button");
         upgradeButtonText = GameObject.Find("Upgrade").GetComponent<TextMeshProUGUI>();
@@ -128,8 +128,8 @@ public class VehicleManager : MonoBehaviour
         {
             locked.SetActive(false);
             vehicleImage.sprite = unlockedSprites[currentVehicleIndex];
-            displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\nSpeed: {previewVehicle.vehicleSpeed}\nMPG: {previewVehicle.vehicleMPG}\nFuel Capacity: {previewVehicle.vehicleFuel}\nPackage Capacity: {previewVehicle.vehicleCapacity}";
-            selectButtonText.text = "Start";
+            //displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\nSpeed: {previewVehicle.vehicleSpeed}\nMPG: {previewVehicle.vehicleMPG}\nFuel Capacity: {previewVehicle.vehicleFuel}\nPackage Capacity: {previewVehicle.vehicleCapacity}";
+            //selectButtonText.text = "Start";
 
             if (currentVehicleType != VehicleType.Bicycle)
             {
@@ -146,7 +146,7 @@ public class VehicleManager : MonoBehaviour
         else if (currentVehicleType == VehicleType.Updating)
         {
             locked.SetActive(true);
-            displayedVehicleProperties.text = "Coming soon...";
+            //displayedVehicleProperties.text = "Coming soon...";
             //selectButtonText.text = "Updating";
 
             speed.fillAmount = 0f;
@@ -161,7 +161,7 @@ public class VehicleManager : MonoBehaviour
         {
             locked.SetActive(true);
             vehicleImage.sprite = lockedSprites[currentVehicleIndex];
-            displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\nSpeed: {previewVehicle.vehicleSpeed}\nMPG: {previewVehicle.vehicleMPG}\nFuel Capacity: {previewVehicle.vehicleFuel}\nPackage Capacity: {previewVehicle.vehicleCapacity}";
+            //displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\nSpeed: {previewVehicle.vehicleSpeed}\nMPG: {previewVehicle.vehicleMPG}\nFuel Capacity: {previewVehicle.vehicleFuel}\nPackage Capacity: {previewVehicle.vehicleCapacity}";
             //selectButtonText.text = $"Price: {vehiclePrices[currentVehicleIndex]}";
 
             //selectButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, tempPos.y, tempPos.z);
@@ -324,11 +324,11 @@ public class VehicleManager : MonoBehaviour
         {
             if (MoneyManager.money >= vehiclePrices[currentVehicleIndex])
             {
-                ConfirmWindow($"Are you sure you want to buy {vehicles[currentVehicleIndex].ToString().ToLower()} for {vehiclePrices[currentVehicleIndex]}?");
+                ConfirmWindow($"Are you sure you want to buy this vehicle?");
             }
             else
             {
-                ConfirmWindow($"You don't have enough money to buy {vehicles[currentVehicleIndex].ToString().ToLower()}.");
+                ConfirmWindow($"You don't have enough money!");
             }
         }
         else { ConfirmWindow("We still haven't sold this product yet"); }
@@ -352,8 +352,18 @@ public class VehicleManager : MonoBehaviour
     {
         vehicleCanvas.SetActive(false);
         confirmWindow.SetActive(true);
+
         TextMeshProUGUI confirmMessage = GameObject.Find("Are you sure?").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI price = GameObject.Find("Price").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI name = GameObject.Find("Name").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI nameShadow = GameObject.Find("Name Shadow").GetComponent<TextMeshProUGUI>();
+        Image vehicle = GameObject.Find("Vehicle Confirmation").GetComponent<Image>();
+
         confirmMessage.text = message;
+        price.text = $"{vehiclePrices[currentVehicleIndex]}";
+        name.text = $"{vehicles[currentVehicleIndex]}";
+        nameShadow.text = $"{vehicles[currentVehicleIndex]}";
+        vehicle.sprite = unlockedSprites[currentVehicleIndex];
     }
 
     public void Confirm()
@@ -364,6 +374,10 @@ public class VehicleManager : MonoBehaviour
             {
                 vehicleCanvas.SetActive(true);
                 UnlockVehicle();
+            }
+            else
+            {
+                vehicleCanvas.SetActive(true);
             }
         }
         else
