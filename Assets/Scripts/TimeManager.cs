@@ -15,7 +15,7 @@ public class TimeManager : MonoBehaviour
 
     void Start()
     {
-        levelTimeLimit = 90f;
+        levelTimeLimit = 150f;
         StartCoroutine(CountTime());
     }
 
@@ -69,7 +69,7 @@ public class TimeManager : MonoBehaviour
         }
         else
         {
-            levelTimeLimit = 90f;
+            levelTimeLimit = 150f;
             timeText = null;
         }
     }
