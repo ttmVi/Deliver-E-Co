@@ -22,7 +22,7 @@ public class VehicleFactory
             switch (vehicleType)
             {
                 case VehicleType.Bicycle:
-                    vehicle = new Bicycle(2f, 0f, -1f, "package", 2); // (Speed, MPG, fuel, feature, capacity)
+                    vehicle = new Bicycle(2.5f, 0f, -1f, "package", 2); // (Speed, MPG, fuel, feature, capacity)
                     break;
                 case VehicleType.Motorbike:
                     vehicle = new Motorbike(5f, 55f, 10f, "package", 4); // (Speed, MPG, fuel, feature, capacity)

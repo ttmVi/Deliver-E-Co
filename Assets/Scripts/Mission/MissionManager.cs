@@ -57,8 +57,8 @@ public class MissionManager : MonoBehaviour
         }
 
         //Chapter 1 missions
-        AddNewMission($"Pick up the package from {pickUpLocations[0]} and drop it off at {dropOffLocations[1]}", pickUpLocations[0], dropOffLocations[1], 105f, 100, 50);
-        AddNewMission($"Pick up the parcel from {pickUpLocations[0]} and deliver it to {dropOffLocations[1]}", pickUpLocations[1], dropOffLocations[2], 105f, 100, 50);
+        AddNewMission($"Pick up the package from {pickUpLocations[0]} and drop it off at {dropOffLocations[1]}", pickUpLocations[0], dropOffLocations[1], 100f, 100, 50);
+        AddNewMission($"Pick up the parcel from {pickUpLocations[0]} and deliver it to {dropOffLocations[1]}", pickUpLocations[1], dropOffLocations[2], 100f, 100, 50);
     }
 
     // Update is called once per frame
