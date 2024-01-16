@@ -37,6 +37,6 @@ public class MoneyManager : MonoBehaviour
 
     void UpdateMoney()
     {
-        moneyText.text = $"Money: {money.ToString()}";
+        moneyText.text = $"{money}";
     }
 }

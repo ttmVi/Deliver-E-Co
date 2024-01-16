@@ -44,7 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd30de88ee32c040ae8f12ec9864d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneManager: {fileID: 0}
   vehicles: 00000000010000000200000003000000
-  vehicleIsUnlocked: 00000000
   vehiclePrices: 0000000064000000e803000000000000
+  lockedSprites:
+  - {fileID: 21300000, guid: af7b7287e939bd7498f369227715dbfd, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  unlockedSprites:
+  - {fileID: 21300000, guid: 4b172336c957a714586990891e9c0f6c, type: 3}
+  - {fileID: 21300000, guid: 07a36aeb76b83994c8bc17b8c38bbdd6, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}

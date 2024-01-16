@@ -41,7 +41,7 @@ public class AQICalculation : MonoBehaviour
 
     public float CalculateAQI()
     {
-        if (vel.velDirection != Vector3.zero && currentMPG != 0)
+        if (vel.velDirection != Vector3.zero && currentMPG != 100f)
         {
             realAQI_Index += (1000f / currentMPG) * Time.deltaTime;
             timeAQIStays = 0f;

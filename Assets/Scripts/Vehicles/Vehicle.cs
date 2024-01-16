@@ -154,7 +154,7 @@ public class Motorbike : Vehicle
                 }
                 else if (engineType.Contains("Electric"))
                 {
-                    vehicleMPG = 0f;
+                    vehicleMPG = 100f;
                     vehicleFuel = 5f;
                 }
                 break;
@@ -203,7 +203,7 @@ public class Motorbike : Vehicle
                 }
                 else if (exhaustSystem.Contains("Remove"))
                 {
-                    vehicleMPG = 0;
+                    vehicleMPG = 100f;
                 }
                 break;
             default: break;
@@ -374,7 +374,7 @@ public class Car : Vehicle
                 }
                 else if (engineType == "Electric")
                 {
-                    vehicleMPG = 0f;
+                    vehicleMPG = 100f;
                     vehicleFuel = 12f;
                 }
                 break;
@@ -419,7 +419,7 @@ public class Car : Vehicle
                 }
                 else if (exhaustSystem == "Remove")
                 {
-                    vehicleMPG = 0;
+                    vehicleMPG = 100f;
                 }
                 break;
             default: break;

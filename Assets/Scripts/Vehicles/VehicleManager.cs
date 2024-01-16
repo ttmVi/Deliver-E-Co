@@ -5,7 +5,7 @@ using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using static VehicleFactory;
 
 public class VehicleManager : MonoBehaviour
@@ -16,6 +16,8 @@ public class VehicleManager : MonoBehaviour
     public VehicleType[] vehicles = { VehicleType.Bicycle, VehicleType.Motorbike, VehicleType.Car, VehicleType.Updating };
     public static bool[] vehicleIsUnlocked = { false, false, false, false };
     public int[] vehiclePrices = { 0, 100, 1000, 0 };
+    [SerializeField] Sprite[] lockedSprites;
+    [SerializeField] Sprite[] unlockedSprites;
     private int currentVehicleIndex = 0;
 
     public Vehicle.UpgradableComponent[][] upgradableComponents;
@@ -23,17 +25,19 @@ public class VehicleManager : MonoBehaviour
 
     private bool isInUpgradingUI = false;
 
-    private Canvas vehicleCanvas;
+    private GameObject vehicleCanvas;
     private GameObject selectButton;
     private TextMeshProUGUI selectButtonText;
     private GameObject upgradeButton;
     private TextMeshProUGUI upgradeButtonText;
     private TextMeshProUGUI displayedVehicleProperties;
+    private GameObject locked;
+    private Image vehicleImage;
     private GameObject confirmWindow;
 
     private void Awake()
     {
-        vehicleCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        vehicleCanvas = GameObject.Find("Vehicle Selection Canvas");
 
         selectButton = GameObject.Find("Select Vehicle Button");
         selectButtonText = GameObject.Find("Vehicle").GetComponent<TextMeshProUGUI>();
@@ -47,6 +51,9 @@ public class VehicleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        locked = GameObject.Find("Locked?");
+        vehicleImage = GameObject.Find("Vehicle Preview").GetComponent<Image>();
+
         confirmWindow = GameObject.Find("Confirm Window");
         confirmWindow.SetActive(false);
         upgradeButton.SetActive(false);
@@ -109,37 +116,61 @@ public class VehicleManager : MonoBehaviour
 
     public void DisplayVehicleProperties()
     {
-        Vector3 tempPos = selectButton.GetComponent<RectTransform>().anchoredPosition;
+        //Vector3 tempPos = selectButton.GetComponent<RectTransform>().anchoredPosition;
+        Image speed = GameObject.Find("Speed").GetComponent<Image>();
+        Image mpg = GameObject.Find("MPG").GetComponent<Image>();
+        Image fuel = GameObject.Find("Fuel").GetComponent<Image>();
+        Image capacity = GameObject.Find("Package Capacity").GetComponent<Image>();
 
         VehicleType currentVehicleType = vehicles[currentVehicleIndex];
         Vehicle previewVehicle = GetVehicleProperties(currentVehicleType);
         if (vehicleIsUnlocked[currentVehicleIndex])
         {
+            locked.SetActive(false);
+            vehicleImage.sprite = unlockedSprites[currentVehicleIndex];
             displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\nSpeed: {previewVehicle.vehicleSpeed}\nMPG: {previewVehicle.vehicleMPG}\nFuel Capacity: {previewVehicle.vehicleFuel}\nPackage Capacity: {previewVehicle.vehicleCapacity}";
             selectButtonText.text = "Start";
 
             if (currentVehicleType != VehicleType.Bicycle)
             {
-                selectButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(275, tempPos.y, tempPos.z);
+                //selectButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(275, tempPos.y, tempPos.z);
                 upgradeButton.SetActive(true);
             }
             else { upgradeButton.SetActive(false); }
+
+            speed.fillAmount = previewVehicle.vehicleSpeed / 10f;
+            mpg.fillAmount = 1 - previewVehicle.vehicleMPG / 100f;
+            fuel.fillAmount = previewVehicle.vehicleFuel / 100f;
+            capacity.fillAmount = previewVehicle.vehicleCapacity / 10f;
         }
         else if (currentVehicleType == VehicleType.Updating)
         {
+            locked.SetActive(true);
             displayedVehicleProperties.text = "Coming soon...";
-            selectButtonText.text = "Updating";
+            //selectButtonText.text = "Updating";
 
-            selectButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, tempPos.y, tempPos.z);
+            speed.fillAmount = 0f;
+            mpg.fillAmount = 0f;
+            fuel.fillAmount = 0f;
+            capacity.fillAmount = 0f;
+
+            //selectButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, tempPos.y, tempPos.z);
             upgradeButton.SetActive(false);
         }
         else
         {
+            locked.SetActive(true);
+            vehicleImage.sprite = lockedSprites[currentVehicleIndex];
             displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\nSpeed: {previewVehicle.vehicleSpeed}\nMPG: {previewVehicle.vehicleMPG}\nFuel Capacity: {previewVehicle.vehicleFuel}\nPackage Capacity: {previewVehicle.vehicleCapacity}";
-            selectButtonText.text = $"Price: {vehiclePrices[currentVehicleIndex]}";
+            //selectButtonText.text = $"Price: {vehiclePrices[currentVehicleIndex]}";
 
-            selectButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, tempPos.y, tempPos.z);
+            //selectButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, tempPos.y, tempPos.z);
             upgradeButton.SetActive(false);
+
+            speed.fillAmount = previewVehicle.vehicleSpeed / 10f;
+            mpg.fillAmount = 1 - previewVehicle.vehicleMPG / 100f;
+            fuel.fillAmount = previewVehicle.vehicleFuel / 25f;
+            capacity.fillAmount = previewVehicle.vehicleCapacity / 10f;
         }
     }
 
@@ -281,11 +312,15 @@ public class VehicleManager : MonoBehaviour
                 isInUpgradingUI = false;
                 DisplayVehicleProperties();
 
-                selectButtonText.text = "Start";
-                upgradeButtonText.text = "Upgrade";
+                //selectButtonText.text = "Start";
+                //upgradeButtonText.text = "Upgrade";
             }
         }
-        else
+    }
+
+    public void BuyVehicle()
+    {
+        if (vehicles[currentVehicleIndex] != VehicleType.Updating)
         {
             if (MoneyManager.money >= vehiclePrices[currentVehicleIndex])
             {
@@ -293,9 +328,10 @@ public class VehicleManager : MonoBehaviour
             }
             else
             {
-
+                ConfirmWindow($"You don't have enough money to buy {vehicles[currentVehicleIndex].ToString().ToLower()}.");
             }
         }
+        else { ConfirmWindow("We still haven't sold this product yet"); }
     }
 
     public void UnlockVehicle()
@@ -314,6 +350,7 @@ public class VehicleManager : MonoBehaviour
 
     public void ConfirmWindow(string message)
     {
+        vehicleCanvas.SetActive(false);
         confirmWindow.SetActive(true);
         TextMeshProUGUI confirmMessage = GameObject.Find("Are you sure?").GetComponent<TextMeshProUGUI>();
         confirmMessage.text = message;
@@ -323,10 +360,15 @@ public class VehicleManager : MonoBehaviour
     {
         if (!isInUpgradingUI)
         {
-            UnlockVehicle();
+            if (MoneyManager.money >= vehiclePrices[currentVehicleIndex])
+            {
+                vehicleCanvas.SetActive(true);
+                UnlockVehicle();
+            }
         }
         else
         {
+            vehicleCanvas.SetActive(true);
             UpgradeVehicleComponent(GetVehicleProperties(vehicles[currentVehicleIndex]));
         }
 
@@ -335,6 +377,7 @@ public class VehicleManager : MonoBehaviour
 
     public void Cancel()
     {
+        vehicleCanvas.SetActive(true);
         confirmWindow.SetActive(false);
     }
 }
