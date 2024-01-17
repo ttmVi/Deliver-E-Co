@@ -82,6 +82,11 @@ public class MissionManager : MonoBehaviour
             for (int i = 0; i < acceptedMissions.Count; i++)
             {
                 acceptedMissions[i].StartMission();
+                if (acceptedMissions[i].timeRemaining <= 0)
+                {
+                    acceptedMissions[i].FailMission();
+                    continue;
+                }
             }
 
             // Generate random missions after a random time
@@ -185,7 +190,8 @@ public class MissionManager : MonoBehaviour
                 completedMissions.Add(acceptedMissions[i]);
                 acceptedMissions.RemoveAt(i);
             }
-            else if (acceptedMissions[i].isFailed)
+            
+            if (acceptedMissions[i].isFailed)
             {
                 MoneyManager.money -= acceptedMissions[i].penalty;
 

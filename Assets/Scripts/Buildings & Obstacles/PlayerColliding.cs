@@ -12,8 +12,7 @@ public class PlayerColliding : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Gotohell");
-            StartCoroutine(GameSceneManager.LoseLevel($"you crashed into the {tag}"));
+            StartCoroutine(GameSceneManager.LoseLevel($"Oh no! You crashed..."));
         }
     }
 }

@@ -8,22 +8,29 @@ public class AQICalculation : MonoBehaviour
 {
     private float currentMPG;
 
-    private Image AQIBar;
-    public static float realAQI_Index;
+    private RectTransform AQIBar;
+    private RectTransform baseBar;
+    public float realAQI_Index;
     public float timeAQIStays;
 
-    private PathFinding vel;
-    private Rigidbody player;
-
+    [SerializeField] PathFinding vel;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (VehicleManager.playerVehicle != null)
+        AQIBar = GameObject.Find("AQI Index").GetComponent<RectTransform>();
+        baseBar = GameObject.Find("Base Bar").GetComponent<RectTransform>();
+
+        if (SceneManager.GetActiveScene().name == "Vehicle Customize")
         {
-            vel = GameObject.Find("Direction").GetComponent<PathFinding>();
+            baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-335, -435);
+            baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 4);
         }
-        AQIBar = GameObject.Find("AQI Index").GetComponent<Image>();
+        else if (SceneManager.GetActiveScene().name == "Main Moving Scene")
+        {
+            baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 130);
+            baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
     // Update is called once per frame
@@ -36,12 +43,13 @@ public class AQICalculation : MonoBehaviour
             realAQI_Index = CalculateAQI();
         }
 
-        AQIBar.fillAmount = realAQI_Index / 7500f;
+        UpdateAQIBar();
+        //AQIBar.fillAmount = realAQI_Index / 7500f;
     }
 
     public float CalculateAQI()
     {
-        if (vel.velDirection != Vector3.zero && currentMPG != 100f)
+        if (PathFinding.isMoving && currentMPG != 100f)
         {
             realAQI_Index += (1000f / currentMPG) * Time.deltaTime;
             timeAQIStays = 0f;
@@ -60,5 +68,14 @@ public class AQICalculation : MonoBehaviour
         }
 
         return realAQI_Index;
+    }
+
+    public void UpdateAQIBar()
+    {
+        float fillAmount = realAQI_Index / 7500f;
+
+        //Setting arrow's local position
+        float xArrow = realAQI_Index / 7500f - baseBar.sizeDelta.x / 2f;
+        AQIBar.anchoredPosition = new Vector2(xArrow, AQIBar.anchoredPosition.y);
     }
 }
