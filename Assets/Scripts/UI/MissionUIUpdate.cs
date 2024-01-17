@@ -243,8 +243,6 @@ public class MissionUIUpdate : MonoBehaviour
             }
             else if (mission.isAccepted && !mission.isCompleted && !mission.isFailed && !mission.isPickedUp)
             {
-
-
                 missionInfo.text = $"Pick up the package from {mission.pickUpLocation.transform.parent.gameObject.name} and deliver to {mission.dropOffLocation.transform.parent.gameObject.name}.";
                 missionReward.text = $"{mission.reward}";
                 missionTime.text = $"{Mathf.RoundToInt(mission.timeRemaining)}";

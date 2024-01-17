@@ -19,6 +19,7 @@ public class PathFinding : MonoBehaviour
 
     private bool changingLane = false;
     private bool turning = false;
+    public static bool isMoving;
 
     public GameObject player;
     public GameSceneManager sceneManager;
@@ -30,6 +31,7 @@ public class PathFinding : MonoBehaviour
 
     private void Awake()
     {
+        isMoving = false;
         initialDirection = transform.position - player.transform.position;
         // Define initial direction
         if (initialDirection.z > 0)
@@ -302,12 +304,14 @@ public class PathFinding : MonoBehaviour
             audioSource.clip = soundEffects[1];
         }
 
+        isMoving = true;
         audioSource.loop = true;
         audioSource.Play();        
     }
 
     public void StopVehicleSound()
     {
+        isMoving = false;
         audioSource.loop = false;
         audioSource.Stop();
     }
