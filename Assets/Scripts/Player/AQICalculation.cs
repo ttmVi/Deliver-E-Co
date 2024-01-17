@@ -10,7 +10,7 @@ public class AQICalculation : MonoBehaviour
 
     private RectTransform AQIBar;
     private RectTransform baseBar;
-    public float realAQI_Index;
+    public static float realAQI_Index;
     public float timeAQIStays;
 
     [SerializeField] PathFinding vel;
