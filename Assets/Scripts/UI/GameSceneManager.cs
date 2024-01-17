@@ -121,6 +121,11 @@ public class GameSceneManager : MonoBehaviour
         //}
     }
 
+    public static void BackToMainMenu()
+    {
+
+    }
+
     public static IEnumerator LoseLevel(string loseReason)
     {
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
