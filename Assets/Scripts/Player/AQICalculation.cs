@@ -75,7 +75,7 @@ public class AQICalculation : MonoBehaviour
         float fillAmount = realAQI_Index / 7500f;
 
         //Setting arrow's local position
-        float xArrow = realAQI_Index / 7500f - baseBar.sizeDelta.x / 2f;
+        float xArrow = fillAmount * baseBar.sizeDelta.x - baseBar.sizeDelta.x / 2f;
         AQIBar.anchoredPosition = new Vector2(xArrow, AQIBar.anchoredPosition.y);
     }
 }

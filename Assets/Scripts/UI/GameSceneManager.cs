@@ -109,11 +109,6 @@ public class GameSceneManager : MonoBehaviour
         if (VehicleManager.playerVehicle != null)
         {
             SceneManager.LoadScene("Main Moving Scene");
-
-            GameObject missionManager = GameObject.Find("MissionsManager");
-            missionManager.GetComponent<MissionManager>().enabled = true;
-            missionManager.GetComponent<MissionUIUpdate>().enabled = true;
-            MissionUIUpdate.mapCanvas = GameObject.Find("Map Canvas");
         }
     }
 
@@ -121,10 +116,6 @@ public class GameSceneManager : MonoBehaviour
     {
         //if (MissionManager.missionManager.successfulMissionCount >= MissionManager.missionManager.requiredSuccessfulMissions)
         //{
-            GameObject missionManager = GameObject.Find("MissionsManager");
-            missionManager.GetComponent<MissionManager>().enabled = false;
-            missionManager.GetComponent<MissionUIUpdate>().enabled = false;
-
             SceneManager.LoadScene("Vehicle Customize");
             VehicleManager.playerVehicle = null;
         //}
