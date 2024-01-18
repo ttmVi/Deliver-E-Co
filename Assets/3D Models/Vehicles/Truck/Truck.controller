@@ -134,7 +134,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7001736878801954451, guid: 9fdd21fe01b5f9c4fbdc74f18ebc9a48,
+  m_Motion: {fileID: 7001736878801954451, guid: 8f6d952ae03a98945958a8ae58fc951d,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -149,7 +149,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Truck Turning Left
-  m_Speed: 1.8
+  m_Speed: 1.6
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 6515506323266015592}
@@ -163,7 +163,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7001736878801954451, guid: 6e5e83cdd57ad7641b29dcd9aca50aed,
+  m_Motion: {fileID: 7001736878801954451, guid: 650b0335acb1aa04b8cdc998da916240,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -405,7 +405,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Truck Turning Right
-  m_Speed: 1.8
+  m_Speed: 1.6
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2619553355337340629}
@@ -419,7 +419,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7001736878801954451, guid: 2e09392c4358d144c9727cab67f89798,
+  m_Motion: {fileID: 7001736878801954451, guid: 8dd887b2894ddaf4e86640586a9c5f0b,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
