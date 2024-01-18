@@ -47,12 +47,17 @@ MonoBehaviour:
   vehicles: 00000000010000000200000003000000
   vehiclePrices: 0000000064000000e803000000000000
   lockedSprites:
-  - {fileID: 21300000, guid: af7b7287e939bd7498f369227715dbfd, type: 3}
-  - {fileID: 21300000, guid: af7b7287e939bd7498f369227715dbfd, type: 3}
-  - {fileID: 21300000, guid: af7b7287e939bd7498f369227715dbfd, type: 3}
-  - {fileID: 21300000, guid: af7b7287e939bd7498f369227715dbfd, type: 3}
+  - {fileID: 21300000, guid: fddae5bb658a39a40ba9f3cc352b9416, type: 3}
+  - {fileID: 21300000, guid: df6e1e945eda3ce4a9428f3cf69d924d, type: 3}
+  - {fileID: 21300000, guid: cfefe9ad82805084bb338f4012287c3f, type: 3}
+  - {fileID: 21300000, guid: 8a159ce371ecfb542ba78052ee456697, type: 3}
   unlockedSprites:
+  - {fileID: 21300000, guid: fddae5bb658a39a40ba9f3cc352b9416, type: 3}
+  - {fileID: 21300000, guid: df6e1e945eda3ce4a9428f3cf69d924d, type: 3}
+  - {fileID: 21300000, guid: cfefe9ad82805084bb338f4012287c3f, type: 3}
+  - {fileID: 21300000, guid: 8a159ce371ecfb542ba78052ee456697, type: 3}
+  upgradingSprites:
   - {fileID: 21300000, guid: 4b172336c957a714586990891e9c0f6c, type: 3}
   - {fileID: 21300000, guid: 07a36aeb76b83994c8bc17b8c38bbdd6, type: 3}
-  - {fileID: 21300000, guid: 4b172336c957a714586990891e9c0f6c, type: 3}
-  - {fileID: 21300000, guid: 07a36aeb76b83994c8bc17b8c38bbdd6, type: 3}
+  - {fileID: 21300000, guid: af7b7287e939bd7498f369227715dbfd, type: 3}
+  - {fileID: 21300000, guid: af7b7287e939bd7498f369227715dbfd, type: 3}

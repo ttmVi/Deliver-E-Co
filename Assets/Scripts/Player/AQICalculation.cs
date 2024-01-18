@@ -10,7 +10,7 @@ public class AQICalculation : MonoBehaviour
 
     private RectTransform AQIBar;
     private RectTransform baseBar;
-    public static float realAQI_Index;
+    public static float realAQI_Index = 5750f;
     public float timeAQIStays;
 
     [SerializeField] PathFinding vel;
@@ -23,13 +23,11 @@ public class AQICalculation : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Vehicle Customize")
         {
-            baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(-335, -435);
-            baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 4);
+            baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 192);
         }
         else if (SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
             baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 130);
-            baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
@@ -61,7 +59,7 @@ public class AQICalculation : MonoBehaviour
             {
                 if (realAQI_Index > 0f)
                 {
-                    realAQI_Index -= 100f * Time.deltaTime;
+                    realAQI_Index -= 20f * Time.deltaTime;
                 }
                 else { realAQI_Index = 0f; }
             }
