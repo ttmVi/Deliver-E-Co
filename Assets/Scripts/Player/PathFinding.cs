@@ -21,6 +21,8 @@ public class PathFinding : MonoBehaviour
     private bool turning = false;
     public static bool isMoving;
 
+    VehicleAnimation vehicleAnimation;
+
     public GameObject player;
     public GameSceneManager sceneManager;
     public LaneState laneState;
@@ -31,6 +33,8 @@ public class PathFinding : MonoBehaviour
 
     private void Awake()
     {
+        vehicleAnimation = GetComponent<VehicleAnimation>();
+
         isMoving = false;
         initialDirection = transform.position - player.transform.position;
         // Define initial direction
@@ -96,6 +100,7 @@ public class PathFinding : MonoBehaviour
 
                 if (inputTime > 0.5f) //&& LaneDirection.Length >= 2) // Turning
                 {
+                    vehicleAnimation.SetTurningLeft(true);
                     Debug.Log(inputTime.ToString());
 
                     inputTime = 0f;
@@ -131,6 +136,7 @@ public class PathFinding : MonoBehaviour
 
                 if (inputTime > 0.5f)// && LaneDirection.Length >= 2) // Turning
                 {
+                    vehicleAnimation.SetTurningRight(true);
                     Debug.Log(inputTime.ToString());
 
                     inputTime = 0f;
@@ -185,6 +191,7 @@ public class PathFinding : MonoBehaviour
                 direction += 0.5f;
 
                 StopVehicleSound();
+                vehicleAnimation.SetIsMoving(false);
             }
         }
         else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
@@ -194,6 +201,7 @@ public class PathFinding : MonoBehaviour
                 direction = lastVelocityDirection;
 
                 PlayVehicleSound();
+                vehicleAnimation.SetIsMoving(true);
             }
         }
 
@@ -229,6 +237,8 @@ public class PathFinding : MonoBehaviour
                 targetAngle = 0;
                 Debug.Log("finish rotation");
                 turning = false;
+                vehicleAnimation.SetTurningLeft(false);
+                vehicleAnimation.SetTurningRight(false);
             }
             yield return null;
         }

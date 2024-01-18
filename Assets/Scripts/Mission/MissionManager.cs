@@ -189,9 +189,9 @@ public class MissionManager : MonoBehaviour
 
                 completedMissions.Add(acceptedMissions[i]);
                 acceptedMissions.RemoveAt(i);
+                continue;
             }
-            
-            if (acceptedMissions[i].isFailed)
+            else if (acceptedMissions[i].isFailed)
             {
                 MoneyManager.money -= acceptedMissions[i].penalty;
 
@@ -200,7 +200,7 @@ public class MissionManager : MonoBehaviour
 
                 completedMissions.Add(acceptedMissions[i]);
                 acceptedMissions.RemoveAt(i);
-
+                continue;
             }
         }
     }
