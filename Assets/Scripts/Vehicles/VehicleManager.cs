@@ -245,7 +245,7 @@ public class VehicleManager : MonoBehaviour
 
                 //icon.sprite = motorbikeComponentsSprites[currentUpgradableIndex][i];
                 name.text = upgradableComponents[currentUpgradableIndex][i].name;
-                //description.text = upgradableComponents[currentUpgradableIndex][i].description;
+                description.text = upgradableComponents[currentUpgradableIndex][i].description;
 
                 if (!upgradableComponents[currentUpgradableIndex][i].isUnlocked)
                 {
@@ -293,7 +293,7 @@ public class VehicleManager : MonoBehaviour
 
                 //icon.sprite = truckComponentsSprites[currentUpgradableIndex][i];
                 name.text = upgradableComponents[currentUpgradableIndex][i].name;
-                //description.text = upgradableComponents[currentUpgradableIndex][i].description;
+                description.text = upgradableComponents[currentUpgradableIndex][i].description;
 
                 if (!upgradableComponents[currentUpgradableIndex][i].isUnlocked)
                 {
@@ -334,7 +334,15 @@ public class VehicleManager : MonoBehaviour
 
         if (!upgradableComponents[currentUpgradableIndex][componentIndex].isUnlocked)
         {
-            UpgradeVehicleComponent(GetVehicleProperties(vehicles[currentVehicleIndex]), componentIndex);
+            if (MoneyManager.money >= upgradableComponents[currentUpgradableIndex][componentIndex].price)
+            {
+                ConfirmWindow($"Are you sure you want to unlock this component?");
+            }
+            else
+            {
+                ConfirmWindow($"You don't have enough money!");
+            }
+            //UpgradeVehicleComponent(GetVehicleProperties(vehicles[currentVehicleIndex]), componentIndex);
         }
         else
         {
@@ -348,45 +356,7 @@ public class VehicleManager : MonoBehaviour
         upgradedVehicle.UnlockUpgradeComponent(upgradableComponents[currentUpgradableIndex][componentIndex].category, upgradableComponents[currentUpgradableIndex][componentIndex].name);
         upgradedVehicle.ChooseUpgradeComponent(upgradableComponents[currentUpgradableIndex][componentIndex].category, upgradableComponents[currentUpgradableIndex][componentIndex].name);
 
-        if (vehicleCanvas.activeSelf)
-        {
-            Debug.Log("Vehicle canvas is active before refreshing");
-        }
-        else
-        {
-            Debug.Log("Vehicle canvas is not active before refreshing");
-        }
-        /*for (int i = 0; i < upgradableComponents[currentUpgradableIndex].Length - 1; i++)
-        {
-            if (upgradableComponents[currentUpgradableIndex][i].isChosen)
-            {
-                if (MoneyManager.money >= upgradableComponents[currentUpgradableIndex][i + 1].price)
-                {
-                    MoneyManager.money -= upgradableComponents[currentUpgradableIndex][i + 1].price;
-
-                    upgradedVehicle.UnlockUpgradeComponent(upgradableComponents[currentUpgradableIndex][i + 1].category, upgradableComponents[currentUpgradableIndex][i + 1].name);
-                    Debug.Log($"Unlocking {upgradableComponents[currentUpgradableIndex][i + 1].name} for {upgradedVehicle}");
-                    upgradedVehicle.ChooseUpgradeComponent(upgradableComponents[currentUpgradableIndex][i + 1].category, upgradableComponents[currentUpgradableIndex][i + 1].name);
-                    Debug.Log($"Choosing {upgradableComponents[currentUpgradableIndex][i + 1].name} for {upgradedVehicle}");
-                }
-                else
-                {
-                    Debug.Log("Not enough money");
-                }
-                break;
-            }
-        }*/
-
         DisplayVehicleUpgradeComponent();
-        Debug.Log("Upgraded vehicle component");
-        if (vehicleCanvas.activeSelf)
-        {
-            Debug.Log("Vehicle canvas is active after refreshing");
-        }
-        else
-        {
-            Debug.Log("Vehicle canvas is not active after refreshing");
-        }
     }
 
     public void SelectVehicle()
@@ -459,6 +429,9 @@ public class VehicleManager : MonoBehaviour
             name.text = $"{vehicles[currentVehicleIndex]}";
             nameShadow.text = $"{vehicles[currentVehicleIndex]}";
             vehicle.sprite = upgradingSprites[currentVehicleIndex];
+
+            name.fontSize = 65;
+            nameShadow.fontSize = 65;
         }
         else
         {
@@ -466,6 +439,9 @@ public class VehicleManager : MonoBehaviour
             name.text = $"{upgradableComponents[currentUpgradableIndex][upgradeIndex].name}";
             nameShadow.text = $"{upgradableComponents[currentUpgradableIndex][upgradeIndex].name}";
             vehicle.sprite = upgradingSprites[currentVehicleIndex];
+
+            name.fontSize = 44;
+            nameShadow.fontSize = 44;
         }
     }
 
@@ -485,8 +461,15 @@ public class VehicleManager : MonoBehaviour
         }
         else
         {
-            //vehicleCanvas.SetActive(true);
-            //UpgradeVehicleComponent(GetVehicleProperties(vehicles[currentVehicleIndex]));
+            if (MoneyManager.money >= upgradableComponents[currentUpgradableIndex][upgradeIndex].price)
+            {
+                vehicleCanvas.SetActive(true);
+                UpgradeVehicleComponent(GetVehicleProperties(vehicles[currentVehicleIndex]), upgradeIndex);
+            }
+            else
+            {
+                vehicleCanvas.SetActive(true);
+            }
         }
 
         confirmWindow.SetActive(false);
@@ -494,7 +477,14 @@ public class VehicleManager : MonoBehaviour
 
     public void Cancel()
     {
-        vehicleCanvas.SetActive(true);
+        if (!isInUpgradingUI)
+        {
+            vehicleCanvas.SetActive(true);
+        }
+        else
+        {
+            upgradeCanvas.SetActive(true);
+        }
         confirmWindow.SetActive(false);
     }
 }
