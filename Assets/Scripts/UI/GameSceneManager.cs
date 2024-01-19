@@ -138,10 +138,14 @@ public class GameSceneManager : MonoBehaviour
 
         while (!losingCanvas.activeSelf)
         {
+            GameObject.Find("ResourcesManager").GetComponent<AQICalculation>().EndDayCheck();
+
             MoneyManager.money -= 100;
             break;
         }
         losingCanvas.SetActive(true);
+
+
         TextMeshProUGUI completedMissionsCount = GameObject.Find("CompletedMission Count").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI moneyLost = GameObject.Find("Money Lost").GetComponent<TextMeshProUGUI>();
 
@@ -165,6 +169,12 @@ public class GameSceneManager : MonoBehaviour
         foreach (var audioSource in audioSources)
         {
             audioSource.Stop();
+        }
+
+        while (!winningCanvas.activeSelf)
+        {
+            GameObject.Find("ResourcesManager").GetComponent<AQICalculation>().EndDayCheck();
+            break;
         }
 
         winningCanvas.SetActive(true);

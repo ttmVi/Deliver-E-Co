@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class AQICalculation : MonoBehaviour
 {
     private float currentMPG;
+    private float startingAQI;
 
     private RectTransform AQIBar;
     private RectTransform baseBar;
@@ -29,6 +30,8 @@ public class AQICalculation : MonoBehaviour
         {
             baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 130);
         }
+
+        startingAQI = realAQI_Index;
     }
 
     // Update is called once per frame
@@ -75,5 +78,13 @@ public class AQICalculation : MonoBehaviour
         //Setting arrow's local position
         float xArrow = fillAmount * baseBar.sizeDelta.x - baseBar.sizeDelta.x / 2f;
         AQIBar.anchoredPosition = new Vector2(xArrow, AQIBar.anchoredPosition.y);
+    }
+
+    public void EndDayCheck()
+    {
+        if (realAQI_Index < startingAQI && !(realAQI_Index <= 0))
+        {
+            MoneyManager.money += Mathf.RoundToInt(startingAQI - realAQI_Index);
+        }
     }
 }

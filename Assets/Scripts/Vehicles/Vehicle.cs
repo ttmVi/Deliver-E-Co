@@ -299,14 +299,14 @@ public class Motorbike : Vehicle
     }
 }
 
-public class Car : Vehicle
+public class Truck : Vehicle
 {
     public static string engineType = "Combustion";
     public static string wheelType = "Steel";
     public static string batteryType = "None";
     public static string exhaustSystem = "Standard";
 
-    public enum CarUpgradableComponents
+    public enum TruckUpgradableComponents
     {
         Engine,
         Wheels,
@@ -314,13 +314,13 @@ public class Car : Vehicle
         ExhaustSystem
     }
 
-    public Car(float speed, float MPG, float fuel, string feature, int capacity)
+    public Truck(float speed, float MPG, float fuel, string feature, int capacity)
         : base(speed, MPG, fuel, feature, capacity)
     {
         upgradeOptions = new UpgradableComponent[4][];
 
         // Engine upgrade options
-        upgradeOptions[(int)CarUpgradableComponents.Engine] = new UpgradableComponent[]
+        upgradeOptions[(int)TruckUpgradableComponents.Engine] = new UpgradableComponent[]
         {
             new UpgradableComponent("Engine", "Combustion", 0, true, true, "none"),
             new UpgradableComponent("Engine", "Hybrid", 200, false, false, "none"),
@@ -328,7 +328,7 @@ public class Car : Vehicle
         };
 
         // Wheels upgrade options
-        upgradeOptions[(int)CarUpgradableComponents.Wheels] = new UpgradableComponent[]
+        upgradeOptions[(int)TruckUpgradableComponents.Wheels] = new UpgradableComponent[]
         {
             new UpgradableComponent("Wheels", "Steel", 0, true, true, "none"),
             new UpgradableComponent("Wheels", "Carbon Fiber", 200, false, false, "none"),
@@ -336,7 +336,7 @@ public class Car : Vehicle
         };
 
         // Battery upgrade options
-        upgradeOptions[(int)CarUpgradableComponents.Battery] = new UpgradableComponent[]
+        upgradeOptions[(int)TruckUpgradableComponents.Battery] = new UpgradableComponent[]
         {
             new UpgradableComponent("Battery", "None", 0, true, true, "none"),
             new UpgradableComponent("Battery", "Lithium", 200, false, false, "none"),
@@ -344,7 +344,7 @@ public class Car : Vehicle
         };
 
         // Exhaust System upgrade options
-        upgradeOptions[(int)CarUpgradableComponents.ExhaustSystem] = new UpgradableComponent[]
+        upgradeOptions[(int)TruckUpgradableComponents.ExhaustSystem] = new UpgradableComponent[]
         {
             new UpgradableComponent("Exhaust System", "Standard", 0, true, true, "none"),
             new UpgradableComponent("Exhaust System", "Exhaust Tuning", 100, false, false, "none"),
@@ -354,7 +354,7 @@ public class Car : Vehicle
 
     public override void StartVehicle()
     {
-        Debug.Log("Car started");
+        Debug.Log("Truck started");
     }
 
     public override void UpgradeVehicle(string upgradeType)
@@ -425,7 +425,7 @@ public class Car : Vehicle
             default: break;
         }
 
-        Debug.Log($"Car {upgradeType} upgraded");
+        Debug.Log($"Truck {upgradeType} upgraded");
     }
 
     public override void UnlockUpgradeComponent(string upgradeCategory, string upgradeComponent)

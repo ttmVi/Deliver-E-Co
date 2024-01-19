@@ -13,7 +13,7 @@ public class VehicleManager : MonoBehaviour
     public static VehicleManager vehicleManager;
     public static Vehicle playerVehicle;
 
-    public VehicleType[] vehicles = { VehicleType.Bicycle, VehicleType.Motorbike, VehicleType.Car, VehicleType.Updating };
+    public VehicleType[] vehicles = { VehicleType.Bicycle, VehicleType.Motorbike, VehicleType.Truck, VehicleType.Updating };
     public static bool[] vehicleIsUnlocked = { false, false, false, false };
     public int[] vehiclePrices = { 0, 100, 1000, 0 };
     [SerializeField] Sprite[] lockedSprites;
@@ -27,6 +27,7 @@ public class VehicleManager : MonoBehaviour
     private bool isInUpgradingUI = false;
 
     private GameObject vehicleCanvas;
+    private GameObject upgradeCanvas;
     private GameObject selectButton;
     //private TextMeshProUGUI selectButtonText;
     private GameObject upgradeButton;
@@ -43,6 +44,7 @@ public class VehicleManager : MonoBehaviour
     private void Awake()
     {
         vehicleCanvas = GameObject.Find("Vehicle Selection Canvas");
+        upgradeCanvas = GameObject.Find("Vehicle Upgrade Canvas");
 
         selectButton = GameObject.Find("Select Vehicle Button");
         //selectButtonText = GameObject.Find("Vehicle").GetComponent<TextMeshProUGUI>();
@@ -125,6 +127,8 @@ public class VehicleManager : MonoBehaviour
 
     public void DisplayVehicleProperties()
     {
+        vehicleCanvas.SetActive(true);
+        upgradeCanvas.SetActive(false);
         //Vector3 tempPos = selectButton.GetComponent<RectTransform>().anchoredPosition;
 
         VehicleType currentVehicleType = vehicles[currentVehicleIndex];
@@ -133,6 +137,8 @@ public class VehicleManager : MonoBehaviour
         {
             locked.SetActive(false);
             AQIBar.SetActive(true);
+            AQIBar.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 192);
+            AQIBar.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
             moneyBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(-732, 289, 0);
             properties.SetActive(true);
             selectButton.SetActive(true);
@@ -181,6 +187,8 @@ public class VehicleManager : MonoBehaviour
             selectButton.SetActive(false);
             locked.SetActive(true);
             AQIBar.SetActive(true);
+            AQIBar.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 192);
+            AQIBar.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 0);
             properties.SetActive(false);
             moneyBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(-732, 289, 0);
             vehicleImage.sprite = lockedSprites[currentVehicleIndex];
@@ -199,6 +207,14 @@ public class VehicleManager : MonoBehaviour
 
     public void DisplayVehicleUpgradeComponent()
     {
+        vehicleCanvas.SetActive(false);
+        upgradeCanvas.SetActive(true);
+        AQIBar.SetActive(true);
+
+        moneyBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(-825, 411, 0);
+        AQIBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(-340, -425, 0);
+        AQIBar.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 4);
+
         VehicleType currentVehicleType = vehicles[currentVehicleIndex];
 
         if (currentVehicleType == VehicleType.Motorbike)
@@ -238,29 +254,29 @@ public class VehicleManager : MonoBehaviour
                 }
             }
         }
-        else if (currentVehicleType == VehicleType.Car)
+        else if (currentVehicleType == VehicleType.Truck)
         {
-            upgradableComponents = Car.upgradeOptions;
+            upgradableComponents = Truck.upgradeOptions;
 
             if (upgradableComponents[currentUpgradableIndex][0].category == "Engine")
             {
                 displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\n\n" +
-                    $"Engine: {Car.engineType}";
+                    $"Engine: {Truck.engineType}";
             }
             else if (upgradableComponents[currentUpgradableIndex][0].category == "Wheels")
             {
                 displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\n\n" +
-                    $"Wheel: {Car.wheelType}";
+                    $"Wheel: {Truck.wheelType}";
             }
             else if (upgradableComponents[currentUpgradableIndex][0].category == "Battery")
             {
                 displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\n\n" +
-                    $"Battery: {Car.batteryType}";
+                    $"Battery: {Truck.batteryType}";
             }
             else if (upgradableComponents[currentUpgradableIndex][0].category == "Exhaust System")
             {
                 displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\n\n" +
-                    $"Exhaust System: {Car.exhaustSystem}";
+                    $"Exhaust System: {Truck.exhaustSystem}";
             }
 
             for (int i = 0; i < upgradableComponents[currentUpgradableIndex].Length; i++)
@@ -374,7 +390,9 @@ public class VehicleManager : MonoBehaviour
     public void ConfirmWindow(string message)
     {
         vehicleCanvas.SetActive(false);
+        upgradeCanvas.SetActive(false);
         confirmWindow.SetActive(true);
+        AQIBar.SetActive(false);
         moneyBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(-825, 411, 0);
 
         TextMeshProUGUI confirmMessage = GameObject.Find("Are you sure?").GetComponent<TextMeshProUGUI>();
