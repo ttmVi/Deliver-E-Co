@@ -15011,7 +15011,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1767260894}
-  - {fileID: 1842135846}
+  - {fileID: 1839263283}
   - {fileID: 1775365901}
   - {fileID: 1292559826}
   - {fileID: 359733374}
@@ -18152,7 +18152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &404746600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81475,6 +81475,80 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1001 &1839263282
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 317393963}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 6d4b56dcd71302f49ace9639e4835d87,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6d4b56dcd71302f49ace9639e4835d87,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6d4b56dcd71302f49ace9639e4835d87,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6d4b56dcd71302f49ace9639e4835d87,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6d4b56dcd71302f49ace9639e4835d87,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6d4b56dcd71302f49ace9639e4835d87,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6d4b56dcd71302f49ace9639e4835d87,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6d4b56dcd71302f49ace9639e4835d87,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6d4b56dcd71302f49ace9639e4835d87,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6d4b56dcd71302f49ace9639e4835d87,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6d4b56dcd71302f49ace9639e4835d87,
+        type: 3}
+      propertyPath: m_Name
+      value: Traffic signs
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6d4b56dcd71302f49ace9639e4835d87, type: 3}
+--- !u!4 &1839263283 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6d4b56dcd71302f49ace9639e4835d87,
+    type: 3}
+  m_PrefabInstance: {fileID: 1839263282}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1840665175
 GameObject:
   m_ObjectHideFlags: 0
@@ -81646,80 +81720,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.316658, y: 3.386721, z: 1.0502663}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &1842135845
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 317393963}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 5c862161af0c937428b43522f1a04554,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5c862161af0c937428b43522f1a04554,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5c862161af0c937428b43522f1a04554,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5c862161af0c937428b43522f1a04554,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5c862161af0c937428b43522f1a04554,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5c862161af0c937428b43522f1a04554,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5c862161af0c937428b43522f1a04554,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5c862161af0c937428b43522f1a04554,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5c862161af0c937428b43522f1a04554,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 5c862161af0c937428b43522f1a04554,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 5c862161af0c937428b43522f1a04554,
-        type: 3}
-      propertyPath: m_Name
-      value: Traffic sign 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5c862161af0c937428b43522f1a04554, type: 3}
---- !u!4 &1842135846 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5c862161af0c937428b43522f1a04554,
-    type: 3}
-  m_PrefabInstance: {fileID: 1842135845}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1843596485
 GameObject:
   m_ObjectHideFlags: 0

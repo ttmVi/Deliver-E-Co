@@ -57,10 +57,9 @@ public abstract class Vehicle
 
     public virtual void ChooseUpgradeComponent(string upgradeCategory, string upgradeComponent) { }
 
-    public virtual string[] GetEquippedAndUpgradableComponent(string category)
+    public virtual UpgradableComponent[][] GetUpgradableComponent()
     {
-        string[] currentlyEquippedComponent = {"none", ""};
-        return currentlyEquippedComponent;
+        return upgradeOptions;
     }
 }
 
@@ -253,7 +252,6 @@ public class Motorbike : Vehicle
                     if (upgradeOptions[i][j].name.Contains(upgradeComponent) && upgradeOptions[i][j].isUnlocked)
                     {
                         upgradeOptions[i][j].isChosen = true;
-                        upgradeOptions[i][j - 1].isChosen = false;
                     }
                     else
                     {
@@ -267,35 +265,9 @@ public class Motorbike : Vehicle
         }
     }
 
-    public override string[] GetEquippedAndUpgradableComponent(string category) //For now it does nothing
+    public static UpgradableComponent[][] GetMotorbikeUpgradableComponent() //For now it does nothing
     {
-        string[] currentlyEquippedComponent = { "...", "" };
-
-        for (int i = 0; i < upgradeOptions.Length; i++)
-        {
-            if (upgradeOptions[i][0].category.Contains(category))
-            {
-                for (int j = 0; j < upgradeOptions[i].Length; j++)
-                {
-                    if (upgradeOptions[i][j].isChosen)
-                    {
-                        currentlyEquippedComponent[0] = upgradeOptions[i][j].name;
-                        if (j + 1 < upgradeOptions[i].Length)
-                        {
-                            currentlyEquippedComponent[1] = upgradeOptions[i][j + 1].price.ToString();
-                        }
-                        break;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-            }
-            else { continue; }
-        }
-
-        return currentlyEquippedComponent;
+        return upgradeOptions;
     }
 }
 
@@ -483,6 +455,10 @@ public class Truck : Vehicle
             }
             else { continue; }
         }
+    }
+    public static UpgradableComponent[][] GetTruckUpgradableComponent() //For now it does nothing
+    {
+        return upgradeOptions;
     }
 }
 

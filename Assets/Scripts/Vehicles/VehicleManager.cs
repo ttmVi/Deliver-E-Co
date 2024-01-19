@@ -19,10 +19,13 @@ public class VehicleManager : MonoBehaviour
     [SerializeField] Sprite[] lockedSprites;
     [SerializeField] Sprite[] unlockedSprites;
     [SerializeField] Sprite[] upgradingSprites;
+    [SerializeField] Sprite[][] motorbikeComponentsSprites;
+    [SerializeField] Sprite[][] truckComponentsSprites;
     private int currentVehicleIndex = 0;
 
     public Vehicle.UpgradableComponent[][] upgradableComponents;
     private int currentUpgradableIndex = 0;
+    private int upgradeIndex;
 
     private bool isInUpgradingUI = false;
 
@@ -170,16 +173,6 @@ public class VehicleManager : MonoBehaviour
             properties.SetActive(false);
 
             vehicleImage.sprite = lockedSprites[currentVehicleIndex];
-
-            //displayedVehicleProperties.text = "Coming soon...";
-            //selectButtonText.text = "Updating";
-
-            //speed.fillAmount = 0f;
-            //mpg.fillAmount = 0f;
-            //fuel.fillAmount = 0f;
-            //capacity.fillAmount = 0f;
-
-            //selectButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, tempPos.y, tempPos.z);
             upgradeButton.SetActive(false);
         }
         else
@@ -215,82 +208,126 @@ public class VehicleManager : MonoBehaviour
         AQIBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(-340, -425, 0);
         AQIBar.GetComponent<RectTransform>().rotation = Quaternion.Euler(0, 0, 4);
 
+        Image currentVehicle = GameObject.Find("Current Vehicle").GetComponent<Image>();
+        TextMeshProUGUI currentVehicleName = GameObject.Find("Current Vehicle Name").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI currentComponent = GameObject.Find("Current Component").GetComponent<TextMeshProUGUI>();
+        GameObject componentOptions = GameObject.Find("Component Options");
+
         VehicleType currentVehicleType = vehicles[currentVehicleIndex];
 
         if (currentVehicleType == VehicleType.Motorbike)
         {
             //upgradableComponents = new string[] { "Engine", "Wheel", "Exhaust System" };
 
-            upgradableComponents = Motorbike.upgradeOptions;
+            upgradableComponents = Motorbike.GetMotorbikeUpgradableComponent();
+            Debug.Log(upgradableComponents.Length);
+            currentVehicle.sprite = upgradingSprites[1];
+            currentVehicleName.text = "Motorbike";
 
             if (upgradableComponents[currentUpgradableIndex][0].category == "Engine")
             {
+                currentComponent.text = "Engine";
+
                 displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\n\n" +
                     $"Engine: {Motorbike.engineType}";
             }
             else if (upgradableComponents[currentUpgradableIndex][0].category == "Wheels")
             {
+                currentComponent.text = "Wheels";
+
                 displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\n\n" +
                     $"Wheel: {Motorbike.wheelType}";
             }
             else if (upgradableComponents[currentUpgradableIndex][0].category == "Exhaust System")
             {
+                currentComponent.text = "Exhaust System";
+
                 displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\n\n" +
                     $"Exhaust System: {Motorbike.exhaustSystem}";
             }
-            
-            for (int i = 0; i < upgradableComponents[currentUpgradableIndex].Length; i++)
+
+            for (int i = 0; i < componentOptions.transform.childCount; i++)
             {
-                if (upgradableComponents[currentUpgradableIndex][i].isChosen)
+                Image icon = componentOptions.transform.GetChild(i).GetChild(0).GetComponent<Image>();
+                TextMeshProUGUI name = componentOptions.transform.GetChild(i).GetChild(1).GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI description = componentOptions.transform.GetChild(i).GetChild(2).GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI button = componentOptions.transform.GetChild(i).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
+
+                //icon.sprite = motorbikeComponentsSprites[currentUpgradableIndex][i];
+                name.text = upgradableComponents[currentUpgradableIndex][i].name;
+                //description.text = upgradableComponents[currentUpgradableIndex][i].description;
+
+                if (!upgradableComponents[currentUpgradableIndex][i].isUnlocked)
                 {
-                    if (i < upgradableComponents[currentUpgradableIndex].Length - 1)
-                    {
-                        upgradeButtonText.text = $"Upgrade: {upgradableComponents[currentUpgradableIndex][i + 1].price}";
-                    }
-                    else
-                    {
-                        upgradeButtonText.text = "Upgraded";
-                    }
+                    button.text = "Unlock";
+                }
+                else if (!upgradableComponents[currentUpgradableIndex][i].isChosen)
+                {
+                    button.text = "Choose";
+                }
+                else
+                {
+                    button.text = "Chosen";
                 }
             }
         }
         else if (currentVehicleType == VehicleType.Truck)
         {
-            upgradableComponents = Truck.upgradeOptions;
+            upgradableComponents = Truck.GetTruckUpgradableComponent();
+            currentVehicle.sprite = upgradingSprites[2];
+            currentVehicleName.text = "Truck";
 
             if (upgradableComponents[currentUpgradableIndex][0].category == "Engine")
             {
+                currentComponent.text = "Engine";
+
                 displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\n\n" +
                     $"Engine: {Truck.engineType}";
             }
             else if (upgradableComponents[currentUpgradableIndex][0].category == "Wheels")
             {
+                currentComponent.text = "Wheels";
+
                 displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\n\n" +
                     $"Wheel: {Truck.wheelType}";
             }
             else if (upgradableComponents[currentUpgradableIndex][0].category == "Battery")
             {
+                currentComponent.text = "Battery";
+
                 displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\n\n" +
                     $"Battery: {Truck.batteryType}";
             }
             else if (upgradableComponents[currentUpgradableIndex][0].category == "Exhaust System")
             {
+                currentComponent.text = "Exhaust System";
+
                 displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\n\n" +
                     $"Exhaust System: {Truck.exhaustSystem}";
             }
 
-            for (int i = 0; i < upgradableComponents[currentUpgradableIndex].Length; i++)
+            for (int i = 0; i < componentOptions.transform.childCount; i++)
             {
-                if (upgradableComponents[currentUpgradableIndex][i].isChosen)
+                Image icon = componentOptions.transform.GetChild(i).GetChild(0).GetComponent<Image>();
+                TextMeshProUGUI name = componentOptions.transform.GetChild(i).GetChild(1).GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI description = componentOptions.transform.GetChild(i).GetChild(2).GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI button = componentOptions.transform.GetChild(i).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
+
+                //icon.sprite = truckComponentsSprites[currentUpgradableIndex][i];
+                name.text = upgradableComponents[currentUpgradableIndex][i].name;
+                //description.text = upgradableComponents[currentUpgradableIndex][i].description;
+
+                if (!upgradableComponents[currentUpgradableIndex][i].isUnlocked)
                 {
-                    if (i < upgradableComponents[currentUpgradableIndex].Length - 1)
-                    {
-                        upgradeButtonText.text = $"Upgrade: {upgradableComponents[currentUpgradableIndex][i + 1].price}";
-                    }
-                    else
-                    {
-                        upgradeButtonText.text = "Upgraded";
-                    }
+                    button.text = "Unlock";
+                }
+                else if (!upgradableComponents[currentUpgradableIndex][i].isChosen)
+                {
+                    button.text = "Choose";
+                }
+                else
+                {
+                    button.text = "Chosen";
                 }
             }
         }
@@ -307,14 +344,33 @@ public class VehicleManager : MonoBehaviour
         }
         else
         {
-            ConfirmWindow($"Are you sure you want to upgrade {vehicles[currentVehicleIndex].ToString().ToLower()}?");
-            UpgradeVehicleComponent(GetVehicleProperties(vehicles[currentVehicleIndex]));
+            //ConfirmWindow($"Are you sure you want to upgrade {vehicles[currentVehicleIndex].ToString().ToLower()}?");
+            //UpgradeVehicleComponent(GetVehicleProperties(vehicles[currentVehicleIndex]));
         }
     }
 
-    public void UpgradeVehicleComponent(Vehicle upgradedVehicle)
+    public void ChooseComponent(int componentIndex)
     {
-        for (int i = 0; i < upgradableComponents[currentUpgradableIndex].Length - 1; i++)
+        Debug.Log("Choosing component");
+        upgradeIndex = componentIndex;
+
+        if (upgradableComponents[currentUpgradableIndex][componentIndex].isUnlocked)
+        {
+            UpgradeVehicleComponent(GetVehicleProperties(vehicles[currentVehicleIndex]), componentIndex);
+        }
+        else
+        {
+            GetVehicleProperties(vehicles[currentVehicleIndex]).ChooseUpgradeComponent(upgradableComponents[currentUpgradableIndex][componentIndex].category, upgradableComponents[currentUpgradableIndex][componentIndex].name);
+            DisplayVehicleProperties();
+        }
+    }
+
+    public void UpgradeVehicleComponent(Vehicle upgradedVehicle, int componentIndex)
+    {
+        upgradedVehicle.UnlockUpgradeComponent(upgradableComponents[currentUpgradableIndex][componentIndex].category, upgradableComponents[currentUpgradableIndex][componentIndex].name);
+        upgradedVehicle.ChooseUpgradeComponent(upgradableComponents[currentUpgradableIndex][componentIndex].category, upgradableComponents[currentUpgradableIndex][componentIndex].name);
+
+        /*for (int i = 0; i < upgradableComponents[currentUpgradableIndex].Length - 1; i++)
         {
             if (upgradableComponents[currentUpgradableIndex][i].isChosen)
             {
@@ -333,7 +389,7 @@ public class VehicleManager : MonoBehaviour
                 }
                 break;
             }
-        }
+        }*/
 
         DisplayVehicleUpgradeComponent();
     }
@@ -402,10 +458,20 @@ public class VehicleManager : MonoBehaviour
         Image vehicle = GameObject.Find("Vehicle Confirmation").GetComponent<Image>();
 
         confirmMessage.text = message;
-        price.text = $"{vehiclePrices[currentVehicleIndex]}";
-        name.text = $"{vehicles[currentVehicleIndex]}";
-        nameShadow.text = $"{vehicles[currentVehicleIndex]}";
-        vehicle.sprite = upgradingSprites[currentVehicleIndex];
+        if (!isInUpgradingUI)
+        {
+            price.text = $"{vehiclePrices[currentVehicleIndex]}";
+            name.text = $"{vehicles[currentVehicleIndex]}";
+            nameShadow.text = $"{vehicles[currentVehicleIndex]}";
+            vehicle.sprite = upgradingSprites[currentVehicleIndex];
+        }
+        else
+        {
+            price.text = $"{upgradableComponents[currentUpgradableIndex][upgradeIndex].price}";
+            name.text = $"{upgradableComponents[currentUpgradableIndex][upgradeIndex].name}";
+            nameShadow.text = $"{upgradableComponents[currentUpgradableIndex][upgradeIndex].name}";
+            vehicle.sprite = upgradingSprites[currentVehicleIndex];
+        }
     }
 
     public void Confirm()
@@ -424,8 +490,8 @@ public class VehicleManager : MonoBehaviour
         }
         else
         {
-            vehicleCanvas.SetActive(true);
-            UpgradeVehicleComponent(GetVehicleProperties(vehicles[currentVehicleIndex]));
+            //vehicleCanvas.SetActive(true);
+            //UpgradeVehicleComponent(GetVehicleProperties(vehicles[currentVehicleIndex]));
         }
 
         confirmWindow.SetActive(false);
