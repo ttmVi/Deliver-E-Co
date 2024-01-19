@@ -1,0 +1,269 @@
+fileFormatVersion: 2
+guid: 94c0190a9eefc114ca19a56dc5de761a
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 2 lane (all turns)
+    second: {fileID: 2800000, guid: 697876456dcf7d44d91df4ef294580ec, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 2 lane (left right)
+    second: {fileID: 2800000, guid: 9986951f20108be4d9423b598d9ab0a6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 2 lane right sign
+    second: {fileID: 2800000, guid: b501c54e395243d409e66ea60e0e93a1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 2 lane right speed sign
+    second: {fileID: 2800000, guid: 9b71506805bbcc04aac153fb5d0d0e15, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 2 lane sign
+    second: {fileID: 2800000, guid: 577ce929e8666b84c9281047e38b02c6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 2 lane sign (all turn)
+    second: {fileID: 2800000, guid: bd8c9c1aa035521409bb91b80b62a2de, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 2 lane sign (all turns)@2x
+    second: {fileID: 2800000, guid: 6c754c4df2251f2418f7e841bbd2007e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 2 lane sign (left right)@2x
+    second: {fileID: 2800000, guid: 13383ac5cd598f744bfe589c1d66ab69, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 2 lane sign@2x
+    second: {fileID: 2800000, guid: ea99962876913724cbfe2bb467f8b3bc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 2 lane speed sign
+    second: {fileID: 2800000, guid: c165bf5b760a3ab499fa62d9a601466d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 2 lane speed sign@2x
+    second: {fileID: 2800000, guid: 947c42d79f3bd9d4e91525092fe61012, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 3 lane Traffic sign left 2@2x
+    second: {fileID: 2800000, guid: ddb255a4914c15c409195591d922ad37, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 3 lane Traffic sign right 2@2x
+    second: {fileID: 2800000, guid: a3c3d5af89ae46843a9541535576f97a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 3 lane left sign
+    second: {fileID: 2800000, guid: e0571f2a11e7ea94183f40fca75b871f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 3 lane left speed sign
+    second: {fileID: 2800000, guid: b868e93a1c1b1ff488fa1ab955ba9064, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 3 lane only left sign
+    second: {fileID: 2800000, guid: 901120a76d2c00c4983c184ed144c78a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 3 lane only left speed sign
+    second: {fileID: 2800000, guid: cf3d348cf91783f479d3ad96d96d2846, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 3 lane only right sign
+    second: {fileID: 2800000, guid: 0ffe413a5632de2459b81ca6ecc365ef, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 3 lane only right speed sign
+    second: {fileID: 2800000, guid: 9b7517154a856db4597bb0ed11338641, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 3 lane sign
+    second: {fileID: 2800000, guid: 2dbbd652c7b1fce49ae953b78d07a29f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 3 lane sign all turn
+    second: {fileID: 2800000, guid: fdeb49e77a9fdab47ae27bd8e3f03f70, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 3 lane speed sign
+    second: {fileID: 2800000, guid: b8200e209dc626444a2ae8ecf0db04a8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: 3 lane traffic sign (all turn)@2x
+    second: {fileID: 2800000, guid: 35f9c02136f927740961f68486f787b5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Left sign@2x
+    second: {fileID: 2800000, guid: d3859b418ff730f4fa2d0010e6b2e12a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Right sign@2x
+    second: {fileID: 2800000, guid: fefcfde3623ae5145834ad07c71950dd, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Speed 40@2x
+    second: {fileID: 2800000, guid: 38973b8d4e5d5ff4a90db62a6127d57f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Speed 50@2x
+    second: {fileID: 2800000, guid: 128e8e311d9cdec48837ad0ffb06508c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Speed 60@2x
+    second: {fileID: 2800000, guid: e08a9b4faa333a64da631b210cc984bb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Speed sign 40
+    second: {fileID: 2800000, guid: 7b63b777905ad6342856d19926d120f4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Speed sign 50
+    second: {fileID: 2800000, guid: 079c71e457f5d4e4fad3c36e5ebda9a6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Speed sign 60
+    second: {fileID: 2800000, guid: 1c24801e40aaa8b4da3bfe344f9a82ef, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Speed sign@2x
+    second: {fileID: 2800000, guid: 4d560f587158e2144bf75bea7a3edff2, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
