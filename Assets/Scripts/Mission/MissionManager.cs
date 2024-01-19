@@ -74,7 +74,7 @@ public class MissionManager : MonoBehaviour
                 {
                     completedMissions.Add(availableMissions[i]);
                     availableMissions.RemoveAt(i);
-                    continue;
+                    break;
                 }
             }
 
@@ -85,7 +85,7 @@ public class MissionManager : MonoBehaviour
                 if (acceptedMissions[i].timeRemaining <= 0)
                 {
                     acceptedMissions[i].FailMission();
-                    continue;
+                    break;
                 }
             }
 
@@ -129,9 +129,9 @@ public class MissionManager : MonoBehaviour
             GameObject randomDropOff = dropOffLocations[Random.Range(0, dropOffLocations.Count)];
             dropOffLocations.Add(randomPickUp);
 
-            float TimeLimit = (randomPickUp.transform.position - randomDropOff.transform.position).magnitude * 3 / VehicleManager.playerVehicle.vehicleSpeed + 50f;
-            int randomReward = Random.Range(100, 1000);
-            int randomPenalty = Random.Range(50, 200);
+            float TimeLimit = (randomPickUp.transform.position - randomDropOff.transform.position).magnitude * 4 / VehicleManager.playerVehicle.vehicleSpeed + 20f;
+            int randomReward = Random.Range(100, 300);
+            int randomPenalty = Random.Range(75, 150);
             string description = $"Pick up the package from {randomPickUp.name} and drop it off at {randomDropOff.name}";
 
             AddNewMission(description, randomPickUp, randomDropOff, TimeLimit, randomReward, randomPenalty);

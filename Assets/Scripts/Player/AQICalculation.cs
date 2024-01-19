@@ -84,7 +84,7 @@ public class AQICalculation : MonoBehaviour
     {
         if (realAQI_Index < startingAQI && !(realAQI_Index <= 0))
         {
-            MoneyManager.money += Mathf.RoundToInt(startingAQI - realAQI_Index);
+            MoneyManager.money += Mathf.RoundToInt((startingAQI - realAQI_Index) * 0.1f);
         }
     }
 }
