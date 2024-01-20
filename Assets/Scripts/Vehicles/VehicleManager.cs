@@ -13,6 +13,11 @@ public class VehicleManager : MonoBehaviour
     public static VehicleManager vehicleManager;
     public static Vehicle playerVehicle;
 
+    private AudioSource audioSource;
+    [SerializeField] AudioClip buyingSound;
+    [SerializeField] AudioClip upgradingSound;
+    [SerializeField] AudioClip selectingSound;
+
     public VehicleType[] vehicles = { VehicleType.Bicycle, VehicleType.Motorbike, VehicleType.Truck, VehicleType.Updating };
     public static bool[] vehicleIsUnlocked = { false, false, false, false };
     public int[] vehiclePrices = { 0, 100, 1000, 0 };
@@ -46,6 +51,8 @@ public class VehicleManager : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+
         vehicleCanvas = GameObject.Find("Vehicle Selection Canvas");
         upgradeCanvas = GameObject.Find("Vehicle Upgrade Canvas");
 
@@ -84,7 +91,6 @@ public class VehicleManager : MonoBehaviour
     public void StartLevelWithVehicleProperties(VehicleType vehicleSelected)
     {
         playerVehicle = GetVehicleProperties(vehicleSelected);
-        playerVehicle.StartVehicle();
     }
 
     public void Next()
@@ -348,6 +354,9 @@ public class VehicleManager : MonoBehaviour
         {
             GetVehicleProperties(vehicles[currentVehicleIndex]).ChooseUpgradeComponent(upgradableComponents[currentUpgradableIndex][componentIndex].category, upgradableComponents[currentUpgradableIndex][componentIndex].name);
             DisplayVehicleUpgradeComponent();
+
+            audioSource.clip = selectingSound;
+            audioSource.Play();
         }
     }
 
@@ -357,6 +366,9 @@ public class VehicleManager : MonoBehaviour
         upgradedVehicle.ChooseUpgradeComponent(upgradableComponents[currentUpgradableIndex][componentIndex].category, upgradableComponents[currentUpgradableIndex][componentIndex].name);
 
         DisplayVehicleUpgradeComponent();
+
+        audioSource.clip = upgradingSound;
+        audioSource.Play();
     }
 
     public void SelectVehicle()
@@ -401,6 +413,9 @@ public class VehicleManager : MonoBehaviour
             MoneyManager.money -= vehiclePrices[currentVehicleIndex];
             vehicleIsUnlocked[currentVehicleIndex] = true;
             DisplayVehicleProperties();
+
+            audioSource.clip = buyingSound;
+            audioSource.Play();
         }
         else
         {
@@ -480,10 +495,12 @@ public class VehicleManager : MonoBehaviour
         if (!isInUpgradingUI)
         {
             vehicleCanvas.SetActive(true);
+            AQIBar.SetActive(true);
         }
         else
         {
             upgradeCanvas.SetActive(true);
+            AQIBar.SetActive(true);
         }
         confirmWindow.SetActive(false);
     }

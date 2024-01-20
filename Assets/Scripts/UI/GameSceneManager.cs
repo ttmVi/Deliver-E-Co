@@ -202,4 +202,9 @@ public class GameSceneManager : MonoBehaviour
         isPausing = false;
         pausingCanvas.SetActive(false);
     }
+
+    public void EndGame()
+    {
+        Debug.Log("You lost! Remember to check for the AQI index and keep it as low as possible!");
+    }
 }

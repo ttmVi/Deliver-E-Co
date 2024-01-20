@@ -11,7 +11,7 @@ public class AQICalculation : MonoBehaviour
 
     private RectTransform AQIBar;
     private RectTransform baseBar;
-    public static float realAQI_Index = 5750f;
+    public static float realAQI_Index = 5500f;
     public float timeAQIStays;
 
     [SerializeField] PathFinding vel;
@@ -45,6 +45,11 @@ public class AQICalculation : MonoBehaviour
         }
 
         UpdateAQIBar();
+
+        if (realAQI_Index >= 6750f)
+        {
+            //Lose game
+        }
         //AQIBar.fillAmount = realAQI_Index / 7500f;
     }
 
