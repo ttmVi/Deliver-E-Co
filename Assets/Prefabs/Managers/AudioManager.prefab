@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7945188034355617199
+--- !u!1 &1337085336471970587
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,76 +8,52 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3796245082998304071}
-  - component: {fileID: 3174867524332704822}
-  - component: {fileID: 2263897762979500093}
+  - component: {fileID: 7546302917609205310}
+  - component: {fileID: -547463123194833954}
+  - component: {fileID: -1225882807367042734}
   m_Layer: 0
-  m_Name: VehicleManager
+  m_Name: AudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3796245082998304071
+--- !u!4 &7546302917609205310
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7945188034355617199}
+  m_GameObject: {fileID: 1337085336471970587}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 148.56851, y: -25.70044, z: -30.564184}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3174867524332704822
+--- !u!114 &-547463123194833954
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7945188034355617199}
+  m_GameObject: {fileID: 1337085336471970587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fd30de88ee32c040ae8f12ec9864d7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b9ac6c899038fb4ab081a5ac2821932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buyingSound: {fileID: 8300000, guid: 1024dbe312cb3ac4988c3af8dbbf8dc0, type: 3}
-  upgradingSound: {fileID: 8300000, guid: 08d203524e2107e4489b109192b403a0, type: 3}
-  selectingSound: {fileID: 8300000, guid: 34aee29f2ec17334490dcbfebbe740e1, type: 3}
-  upgradeSwitchingSound: {fileID: 8300000, guid: 34aee29f2ec17334490dcbfebbe740e1,
-    type: 3}
-  vehicleSwitchingSound: {fileID: 8300000, guid: 983210cd85c8da246ac0cc7564d28d1d,
-    type: 3}
+  hoverSound: {fileID: 8300000, guid: 650b0118212e15d46b02a1fb4188d6a7, type: 3}
   clickSound: {fileID: 8300000, guid: 719206065607efd49aeb2e1a07d8e510, type: 3}
-  otherClickingSound: {fileID: 8300000, guid: 8654dd9f8daf2f4408ac7bc5e5b17e6f, type: 3}
-  vehicles: 00000000010000000200000003000000
-  vehiclePrices: 0000000064000000e803000000000000
-  lockedSprites:
-  - {fileID: 21300000, guid: fddae5bb658a39a40ba9f3cc352b9416, type: 3}
-  - {fileID: 21300000, guid: df6e1e945eda3ce4a9428f3cf69d924d, type: 3}
-  - {fileID: 21300000, guid: cfefe9ad82805084bb338f4012287c3f, type: 3}
-  - {fileID: 21300000, guid: 8a159ce371ecfb542ba78052ee456697, type: 3}
-  unlockedSprites:
-  - {fileID: 21300000, guid: fddae5bb658a39a40ba9f3cc352b9416, type: 3}
-  - {fileID: 21300000, guid: df6e1e945eda3ce4a9428f3cf69d924d, type: 3}
-  - {fileID: 21300000, guid: cfefe9ad82805084bb338f4012287c3f, type: 3}
-  - {fileID: 21300000, guid: 8a159ce371ecfb542ba78052ee456697, type: 3}
-  upgradingSprites:
-  - {fileID: 21300000, guid: 4b172336c957a714586990891e9c0f6c, type: 3}
-  - {fileID: 21300000, guid: 07a36aeb76b83994c8bc17b8c38bbdd6, type: 3}
-  - {fileID: 21300000, guid: af7b7287e939bd7498f369227715dbfd, type: 3}
-  - {fileID: 21300000, guid: af7b7287e939bd7498f369227715dbfd, type: 3}
---- !u!82 &2263897762979500093
+--- !u!82 &-1225882807367042734
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7945188034355617199}
+  m_GameObject: {fileID: 1337085336471970587}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}

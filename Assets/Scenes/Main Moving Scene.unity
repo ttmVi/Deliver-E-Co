@@ -26358,6 +26358,7 @@ GameObject:
   m_Component:
   - component: {fileID: 595027315}
   - component: {fileID: 595027316}
+  - component: {fileID: 595027320}
   - component: {fileID: 595027319}
   - component: {fileID: 595027317}
   - component: {fileID: 595027318}
@@ -26468,6 +26469,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46403385080537e4c8542db2188ab913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &595027320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595027314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 671098d0390f5824cb1c9c9e18274e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleSounds:
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 51415c4e725128642919c9f2b51094aa, type: 3}
+  - {fileID: 8300000, guid: 54f88cf2603d6454d9434f0280bfe6dd, type: 3}
+  drivingSounds:
+  - {fileID: 8300000, guid: 1115cc0f636daff4bb55cddbb6976b60, type: 3}
+  - {fileID: 8300000, guid: 7130cbeb5dae3694aa5faf991e1bff30, type: 3}
+  - {fileID: 8300000, guid: 54f88cf2603d6454d9434f0280bfe6dd, type: 3}
+  startingSounds:
+  - {fileID: 8300000, guid: 6846c11ce49379b468b944f320ac8e65, type: 3}
+  - {fileID: 8300000, guid: b8ce8704aec985840b1b2842e8747115, type: 3}
+  - {fileID: 8300000, guid: 5d2d1d3b5e22e284c9a945de282eaa88, type: 3}
+  brakingSounds:
+  - {fileID: 8300000, guid: 6dd5d0ae5e78c0a44963c7fc0e09612e, type: 3}
+  - {fileID: 8300000, guid: 713d7ec0c89be554dbfa4cbc76f9e0bc, type: 3}
+  - {fileID: 8300000, guid: 3c249349c2c82454ead7b1853986a5c2, type: 3}
+  honkingSounds:
+  - {fileID: 8300000, guid: dd86e577ea40e1243b2526b0eba8a7de, type: 3}
+  - {fileID: 8300000, guid: e28ce7e5ad2f87448beca61c5264b585, type: 3}
+  - {fileID: 8300000, guid: b6cc7054a40b0cb4ebeba5a17aa32fa4, type: 3}
 --- !u!1 &595745090
 GameObject:
   m_ObjectHideFlags: 0

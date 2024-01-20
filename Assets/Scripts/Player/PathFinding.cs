@@ -22,6 +22,7 @@ public class PathFinding : MonoBehaviour
     public static bool isMoving;
 
     VehicleAnimation vehicleAnimation;
+    VehicleSFX vehicleSFX;
 
     public GameObject player;
     public GameSceneManager sceneManager;
@@ -34,6 +35,7 @@ public class PathFinding : MonoBehaviour
     private void Awake()
     {
         vehicleAnimation = GetComponent<VehicleAnimation>();
+        vehicleSFX = GetComponent<VehicleSFX>();
 
         isMoving = false;
         initialDirection = transform.position - player.transform.position;
@@ -190,8 +192,10 @@ public class PathFinding : MonoBehaviour
                 lastVelocityDirection = direction;
                 direction += 0.5f;
 
-                StopVehicleSound();
+                //StopVehicleSound();
                 vehicleAnimation.SetIsMoving(false);
+                vehicleSFX.PlayBrakingSound();
+                vehicleSFX.PlayIdleSound();
             }
         }
         else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
@@ -200,8 +204,10 @@ public class PathFinding : MonoBehaviour
             {
                 direction = lastVelocityDirection;
 
-                PlayVehicleSound();
+                //PlayVehicleSound();
                 vehicleAnimation.SetIsMoving(true);
+                vehicleSFX.PlayStartingSound();
+                vehicleSFX.PlayDrivingSound();
             }
         }
 
@@ -298,12 +304,13 @@ public class PathFinding : MonoBehaviour
         }
     }
 
-    public static void RefillEnergy()
+    public void RefillEnergy()
     {
         int refillingCost = Mathf.RoundToInt((1 - energy / VehicleManager.playerVehicle.vehicleFuel) * 150);
         Debug.Log(refillingCost);
         MoneyManager.money -= refillingCost;
         energy = VehicleManager.playerVehicle.vehicleFuel;
+        vehicleSFX.PlayRefuelingSound();
     }
 
     public void PlayVehicleSound()

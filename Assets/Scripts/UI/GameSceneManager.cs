@@ -42,7 +42,6 @@ public class GameSceneManager : MonoBehaviour
             pausingCanvas.SetActive(false);
 
             GameObject[] Obstacles = GameObject.FindGameObjectsWithTag("Sidewalk").Concat(GameObject.FindGameObjectsWithTag("Road Barriers")).ToArray();
-            Debug.Log($"Found {Obstacles.Length} obstacles.");
             foreach (var obstacle in Obstacles)
             {
                 obstacle.AddComponent<BoxCollider>();
@@ -51,7 +50,6 @@ public class GameSceneManager : MonoBehaviour
             }
 
             GameObject[] GasStations = GameObject.FindGameObjectsWithTag("TramXang");
-            Debug.Log($"Found {GasStations.Length} gas stations.");
             foreach (var gasStation in GasStations)
             {
                 gasStation.AddComponent<GasStation>();
@@ -109,6 +107,7 @@ public class GameSceneManager : MonoBehaviour
         if (VehicleManager.playerVehicle != null)
         {
             SceneManager.LoadScene("Main Moving Scene");
+            AudioListener.pause = false;
         }
     }
 
@@ -118,6 +117,7 @@ public class GameSceneManager : MonoBehaviour
         //{
             SceneManager.LoadScene("Vehicle Customize");
             VehicleManager.playerVehicle = null;
+            AudioListener.pause = false;
         //}
     }
 
@@ -134,6 +134,8 @@ public class GameSceneManager : MonoBehaviour
         {
             audioSource.Stop();
         }
+
+        AudioListener.pause = true;
 
         yield return new WaitForSeconds(1f);
 
@@ -174,6 +176,8 @@ public class GameSceneManager : MonoBehaviour
             audioSource.Stop();
         }
 
+        AudioListener.pause = true;
+
         while (!winningCanvas.activeSelf)
         {
             GameObject.Find("ResourcesManager").GetComponent<AQICalculation>().EndDayCheck();
@@ -199,12 +203,14 @@ public class GameSceneManager : MonoBehaviour
     {
         isPausing = true;
         pausingCanvas.SetActive(true);
+        AudioListener.pause = true;
     }
 
     public void ResumeLevel()
     {
         isPausing = false;
         pausingCanvas.SetActive(false);
+        AudioListener.pause = false;
     }
 
     public void EndGame()

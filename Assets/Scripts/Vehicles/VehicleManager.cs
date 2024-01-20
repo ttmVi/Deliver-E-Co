@@ -17,6 +17,10 @@ public class VehicleManager : MonoBehaviour
     [SerializeField] AudioClip buyingSound;
     [SerializeField] AudioClip upgradingSound;
     [SerializeField] AudioClip selectingSound;
+    [SerializeField] AudioClip upgradeSwitchingSound;
+    [SerializeField] AudioClip vehicleSwitchingSound;
+    [SerializeField] AudioClip clickSound;
+    [SerializeField] AudioClip otherClickingSound;
 
     public VehicleType[] vehicles = { VehicleType.Bicycle, VehicleType.Motorbike, VehicleType.Truck, VehicleType.Updating };
     public static bool[] vehicleIsUnlocked = { false, false, false, false };
@@ -90,6 +94,8 @@ public class VehicleManager : MonoBehaviour
 
     public void StartLevelWithVehicleProperties(VehicleType vehicleSelected)
     {
+        audioSource.clip = otherClickingSound;
+        audioSource.Play();
         playerVehicle = GetVehicleProperties(vehicleSelected);
     }
 
@@ -100,6 +106,8 @@ public class VehicleManager : MonoBehaviour
             if (currentUpgradableIndex != upgradableComponents.Length - 1)
             {
                 currentUpgradableIndex++;
+                audioSource.clip = upgradeSwitchingSound;
+                audioSource.Play();
             }
             DisplayVehicleUpgradeComponent();
         }
@@ -107,6 +115,8 @@ public class VehicleManager : MonoBehaviour
         {
             currentVehicleIndex = (currentVehicleIndex + 1) % vehicles.Length;
             DisplayVehicleProperties();
+            audioSource.clip = vehicleSwitchingSound;
+            audioSource.Play();
         }
     }
 
@@ -117,6 +127,8 @@ public class VehicleManager : MonoBehaviour
             if (currentUpgradableIndex != 0)
             {
                 currentUpgradableIndex--;
+                audioSource.clip = upgradeSwitchingSound;
+                audioSource.Play();
             }
             DisplayVehicleUpgradeComponent();
         }
@@ -130,6 +142,8 @@ public class VehicleManager : MonoBehaviour
             {
                 currentVehicleIndex--;
             }
+            audioSource.clip = vehicleSwitchingSound;
+            audioSource.Play();
             DisplayVehicleProperties();
         }
     }
@@ -382,6 +396,8 @@ public class VehicleManager : MonoBehaviour
             else
             {
                 isInUpgradingUI = false;
+                audioSource.clip = otherClickingSound;
+                audioSource.Play();
                 DisplayVehicleProperties();
 
                 //selectButtonText.text = "Start";
@@ -492,6 +508,10 @@ public class VehicleManager : MonoBehaviour
 
     public void Cancel()
     {
+        audioSource.clip = otherClickingSound;
+        audioSource.time = 0.725f;
+        audioSource.Play();
+
         if (!isInUpgradingUI)
         {
             vehicleCanvas.SetActive(true);

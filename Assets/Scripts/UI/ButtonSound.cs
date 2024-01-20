@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class ButtonSound : MonoBehaviour
 {
+    private AudioSource audioSource;
+
     [SerializeField] AudioClip hoverSound;
     [SerializeField] AudioClip clickSound;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void PlayHoverSound()
