@@ -289,16 +289,20 @@ public class PathFinding : MonoBehaviour
     {
         for (int i = 0; i < LaneDirection.Length; i++)
         {
-            if (velDirection.x * LaneDirection[i].x == -1 || velDirection.z * LaneDirection[i].z == -1)
+            if ((velDirection.x * LaneDirection[i].x == -1 || velDirection.z * LaneDirection[i].z == -1) && LaneDirection.Length == 1)
             {
-                Debug.Log("Lose");
+                StartCoroutine(GameSceneManager.LoseLevel("You entered the wrong lane"));
                 //return;
             }
+            else { continue; }
         }
     }
 
     public static void RefillEnergy()
     {
+        int refillingCost = Mathf.RoundToInt((1 - energy / VehicleManager.playerVehicle.vehicleFuel) * 150);
+        Debug.Log(refillingCost);
+        MoneyManager.money -= refillingCost;
         energy = VehicleManager.playerVehicle.vehicleFuel;
     }
 
