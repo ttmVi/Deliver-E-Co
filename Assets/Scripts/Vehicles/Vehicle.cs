@@ -131,6 +131,16 @@ public class Motorbike : Vehicle
 
     public override void UpgradeVehicle(string upgradeType)
     {
+        //Get vehicle's properties based on chosen engine
+        for (int i = 0; i < upgradeOptions[(int)MotorbikeUpgradableComponents.Engine].Length; i++)
+        {
+            if (upgradeOptions[(int)MotorbikeUpgradableComponents.Engine][i].isChosen)
+            {
+                engineType = upgradeOptions[(int)MotorbikeUpgradableComponents.Engine][i].name;
+                break;
+            }
+        }
+
         switch (upgradeType)
         {
             case "Engine":
