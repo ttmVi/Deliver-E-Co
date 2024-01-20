@@ -128,6 +128,7 @@ public class GameSceneManager : MonoBehaviour
 
     public static IEnumerator LoseLevel(string loseReason)
     {
+        isPausing = true;
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
         foreach (var audioSource in audioSources)
         {
@@ -151,6 +152,7 @@ public class GameSceneManager : MonoBehaviour
 
         completedMissionsCount.text = $"{MissionManager.missionManager.successfulMissionCount}/{MissionManager.missionManager.requiredSuccessfulMissions}";
         moneyLost.text = "-100";
+        isPausing = false;
 
         //TextMeshProUGUI loseText = GameObject.Find("Losing").GetComponent<TextMeshProUGUI>();
         //loseText.text = $"You lost because {loseReason}.";
@@ -165,6 +167,7 @@ public class GameSceneManager : MonoBehaviour
 
     public static IEnumerator WinLevel()
     {
+        isPausing = true;
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
         foreach (var audioSource in audioSources)
         {
@@ -187,6 +190,7 @@ public class GameSceneManager : MonoBehaviour
         VehicleManager.playerVehicle = null;
 
         Debug.Log("Winning Canvas Activated");
+        isPausing = false;
 
         yield return null;
     }
