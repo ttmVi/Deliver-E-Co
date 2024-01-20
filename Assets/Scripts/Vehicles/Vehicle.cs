@@ -277,7 +277,7 @@ public class Motorbike : Vehicle
         }
     }
 
-    public static UpgradableComponent[][] GetMotorbikeUpgradableComponent() //For now it does nothing
+    public static UpgradableComponent[][] GetMotorbikeUpgradableComponent()
     {
         return upgradeOptions;
     }

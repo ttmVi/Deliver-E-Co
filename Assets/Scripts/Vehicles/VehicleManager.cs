@@ -28,8 +28,15 @@ public class VehicleManager : MonoBehaviour
     [SerializeField] Sprite[] lockedSprites;
     [SerializeField] Sprite[] unlockedSprites;
     [SerializeField] Sprite[] upgradingSprites;
-    [SerializeField] Sprite[][] motorbikeComponentsSprites;
-    [SerializeField] Sprite[][] truckComponentsSprites;
+    [SerializeField] Sprite[] motorbikeEngineSprites;
+    [SerializeField] Sprite[] motorbikeWheelsSprites;
+    [SerializeField] Sprite[] motorbikeExhaustSprites;
+    [SerializeField] Sprite[] motorbikeComponentsSprites;
+    [SerializeField] Sprite[] truckEngineSprites;
+    [SerializeField] Sprite[] truckWheelsSprites;
+    [SerializeField] Sprite[] truckBatterySprites;
+    [SerializeField] Sprite[] truckExhaustSprites;
+    [SerializeField] Sprite[] truckComponentsSprites;
     private int currentVehicleIndex = 0;
 
     public Vehicle.UpgradableComponent[][] upgradableComponents;
@@ -166,6 +173,7 @@ public class VehicleManager : MonoBehaviour
             properties.SetActive(true);
             selectButton.SetActive(true);
             vehicleImage.sprite = unlockedSprites[currentVehicleIndex];
+            vehicleImage.SetNativeSize();
 
             Image speed = GameObject.Find("Speed").GetComponent<Image>();
             Image mpg = GameObject.Find("MPG").GetComponent<Image>();
@@ -174,6 +182,14 @@ public class VehicleManager : MonoBehaviour
 
             if (currentVehicleType != VehicleType.Bicycle)
             {
+                if (currentVehicleType == VehicleType.Motorbike)
+                {
+                    upgradableComponents = Motorbike.GetMotorbikeUpgradableComponent();
+                }
+                else if (currentVehicleType == VehicleType.Truck)
+                {
+                    upgradableComponents = Truck.GetTruckUpgradableComponent();
+                }
                 //selectButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(275, tempPos.y, tempPos.z);
                 upgradeButton.SetActive(true);
             }
@@ -193,6 +209,7 @@ public class VehicleManager : MonoBehaviour
             properties.SetActive(false);
 
             vehicleImage.sprite = lockedSprites[currentVehicleIndex];
+            vehicleImage.SetNativeSize();
             upgradeButton.SetActive(false);
         }
         else
@@ -205,6 +222,7 @@ public class VehicleManager : MonoBehaviour
             properties.SetActive(false);
             moneyBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(-732, 289, 0);
             vehicleImage.sprite = lockedSprites[currentVehicleIndex];
+            vehicleImage.SetNativeSize();
             //displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\nSpeed: {previewVehicle.vehicleSpeed}\nMPG: {previewVehicle.vehicleMPG}\nFuel Capacity: {previewVehicle.vehicleFuel}\nPackage Capacity: {previewVehicle.vehicleCapacity}";
             //selectButtonText.text = $"Price: {vehiclePrices[currentVehicleIndex]}";
 
@@ -239,8 +257,8 @@ public class VehicleManager : MonoBehaviour
         {
             //upgradableComponents = new string[] { "Engine", "Wheel", "Exhaust System" };
 
-            upgradableComponents = Motorbike.GetMotorbikeUpgradableComponent();
             currentVehicle.sprite = upgradingSprites[1];
+            currentVehicle.SetNativeSize();
             currentVehicleName.text = "Motorbike";
 
             if (upgradableComponents[currentUpgradableIndex][0].category == "Engine")
@@ -263,7 +281,8 @@ public class VehicleManager : MonoBehaviour
                 TextMeshProUGUI description = componentOptions.transform.GetChild(i).GetChild(2).GetComponent<TextMeshProUGUI>();
                 TextMeshProUGUI button = componentOptions.transform.GetChild(i).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
 
-                //icon.sprite = motorbikeComponentsSprites[currentUpgradableIndex][i];
+                icon.sprite = motorbikeComponentsSprites[currentUpgradableIndex * upgradableComponents[currentUpgradableIndex].Length + i];
+                icon.SetNativeSize();
                 name.text = upgradableComponents[currentUpgradableIndex][i].name;
                 description.text = upgradableComponents[currentUpgradableIndex][i].description;
 
@@ -283,8 +302,9 @@ public class VehicleManager : MonoBehaviour
         }
         else if (currentVehicleType == VehicleType.Truck)
         {
-            upgradableComponents = Truck.GetTruckUpgradableComponent();
+            //upgradableComponents = Truck.GetTruckUpgradableComponent();
             currentVehicle.sprite = upgradingSprites[2];
+            currentVehicle.SetNativeSize();
             currentVehicleName.text = "Truck";
 
             if (upgradableComponents[currentUpgradableIndex][0].category == "Engine")
@@ -311,7 +331,8 @@ public class VehicleManager : MonoBehaviour
                 TextMeshProUGUI description = componentOptions.transform.GetChild(i).GetChild(2).GetComponent<TextMeshProUGUI>();
                 TextMeshProUGUI button = componentOptions.transform.GetChild(i).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
 
-                //icon.sprite = truckComponentsSprites[currentUpgradableIndex][i];
+                icon.sprite = truckComponentsSprites[currentUpgradableIndex * upgradableComponents[currentUpgradableIndex].Length + i];
+                icon.SetNativeSize();
                 name.text = upgradableComponents[currentUpgradableIndex][i].name;
                 description.text = upgradableComponents[currentUpgradableIndex][i].description;
 
@@ -460,6 +481,7 @@ public class VehicleManager : MonoBehaviour
             name.text = $"{vehicles[currentVehicleIndex]}";
             nameShadow.text = $"{vehicles[currentVehicleIndex]}";
             vehicle.sprite = upgradingSprites[currentVehicleIndex];
+            vehicle.SetNativeSize();
 
             name.fontSize = 65;
             nameShadow.fontSize = 65;
@@ -470,6 +492,7 @@ public class VehicleManager : MonoBehaviour
             name.text = $"{upgradableComponents[currentUpgradableIndex][upgradeIndex].name}";
             nameShadow.text = $"{upgradableComponents[currentUpgradableIndex][upgradeIndex].name}";
             vehicle.sprite = upgradingSprites[currentVehicleIndex];
+            vehicle.SetNativeSize();
 
             name.fontSize = 44;
             nameShadow.fontSize = 44;
