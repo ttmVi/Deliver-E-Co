@@ -13,7 +13,7 @@ public class AQICalculation : MonoBehaviour
     private RectTransform baseBar;
     public static float realAQI_Index = 5500f;
     public float timeAQIStays;
-    private float duration = 2f;
+    private float duration = 10f;
 
     [SerializeField] PathFinding vel;
 
@@ -30,7 +30,6 @@ public class AQICalculation : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
             baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 130);
-            StartCoroutine(UpdateEnvironmentLights(HexToColor("983abc")));
         }
 
         startingAQI = realAQI_Index;
@@ -48,27 +47,27 @@ public class AQICalculation : MonoBehaviour
 
         UpdateAQIBar();
 
-        if (realAQI_Index == 1250f)
+        if (realAQI_Index >= 1249f && realAQI_Index <= 1250f)
         {
             StartCoroutine(UpdateEnvironmentLights(HexToColor("82cd7b"))); //green
         }
-        else if (realAQI_Index == 1251f || realAQI_Index == 2500f) 
+        else if ((realAQI_Index > 1250f && realAQI_Index <= 1251f) || (realAQI_Index >= 2499f&& realAQI_Index <= 2500f)) 
         {
             StartCoroutine(UpdateEnvironmentLights(HexToColor("e4e781"))); //yellow
         }
-        else if (realAQI_Index == 2501f || realAQI_Index == 3750f)
+        else if ((realAQI_Index > 2500f && realAQI_Index <= 2501f) || (realAQI_Index >= 3749f&& realAQI_Index <= 3750f))
         {
             StartCoroutine(UpdateEnvironmentLights(HexToColor("48a65"))); //orange
         }
-        else if (realAQI_Index == 3751f || realAQI_Index == 5000f)
+        else if ((realAQI_Index > 3750f && realAQI_Index <= 3751f) || (realAQI_Index >= 4999f && realAQI_Index <= 5000f))
         {
             StartCoroutine(UpdateEnvironmentLights(HexToColor("cd7b82"))); //light red
         }
-        else if (realAQI_Index == 5001f || realAQI_Index == 6250f)
+        else if ((realAQI_Index > 5000f && realAQI_Index <= 5001f) || (realAQI_Index >= 6249f && realAQI_Index <= 6250f))
         {
             StartCoroutine(UpdateEnvironmentLights(HexToColor("983abc"))); //purple
         }
-        else if (realAQI_Index == 6251f || realAQI_Index == 7500f)
+        else if (realAQI_Index > 6250f && realAQI_Index <= 6251f)
         {
             StartCoroutine(UpdateEnvironmentLights(HexToColor("b0414A"))); //dark red
         }
@@ -130,6 +129,11 @@ public class AQICalculation : MonoBehaviour
             Light light = environmentLights.transform.GetChild(i).gameObject.GetComponent<Light>();
             Color startColor = light.color;
 
+            if (startColor == targetColor)
+            {
+                break;
+            }
+
             while (time < duration)
             {
                 light.color = Color.Lerp(startColor, targetColor, time / duration);
@@ -137,6 +141,7 @@ public class AQICalculation : MonoBehaviour
                 yield return null;
             }
             light.color = targetColor;
+            Debug.Log($"Updated Environment Lights {i}");
         }
     }
 
