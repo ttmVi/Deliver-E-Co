@@ -49,6 +49,7 @@ public class PickUpnDropOffCheck : MonoBehaviour
                     else
                     {
                         //PlayPickUpSound();
+                        AudioManager.audioManager.PlayPickUpOrderSound();
 
                         status.text = "Package is picked up";
                         mission.isPickedUp = true;
@@ -63,6 +64,7 @@ public class PickUpnDropOffCheck : MonoBehaviour
                 if (CheckPickUpAndDropOff(mission.dropOffLocation.GetComponent<BoxCollider>()))
                 {
                     //PlayDropOffSound();
+                    AudioManager.audioManager.PlayDropOffOrderSound();
 
                     status.text = "Package is dropped off";
                     mission.isDroppedOff = true;

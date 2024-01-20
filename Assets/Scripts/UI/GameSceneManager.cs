@@ -84,20 +84,18 @@ public class GameSceneManager : MonoBehaviour
     
     public void LoadMapUI()
     {
-        Debug.Log("Input detected");
-
         if (mapIsLoaded)
         {
             mapCanvas.SetActive(false);
             backToCustomizing.SetActive(true);
-            Debug.Log("Unloaded Route Map Plan");
+            AudioManager.audioManager.PlayCloseMapSound();
             mapIsLoaded = false;
         }
         else
         {
             mapCanvas.SetActive(true);
             backToCustomizing.SetActive(false);
-            Debug.Log("Loaded Route Map Plan");
+            AudioManager.audioManager.PlayOpenMapSound();
             mapIsLoaded = true;
         }
     }
@@ -106,8 +104,13 @@ public class GameSceneManager : MonoBehaviour
     {
         if (VehicleManager.playerVehicle != null)
         {
+            AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+            foreach (var audioSource in audioSources)
+            {
+                audioSource.enabled = true;
+            }
+
             SceneManager.LoadScene("Main Moving Scene");
-            AudioListener.pause = false;
         }
     }
 
@@ -115,15 +118,15 @@ public class GameSceneManager : MonoBehaviour
     {
         //if (MissionManager.missionManager.successfulMissionCount >= MissionManager.missionManager.requiredSuccessfulMissions)
         //{
-            SceneManager.LoadScene("Vehicle Customize");
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        foreach (var audioSource in audioSources)
+        {
+            audioSource.enabled = true;
+        }
+
+        SceneManager.LoadScene("Vehicle Customize");
             VehicleManager.playerVehicle = null;
-            AudioListener.pause = false;
         //}
-    }
-
-    public static void BackToMainMenu()
-    {
-
     }
 
     public static IEnumerator LoseLevel(string loseReason)
@@ -132,13 +135,12 @@ public class GameSceneManager : MonoBehaviour
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
         foreach (var audioSource in audioSources)
         {
-            audioSource.Stop();
+            audioSource.enabled = false;
         }
-
-        AudioListener.pause = true;
 
         yield return new WaitForSeconds(1f);
 
+        AudioManager.audioManager.PlayLosingSound();
         while (!losingCanvas.activeSelf)
         {
             GameObject.Find("ResourcesManager").GetComponent<AQICalculation>().EndDayCheck();
@@ -173,11 +175,10 @@ public class GameSceneManager : MonoBehaviour
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
         foreach (var audioSource in audioSources)
         {
-            audioSource.Stop();
+            audioSource.enabled = false;
         }
 
-        AudioListener.pause = true;
-
+        AudioManager.audioManager.PlayWinningSound();
         while (!winningCanvas.activeSelf)
         {
             GameObject.Find("ResourcesManager").GetComponent<AQICalculation>().EndDayCheck();
@@ -203,14 +204,22 @@ public class GameSceneManager : MonoBehaviour
     {
         isPausing = true;
         pausingCanvas.SetActive(true);
-        AudioListener.pause = true;
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        foreach (var audioSource in audioSources)
+        {
+            audioSource.enabled = false;
+        }
     }
 
     public void ResumeLevel()
     {
         isPausing = false;
         pausingCanvas.SetActive(false);
-        AudioListener.pause = false;
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        foreach (var audioSource in audioSources)
+        {
+            audioSource.enabled = true;
+        }
     }
 
     public void EndGame()

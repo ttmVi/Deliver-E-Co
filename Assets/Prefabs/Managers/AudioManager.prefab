@@ -47,6 +47,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverSound: {fileID: 8300000, guid: 650b0118212e15d46b02a1fb4188d6a7, type: 3}
   clickSound: {fileID: 8300000, guid: 719206065607efd49aeb2e1a07d8e510, type: 3}
+  popUpOrderSound: {fileID: 8300000, guid: 23819ef3167f6ce4ebd4fa6500008e16, type: 3}
+  acceptOrderSound: {fileID: 8300000, guid: a2fcae487def55a40a3f2004c4aed0cf, type: 3}
+  pickUpOrderSound: {fileID: 8300000, guid: 43f2f6ca9409af94898ed9b3fb1fd59c, type: 3}
+  dropOffOrderSound: {fileID: 8300000, guid: 9d933feafd4b1d445ba487d20ccf43c8, type: 3}
+  openMapSound: {fileID: 8300000, guid: 2adbbfe2f32f45c4cb5574dc13a09e72, type: 3}
+  closeMapSound: {fileID: 8300000, guid: f3107f958b380bc439eff1976a8be2fe, type: 3}
+  losingSound: {fileID: 8300000, guid: 4d8a1610590fd874ea0310771d8e6e30, type: 3}
+  winningSound: {fileID: 8300000, guid: d3a2d82ed61d43e4fadacd430dde0bec, type: 3}
 --- !u!82 &-1225882807367042734
 AudioSource:
   m_ObjectHideFlags: 0

@@ -196,6 +196,8 @@ public class PathFinding : MonoBehaviour
                 vehicleAnimation.SetIsMoving(false);
                 vehicleSFX.PlayBrakingSound();
                 vehicleSFX.PlayIdleSound();
+
+                isMoving = false;
             }
         }
         else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
@@ -208,6 +210,8 @@ public class PathFinding : MonoBehaviour
                 vehicleAnimation.SetIsMoving(true);
                 vehicleSFX.PlayStartingSound();
                 vehicleSFX.PlayDrivingSound();
+
+                isMoving = true;
             }
         }
 

@@ -16,8 +16,6 @@ public class AQICalculation : MonoBehaviour
 
     private bool isChangingColor = false;
 
-    [SerializeField] PathFinding vel;
-
     // Start is called before the first frame update
     void Start()
     {
