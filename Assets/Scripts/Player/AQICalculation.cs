@@ -13,7 +13,8 @@ public class AQICalculation : MonoBehaviour
     private RectTransform baseBar;
     public static float realAQI_Index = 5500f;
     public float timeAQIStays;
-    private float duration = 10f;
+
+    private bool isChangingColor = false;
 
     [SerializeField] PathFinding vel;
 
@@ -30,6 +31,30 @@ public class AQICalculation : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
             baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 130);
+            if (realAQI_Index >= 0 && realAQI_Index < 1250)
+            {
+                StartCoroutine(UpdateEnvironmentLights(HexToColor("82cd7b"), 0.1f)); //green
+            }
+            else if (realAQI_Index >= 1250 && realAQI_Index < 2500)
+            {
+                StartCoroutine(UpdateEnvironmentLights(HexToColor("e4e781"), 0.1f)); //yellow
+            }
+            else if (realAQI_Index >= 2500 && realAQI_Index < 3750)
+            {
+                StartCoroutine(UpdateEnvironmentLights(HexToColor("f48a65"), 0.1f)); //orange
+            }
+            else if (realAQI_Index >= 3750 && realAQI_Index < 5000)
+            {
+                StartCoroutine(UpdateEnvironmentLights(HexToColor("cd7b82"), 0.1f)); //light red
+            }
+            else if (realAQI_Index >= 5000 && realAQI_Index < 6250)
+            {
+                StartCoroutine(UpdateEnvironmentLights(HexToColor("983abc"), 0.1f)); //purple
+            }
+            else if (realAQI_Index >= 6250)
+            {
+                StartCoroutine(UpdateEnvironmentLights(HexToColor("b0414a"), 0.1f)); //dark red
+            }
         }
 
         startingAQI = realAQI_Index;
@@ -47,29 +72,29 @@ public class AQICalculation : MonoBehaviour
 
         UpdateAQIBar();
 
-        if (realAQI_Index >= 1249f && realAQI_Index <= 1250f)
+        if (realAQI_Index >= 1249f && realAQI_Index <= 1250f && !isChangingColor)
         {
-            StartCoroutine(UpdateEnvironmentLights(HexToColor("82cd7b"))); //green
+            StartCoroutine(UpdateEnvironmentLights(HexToColor("82cd7b"), 5f)); //green
         }
-        else if ((realAQI_Index > 1250f && realAQI_Index <= 1251f) || (realAQI_Index >= 2499f&& realAQI_Index <= 2500f)) 
+        else if (((realAQI_Index > 1250f && realAQI_Index <= 1251f) || (realAQI_Index >= 2499f&& realAQI_Index <= 2500f)) && !isChangingColor) 
         {
-            StartCoroutine(UpdateEnvironmentLights(HexToColor("e4e781"))); //yellow
+            StartCoroutine(UpdateEnvironmentLights(HexToColor("e4e781"), 5f)); //yellow
         }
-        else if ((realAQI_Index > 2500f && realAQI_Index <= 2501f) || (realAQI_Index >= 3749f&& realAQI_Index <= 3750f))
+        else if (((realAQI_Index > 2500f && realAQI_Index <= 2501f) || (realAQI_Index >= 3749f&& realAQI_Index <= 3750f)) && !isChangingColor)
         {
-            StartCoroutine(UpdateEnvironmentLights(HexToColor("48a65"))); //orange
+            StartCoroutine(UpdateEnvironmentLights(HexToColor("f48a65"), 5f)); //orange
         }
-        else if ((realAQI_Index > 3750f && realAQI_Index <= 3751f) || (realAQI_Index >= 4999f && realAQI_Index <= 5000f))
+        else if (((realAQI_Index > 3750f && realAQI_Index <= 3751f) || (realAQI_Index >= 4999f && realAQI_Index <= 5000f)) && !isChangingColor)
         {
-            StartCoroutine(UpdateEnvironmentLights(HexToColor("cd7b82"))); //light red
+            StartCoroutine(UpdateEnvironmentLights(HexToColor("cd7b82"), 5f)); //light red
         }
-        else if ((realAQI_Index > 5000f && realAQI_Index <= 5001f) || (realAQI_Index >= 6249f && realAQI_Index <= 6250f))
+        else if (((realAQI_Index > 5000f && realAQI_Index <= 5001f) || (realAQI_Index >= 6249f && realAQI_Index <= 6250f)) && !isChangingColor)
         {
-            StartCoroutine(UpdateEnvironmentLights(HexToColor("983abc"))); //purple
+            StartCoroutine(UpdateEnvironmentLights(HexToColor("983abc"), 5f)); //purple
         }
-        else if (realAQI_Index > 6250f && realAQI_Index <= 6251f)
+        else if ((realAQI_Index > 6250f && realAQI_Index <= 6251f) && !isChangingColor)
         {
-            StartCoroutine(UpdateEnvironmentLights(HexToColor("b0414A"))); //dark red
+            StartCoroutine(UpdateEnvironmentLights(HexToColor("b0414a"), 5f)); //dark red
         }
 
         if (realAQI_Index >= 7000f)
@@ -119,7 +144,7 @@ public class AQICalculation : MonoBehaviour
         }
     }
 
-    public IEnumerator UpdateEnvironmentLights(Color targetColor)
+    public IEnumerator UpdateEnvironmentLights(Color targetColor, float duration)
     {
         GameObject environmentLights = GameObject.Find("Environment Lights");
         float time = 0f;
@@ -136,11 +161,14 @@ public class AQICalculation : MonoBehaviour
 
             while (time < duration)
             {
+                isChangingColor = true;
                 light.color = Color.Lerp(startColor, targetColor, time / duration);
                 time += Time.deltaTime;
                 yield return null;
             }
+            isChangingColor = false;
             light.color = targetColor;
+            time = 0f;
             Debug.Log($"Updated Environment Lights {i}");
         }
     }

@@ -17,4 +17,9 @@ public class ButtonSound : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(hoverSound, Camera.main.transform.position);
     }
+
+    public void PlayClickSound()
+    {
+        AudioSource.PlayClipAtPoint(clickSound, Camera.main.transform.position);
+    }
 }
