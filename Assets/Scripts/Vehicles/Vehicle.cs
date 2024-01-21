@@ -104,23 +104,23 @@ public class Motorbike : Vehicle
         upgradeOptions[(int)MotorbikeUpgradableComponents.Engine] = new UpgradableComponent[]
         {
             new UpgradableComponent("Engine", "Combustion Engine", 0, true, true, "none", "The conventional engine, provides a balance between power and fuel consumption"),
-            new UpgradableComponent("Engine", "Hybrid Engine", 200, false, false, "none", "Combination of internal combustion engine with electric motor"),
-            new UpgradableComponent("Engine", "Electric Motor", 300, false, false, "none", "Releases zero carbondioxide emission with high efficiency torque")
+            new UpgradableComponent("Engine", "Hybrid Engine", 280, false, false, "none", "Combination of internal combustion engine with electric motor"),
+            new UpgradableComponent("Engine", "Electric Motor", 600, false, false, "none", "Releases zero carbondioxide emission with high efficiency torque")
         };
 
         // Wheels upgrade options
         upgradeOptions[(int)MotorbikeUpgradableComponents.Wheels] = new UpgradableComponent[]
         {
             new UpgradableComponent("Wheels", "Steel Rims", 0, true, true, "none", "Standard rim, nothing special"),
-            new UpgradableComponent("Wheels", "Alloy Wheels", 200, false, false, "none", "Higher speed and torque, and higher fuel efficiency"),
-            new UpgradableComponent("Wheels", "Magnesium Alloy Rims", 300, false, false, "none", "Lighter with better acceleration")
+            new UpgradableComponent("Wheels", "Alloy Wheels", 170, false, false, "none", "Higher speed and torque, and higher fuel efficiency"),
+            new UpgradableComponent("Wheels", "Magnesium Alloy Rims", 410, false, false, "none", "Lighter with better acceleration")
         };
 
         // Exhaust System upgrade options
         upgradeOptions[(int)MotorbikeUpgradableComponents.ExhaustSystem] = new UpgradableComponent[]
         {
             new UpgradableComponent("Exhaust System", "Standard", 0, true, true, "none", "Basic exhaust system with nothing special instead of air pollution"),
-            new UpgradableComponent("Exhaust System", "Exhaust Tuning", 100, false, false, "none", "Airflow optimization and better engine performance"),
+            new UpgradableComponent("Exhaust System", "Exhaust Tuning", 2500, false, false, "none", "Airflow optimization and better engine performance"),
             new UpgradableComponent("Exhaust System", "Remove", 0, false, false, "Electric Motor", "Can only be removed after upgrading engine to Electric Motor")
         };
 
@@ -312,31 +312,31 @@ public class Truck : Vehicle
         upgradeOptions[(int)TruckUpgradableComponents.Engine] = new UpgradableComponent[]
         {
             new UpgradableComponent("Engine", "Combustion", 0, true, true, "none", "Standard engine, releases a lot of carbon dioxide"),
-            new UpgradableComponent("Engine", "Hybrid", 200, false, false, "none", "The combination between gastroline and electric motor, reduces emissions"),
-            new UpgradableComponent("Engine", "Electric", 300, false, false, "none", "Vinfast")
+            new UpgradableComponent("Engine", "Hybrid", 700, false, false, "none", "The combination between gastroline and electric motor, reduces emissions"),
+            new UpgradableComponent("Engine", "Electric", 3570, false, false, "none", "Vinfast")
         };
 
         // Wheels upgrade options
         upgradeOptions[(int)TruckUpgradableComponents.Wheels] = new UpgradableComponent[]
         {
             new UpgradableComponent("Wheels", "Steel", 0, true, true, "none", "The heavier it is, the more impact on fuel efficiency and handling"),
-            new UpgradableComponent("Wheels", "Carbon Fiber", 200, false, false, "none", "Lighter and offer high strength"),
-            new UpgradableComponent("Wheels", "Titanium", 300, false, false, "none", "Teen Titans")
+            new UpgradableComponent("Wheels", "Carbon Fiber", 2160, false, false, "none", "Lighter and offer high strength"),
+            new UpgradableComponent("Wheels", "Titanium", 5240, false, false, "none", "Teen Titans")
         };
 
         // Battery upgrade options
         upgradeOptions[(int)TruckUpgradableComponents.Battery] = new UpgradableComponent[]
         {
             new UpgradableComponent("Battery", "None", 0, true, true, "none", "Battery can be installed after upgrading to electric motor"),
-            new UpgradableComponent("Battery", "Lithium", 200, false, false, "Electric", "High energy storage density and lightweight, has good longevity"),
-            new UpgradableComponent("Battery", "Sodium", 300, false, false, "Electric", "More abundant and sustainable")
+            new UpgradableComponent("Battery", "Lithium", 2000, false, false, "Electric", "High energy storage density and lightweight, has good longevity"),
+            new UpgradableComponent("Battery", "Sodium", 14000, false, false, "Electric", "More abundant and sustainable")
         };
 
         // Exhaust System upgrade options
         upgradeOptions[(int)TruckUpgradableComponents.ExhaustSystem] = new UpgradableComponent[]
         {
             new UpgradableComponent("Exhaust System", "Standard", 0, true, true, "none", "Emission cannon"),
-            new UpgradableComponent("Exhaust System", "Exhaust Tuning", 100, false, false, "none", "Reduces and filters out harmful emissions for a cleaner ride"),
+            new UpgradableComponent("Exhaust System", "Exhaust Tuning", 21360, false, false, "none", "Reduces and filters out harmful emissions for a cleaner ride"),
             new UpgradableComponent("Exhaust System", "Remove", 0, false, false, "Electric", "Automatically removed after upgrading engine to Electric Moto")
         };
 
