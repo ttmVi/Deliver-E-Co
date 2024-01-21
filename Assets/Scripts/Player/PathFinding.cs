@@ -318,7 +318,7 @@ public class PathFinding : MonoBehaviour
         {
             if ((velDirection.x * LaneDirection[i].x == -1 || velDirection.z * LaneDirection[i].z == -1) && LaneDirection.Length == 1)
             {
-                StartCoroutine(GameSceneManager.LoseLevel("You entered the wrong lane"));
+                StartCoroutine(GameSceneManager.LoseLevel("And follow traffic rules!"));
                 //return;
             }
             else { continue; }

@@ -55783,10 +55783,10 @@ RectTransform:
   - {fileID: 1323474304}
   - {fileID: 1766026742}
   - {fileID: 1398105442}
+  - {fileID: 1318830059}
   - {fileID: 704635988}
   - {fileID: 944605635}
   - {fileID: 531557667}
-  - {fileID: 1318830059}
   m_Father: {fileID: 207713069}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -62768,7 +62768,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Achievements
+  m_text: Time's up!! Do better tmr
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a0a60a3bce2bd2a40810587e199aeaca, type: 2}
   m_sharedMaterial: {fileID: -7171181666779801950, guid: a0a60a3bce2bd2a40810587e199aeaca,
@@ -62796,14 +62796,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -79468,14 +79468,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0

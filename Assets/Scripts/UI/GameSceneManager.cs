@@ -162,9 +162,11 @@ public class GameSceneManager : MonoBehaviour
 
         TextMeshProUGUI completedMissionsCount = GameObject.Find("CompletedMission Count").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI moneyLost = GameObject.Find("Money Lost").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI loseInfo = GameObject.Find("Losing Info").GetComponent<TextMeshProUGUI>();
 
         completedMissionsCount.text = $"{MissionManager.missionManager.successfulMissionCount}/{MissionManager.missionManager.requiredSuccessfulMissions}";
         moneyLost.text = "-100";
+        loseInfo.text = loseReason;
         isPausing = false;
 
         //TextMeshProUGUI loseText = GameObject.Find("Losing").GetComponent<TextMeshProUGUI>();
@@ -198,9 +200,19 @@ public class GameSceneManager : MonoBehaviour
 
         TextMeshProUGUI completedMissionsCount = GameObject.Find("CompletedMission Count").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI moneyEarned = GameObject.Find("Money Earned").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI winInfo = GameObject.Find("Winning Info").GetComponent<TextMeshProUGUI>();
 
         completedMissionsCount.text = $"{MissionManager.missionManager.successfulMissionCount}/{MissionManager.missionManager.requiredSuccessfulMissions}";
         moneyEarned.text = $"{MoneyManager.money - GameObject.Find("ResourcesManager").GetComponent<MoneyManager>().startingMoney}";
+
+        if (MissionManager.missionManager.successfulMissionCount > MissionManager.missionManager.requiredSuccessfulMissions)
+        {
+            winInfo.text = "Great job! Keep it up!";
+        }
+        else
+        {
+            winInfo.text = "Try to do better tomorrow!";
+        }
 
         VehicleManager.playerVehicle = null;
 

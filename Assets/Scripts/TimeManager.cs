@@ -30,7 +30,7 @@ public class TimeManager : MonoBehaviour
             {
                 if (MissionManager.missionManager.successfulMissionCount < MissionManager.missionManager.requiredSuccessfulMissions)
                 {
-                    StartCoroutine(GameSceneManager.LoseLevel("You ran out of time!"));
+                    StartCoroutine(GameSceneManager.LoseLevel("Time's up!! Do better tmr"));
                 }
                 else 
                 { 
