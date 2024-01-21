@@ -24,7 +24,7 @@ public class VehicleManager : MonoBehaviour
 
     public VehicleType[] vehicles = { VehicleType.Bicycle, VehicleType.Motorbike, VehicleType.Truck, VehicleType.Updating };
     public static bool[] vehicleIsUnlocked = { false, false, false, false };
-    public int[] vehiclePrices = { 0, 100, 1000, 0 };
+    public int[] vehiclePrices = { 0, 400, 2500, 0 };
     [SerializeField] Sprite[] lockedSprites;
     [SerializeField] Sprite[] unlockedSprites;
     [SerializeField] Sprite[] upgradingSprites;
