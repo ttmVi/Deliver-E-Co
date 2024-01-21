@@ -353,7 +353,7 @@ public class Truck : Vehicle
                 }
                 else if (engineType == "Hybrid")
                 {
-                    vehicleMPG = 45f;
+                    vehicleMPG = 55f;
                     vehicleFuel = 16f;
                 }
                 else if (engineType == "Electric")
