@@ -19,7 +19,7 @@ public class PathFinding : MonoBehaviour
 
     private bool changingLane = false;
     private bool turning = false;
-    private float rotatingDuration = 0.5f;
+    private float rotatingDuration = 1.25f;
     public static bool isMoving;
 
     VehicleAnimation vehicleAnimation;

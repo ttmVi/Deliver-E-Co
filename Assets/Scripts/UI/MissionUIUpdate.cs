@@ -29,6 +29,7 @@ public class MissionUIUpdate : MonoBehaviour
     private TextMeshProUGUI status;
     private TextMeshProUGUI missionReward;
     private TextMeshProUGUI missionTime;
+    private TextMeshProUGUI completedMissionsCount;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +50,11 @@ public class MissionUIUpdate : MonoBehaviour
         missionReward = GameObject.Find("Reward Text").GetComponent<TextMeshProUGUI>();
         missionTime = GameObject.Find("Time Text").GetComponent<TextMeshProUGUI>();
 
+        if (SceneManager.GetActiveScene().name == "Main Moving Scene")
+        {
+            completedMissionsCount = GameObject.Find("Completed Missions Count").GetComponent<TextMeshProUGUI>();
+        }
+
         missionInfoPanel.SetActive(false);
     }
 
@@ -57,6 +63,8 @@ public class MissionUIUpdate : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
+            completedMissionsCount.text = $"{MissionManager.missionManager.successfulMissionCount}/{MissionManager.missionManager.requiredSuccessfulMissions}";
+
             // Update locations for available missions
             for (int i = 0; i < MissionManager.availableMissions.Count; i++)
             {
