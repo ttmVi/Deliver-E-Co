@@ -17,6 +17,8 @@ public class AQICalculation : MonoBehaviour
     private bool isChangingColor = false;
     private bool isPlayingWarning = false;
 
+    private GameObject gameOverCanvas;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,8 @@ public class AQICalculation : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
+            gameOverCanvas = GameObject.Find("Game Over Canvas");
+            gameOverCanvas.SetActive(false);
             baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(115, 88.5f);
             if (realAQI_Index >= 0 && realAQI_Index < 1250)
             {
@@ -103,7 +107,12 @@ public class AQICalculation : MonoBehaviour
 
         if (realAQI_Index >= 7000f)
         {
-            StartCoroutine(GameSceneManager.EndGame());
+            AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+            foreach (var audioSource in audioSources)
+            {
+                audioSource.enabled = false;
+            }
+            gameOverCanvas.SetActive(true);
         }
         //AQIBar.fillAmount = realAQI_Index / 7500f;
     }

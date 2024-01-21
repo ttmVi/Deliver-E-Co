@@ -82,6 +82,11 @@ public class PathFinding : MonoBehaviour
             energy -= Time.deltaTime * 0.05f;
         }
 
+        if (energy <= 0)
+        {
+            StartCoroutine(GameSceneManager.LoseLevel("Where's all the energy..."));
+        }
+
         LaneDirection = laneState.laneDirection;
 
         // Determine if the player is pressing the key or holding the key
