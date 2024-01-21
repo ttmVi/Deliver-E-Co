@@ -29,7 +29,7 @@ public class AQICalculation : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
-            baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 130);
+            baseBar.gameObject.transform.parent.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(115, 88.5f);
             if (realAQI_Index >= 0 && realAQI_Index < 1250)
             {
                 StartCoroutine(UpdateEnvironmentLights(HexToColor("82cd7b"), 0.1f)); //green
