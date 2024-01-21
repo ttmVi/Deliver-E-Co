@@ -42,7 +42,6 @@ public class GameSceneManager : MonoBehaviour
             pausingCanvas.SetActive(false);
 
             GameObject[] Obstacles = GameObject.FindGameObjectsWithTag("Sidewalk").Concat(GameObject.FindGameObjectsWithTag("Road Barriers")).ToArray();
-            Debug.Log($"Found {Obstacles.Length} obstacles.");
             foreach (var obstacle in Obstacles)
             {
                 obstacle.AddComponent<BoxCollider>();
@@ -51,7 +50,6 @@ public class GameSceneManager : MonoBehaviour
             }
 
             GameObject[] GasStations = GameObject.FindGameObjectsWithTag("TramXang");
-            Debug.Log($"Found {GasStations.Length} gas stations.");
             foreach (var gasStation in GasStations)
             {
                 gasStation.AddComponent<GasStation>();
@@ -86,20 +84,18 @@ public class GameSceneManager : MonoBehaviour
     
     public void LoadMapUI()
     {
-        Debug.Log("Input detected");
-
         if (mapIsLoaded)
         {
             mapCanvas.SetActive(false);
             backToCustomizing.SetActive(true);
-            Debug.Log("Unloaded Route Map Plan");
+            AudioManager.audioManager.PlayCloseMapSound();
             mapIsLoaded = false;
         }
         else
         {
             mapCanvas.SetActive(true);
             backToCustomizing.SetActive(false);
-            Debug.Log("Loaded Route Map Plan");
+            AudioManager.audioManager.PlayOpenMapSound();
             mapIsLoaded = true;
         }
     }
@@ -108,12 +104,13 @@ public class GameSceneManager : MonoBehaviour
     {
         if (VehicleManager.playerVehicle != null)
         {
-            SceneManager.LoadScene("Main Moving Scene");
+            AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+            foreach (var audioSource in audioSources)
+            {
+                audioSource.enabled = true;
+            }
 
-            GameObject missionManager = GameObject.Find("MissionsManager");
-            missionManager.GetComponent<MissionManager>().enabled = true;
-            missionManager.GetComponent<MissionUIUpdate>().enabled = true;
-            MissionUIUpdate.mapCanvas = GameObject.Find("Map Canvas");
+            SceneManager.LoadScene("Main Moving Scene");
         }
     }
 
@@ -121,36 +118,44 @@ public class GameSceneManager : MonoBehaviour
     {
         //if (MissionManager.missionManager.successfulMissionCount >= MissionManager.missionManager.requiredSuccessfulMissions)
         //{
-            GameObject missionManager = GameObject.Find("MissionsManager");
-            missionManager.GetComponent<MissionManager>().enabled = false;
-            missionManager.GetComponent<MissionUIUpdate>().enabled = false;
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        foreach (var audioSource in audioSources)
+        {
+            audioSource.enabled = true;
+        }
 
-            SceneManager.LoadScene("Vehicle Customize");
+        SceneManager.LoadScene("Vehicle Customize");
             VehicleManager.playerVehicle = null;
         //}
     }
 
     public static IEnumerator LoseLevel(string loseReason)
     {
+        isPausing = true;
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
         foreach (var audioSource in audioSources)
         {
-            audioSource.Stop();
+            audioSource.enabled = false;
         }
 
         yield return new WaitForSeconds(1f);
 
         while (!losingCanvas.activeSelf)
         {
+            GameObject.Find("ResourcesManager").GetComponent<AQICalculation>().EndDayCheck();
+
             MoneyManager.money -= 100;
             break;
         }
         losingCanvas.SetActive(true);
+        AudioManager.audioManager.PlayLosingSound();
+
         TextMeshProUGUI completedMissionsCount = GameObject.Find("CompletedMission Count").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI moneyLost = GameObject.Find("Money Lost").GetComponent<TextMeshProUGUI>();
 
         completedMissionsCount.text = $"{MissionManager.missionManager.successfulMissionCount}/{MissionManager.missionManager.requiredSuccessfulMissions}";
         moneyLost.text = "-100";
+        isPausing = false;
 
         //TextMeshProUGUI loseText = GameObject.Find("Losing").GetComponent<TextMeshProUGUI>();
         //loseText.text = $"You lost because {loseReason}.";
@@ -165,13 +170,22 @@ public class GameSceneManager : MonoBehaviour
 
     public static IEnumerator WinLevel()
     {
+        isPausing = true;
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
         foreach (var audioSource in audioSources)
         {
-            audioSource.Stop();
+            audioSource.enabled = false;
+        }
+
+        while (!winningCanvas.activeSelf)
+        {
+            GameObject.Find("ResourcesManager").GetComponent<AQICalculation>().EndDayCheck();
+            break;
         }
 
         winningCanvas.SetActive(true);
+        AudioManager.audioManager.PlayWinningSound();
+
         TextMeshProUGUI completedMissionsCount = GameObject.Find("CompletedMission Count").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI moneyEarned = GameObject.Find("Money Earned").GetComponent<TextMeshProUGUI>();
 
@@ -181,6 +195,7 @@ public class GameSceneManager : MonoBehaviour
         VehicleManager.playerVehicle = null;
 
         Debug.Log("Winning Canvas Activated");
+        isPausing = false;
 
         yield return null;
     }
@@ -189,11 +204,26 @@ public class GameSceneManager : MonoBehaviour
     {
         isPausing = true;
         pausingCanvas.SetActive(true);
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        foreach (var audioSource in audioSources)
+        {
+            audioSource.enabled = false;
+        }
     }
 
     public void ResumeLevel()
     {
         isPausing = false;
         pausingCanvas.SetActive(false);
+        AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+        foreach (var audioSource in audioSources)
+        {
+            audioSource.enabled = true;
+        }
+    }
+
+    public void EndGame()
+    {
+        Debug.Log("You lost! Remember to check for the AQI index and keep it as low as possible!");
     }
 }

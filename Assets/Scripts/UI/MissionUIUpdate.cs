@@ -211,6 +211,8 @@ public class MissionUIUpdate : MonoBehaviour
             missionInfoPanel.SetActive(true);
             missionInfo.name = $"Mission Info_{mission.missionID}";
 
+            AudioManager.audioManager.PlayHoverSound();
+
             GameObject tempPickUpIcon = GameObject.Find($"PickUpLocation_{mission.missionID}");
             tempPickUpIcon.GetComponent<RectTransform>().localScale = new Vector3(1.2f, 1.2f, 1.2f);
 
@@ -310,27 +312,14 @@ public class MissionUIUpdate : MonoBehaviour
 
         if (pointerData != null && !mission.isAccepted)
         {
+            AudioManager.audioManager.PlayAcceptOrderSound();
+
             MissionManager.missionManager.AcceptNewMission(mission);
             GameObject.Find("PickUpLocation_" + mission.missionID).GetComponent<Image>().sprite = acceptedPickUpLocationIcon;
             GameObject.Find("PickUpLocation_" + mission.missionID).GetComponent<Animator>().enabled = false;
 
             //ShowMissionInfo(eventData, mission);
             //Destroy(statusButton.GetComponent<EventTrigger>());
-        }
-    }
-
-    public void AlternativeAcceptMission()
-    {
-        for (int i = 0; i < MissionManager.availableMissions.Count; i++)
-        {
-            if (MissionManager.availableMissions[i].missionID == int.Parse(missionInfo.name.Split('_')[1]))
-            {
-                MissionManager.availableMissions[i].isAccepted = true;
-                MissionManager.availableMissions[i].pickUpLocation.AddComponent<PickUpnDropOffCheck>();
-
-                MissionManager.acceptedMissions.Add(MissionManager.availableMissions[i]);
-                MissionManager.availableMissions.RemoveAt(i);
-            }
         }
     }
 

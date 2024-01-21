@@ -21,6 +21,9 @@ public class PathFinding : MonoBehaviour
     private bool turning = false;
     public static bool isMoving;
 
+    VehicleAnimation vehicleAnimation;
+    VehicleSFX vehicleSFX;
+
     public GameObject player;
     public GameSceneManager sceneManager;
     public LaneState laneState;
@@ -31,6 +34,9 @@ public class PathFinding : MonoBehaviour
 
     private void Awake()
     {
+        vehicleAnimation = GetComponent<VehicleAnimation>();
+        vehicleSFX = GetComponent<VehicleSFX>();
+
         isMoving = false;
         initialDirection = transform.position - player.transform.position;
         // Define initial direction
@@ -96,6 +102,7 @@ public class PathFinding : MonoBehaviour
 
                 if (inputTime > 0.5f) //&& LaneDirection.Length >= 2) // Turning
                 {
+                    vehicleAnimation.SetTurningLeft(true);
                     Debug.Log(inputTime.ToString());
 
                     inputTime = 0f;
@@ -131,6 +138,7 @@ public class PathFinding : MonoBehaviour
 
                 if (inputTime > 0.5f)// && LaneDirection.Length >= 2) // Turning
                 {
+                    vehicleAnimation.SetTurningRight(true);
                     Debug.Log(inputTime.ToString());
 
                     inputTime = 0f;
@@ -184,7 +192,12 @@ public class PathFinding : MonoBehaviour
                 lastVelocityDirection = direction;
                 direction += 0.5f;
 
-                StopVehicleSound();
+                //StopVehicleSound();
+                vehicleAnimation.SetIsMoving(false);
+                vehicleSFX.PlayBrakingSound();
+                vehicleSFX.PlayIdleSound();
+
+                isMoving = false;
             }
         }
         else if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
@@ -193,7 +206,12 @@ public class PathFinding : MonoBehaviour
             {
                 direction = lastVelocityDirection;
 
-                PlayVehicleSound();
+                //PlayVehicleSound();
+                vehicleAnimation.SetIsMoving(true);
+                vehicleSFX.PlayStartingSound();
+                vehicleSFX.PlayDrivingSound();
+
+                isMoving = true;
             }
         }
 
@@ -229,6 +247,8 @@ public class PathFinding : MonoBehaviour
                 targetAngle = 0;
                 Debug.Log("finish rotation");
                 turning = false;
+                vehicleAnimation.SetTurningLeft(false);
+                vehicleAnimation.SetTurningRight(false);
             }
             yield return null;
         }
@@ -279,17 +299,22 @@ public class PathFinding : MonoBehaviour
     {
         for (int i = 0; i < LaneDirection.Length; i++)
         {
-            if (velDirection.x * LaneDirection[i].x == -1 || velDirection.z * LaneDirection[i].z == -1)
+            if ((velDirection.x * LaneDirection[i].x == -1 || velDirection.z * LaneDirection[i].z == -1) && LaneDirection.Length == 1)
             {
-                Debug.Log("Lose");
+                StartCoroutine(GameSceneManager.LoseLevel("You entered the wrong lane"));
                 //return;
             }
+            else { continue; }
         }
     }
 
-    public static void RefillEnergy()
+    public void RefillEnergy()
     {
+        int refillingCost = Mathf.RoundToInt((1 - energy / VehicleManager.playerVehicle.vehicleFuel) * 150);
+        Debug.Log(refillingCost);
+        MoneyManager.money -= refillingCost;
         energy = VehicleManager.playerVehicle.vehicleFuel;
+        vehicleSFX.PlayRefuelingSound();
     }
 
     public void PlayVehicleSound()

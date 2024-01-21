@@ -12,7 +12,7 @@ public class PlayerLocationUpdate : MonoBehaviour
     private Animator animator;
     [SerializeField] RuntimeAnimatorController bicycle;
     [SerializeField] RuntimeAnimatorController motorbike;
-    [SerializeField] RuntimeAnimatorController car;
+    [SerializeField] RuntimeAnimatorController truck;
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class PlayerLocationUpdate : MonoBehaviour
         }
         else if (VehicleManager.playerVehicle.vehicleCapacity <= 10)
         {
-            animator.runtimeAnimatorController = car;
+            animator.runtimeAnimatorController = truck;
         }
     }
 

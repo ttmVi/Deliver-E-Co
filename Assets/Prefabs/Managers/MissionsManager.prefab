@@ -80,4 +80,6 @@ MonoBehaviour:
     type: 3}
   dropOffLocationIcon: {fileID: 6419716189613458255, guid: 09d0fdf9a782e294d8574fef3612363f,
     type: 3}
+  acceptedPickUpLocationIcon: {fileID: 21300000, guid: b008bdecd1ee4ae419a8c7031cb12583,
+    type: 3}
   canvas: {fileID: 0}

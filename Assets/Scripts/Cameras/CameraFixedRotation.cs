@@ -45,7 +45,7 @@ public class CameraFixedRotation : MonoBehaviour
             transform.RotateAround(player.position, Vector3.up, step);
             targetAngle -= step;
         }
-        else
+        else //camera getting shaky might be because of this
         {
             transform.RotateAround(player.position, Vector3.up, targetAngle);
             targetAngle = 0;

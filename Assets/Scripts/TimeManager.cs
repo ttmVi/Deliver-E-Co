@@ -11,7 +11,9 @@ public class TimeManager : MonoBehaviour
     public static TimeManager timeManager;
     public float levelTimeLimit = 90f;
     private TextMeshProUGUI timeText;
+
     private bool pausingTime = false;
+    private bool isPlayingWarning = false;
 
     void Start()
     {
@@ -28,12 +30,24 @@ public class TimeManager : MonoBehaviour
             {
                 if (MissionManager.missionManager.successfulMissionCount < MissionManager.missionManager.requiredSuccessfulMissions)
                 {
-                    StartCoroutine(GameSceneManager.LoseLevel("you ran out of time!"));
+                    StartCoroutine(GameSceneManager.LoseLevel("You ran out of time!"));
                 }
                 else 
                 { 
                     StartCoroutine(GameSceneManager.WinLevel()); 
                     Debug.Log("You won!");
+                }
+            }
+            else if (levelTimeLimit <= 10f && !isPlayingWarning)
+            {
+                StartCoroutine(Playing10SecondsWarning());
+            }
+            else if (levelTimeLimit <= 20f && !isPlayingWarning)
+            {
+                StartCoroutine(Playing20SecondsWarning());
+                if (levelTimeLimit <= 10f)
+                {
+                    isPlayingWarning = false;
                 }
             }
 
@@ -55,7 +69,7 @@ public class TimeManager : MonoBehaviour
             while (levelTimeLimit > 0)
             {
                 levelTimeLimit--;
-                timeText.text = $"Time: {levelTimeLimit.ToString()}";
+                UpdateTime();
 
                 yield return new WaitForSeconds(1);
 
@@ -72,5 +86,29 @@ public class TimeManager : MonoBehaviour
             levelTimeLimit = 200f;
             timeText = null;
         }
+    }
+
+    public void UpdateTime()
+    {
+        timeText = GameObject.Find("Time Limit").GetComponent<TextMeshProUGUI>();
+        float minutes = Mathf.FloorToInt(levelTimeLimit / 60);
+        float seconds = Mathf.FloorToInt(levelTimeLimit % 60);
+        timeText.text = $"{minutes.ToString("00")}:{seconds.ToString("00")}";
+    }
+
+    public IEnumerator Playing20SecondsWarning()
+    {
+        isPlayingWarning = true;
+        AudioManager.audioManager.PlayTime20SecondsLeftSound();
+        yield return new WaitForSeconds(8f);
+        isPlayingWarning = false;
+    }
+
+    public IEnumerator Playing10SecondsWarning()
+    {
+        isPlayingWarning = true;
+        AudioManager.audioManager.PlayTime10SecondsLeftSound();
+        yield return new WaitForSeconds(8f);
+        isPlayingWarning = false;
     }
 }

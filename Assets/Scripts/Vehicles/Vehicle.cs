@@ -29,8 +29,9 @@ public abstract class Vehicle
         public bool isUnlocked;
         public bool isChosen;
         public string previousComponent;
+        public string description;
 
-        public UpgradableComponent(string category, string name, int price, bool isUnlocked, bool isChosen, string previousComponent)
+        public UpgradableComponent(string category, string name, int price, bool isUnlocked, bool isChosen, string previousComponent, string description)
         {
             this.category = category;
             this.name = name;
@@ -38,6 +39,7 @@ public abstract class Vehicle
             this.isUnlocked = isUnlocked;
             this.isChosen = isChosen;
             this.previousComponent = previousComponent;
+            this.description = description;
         }
     }
 
@@ -57,10 +59,9 @@ public abstract class Vehicle
 
     public virtual void ChooseUpgradeComponent(string upgradeCategory, string upgradeComponent) { }
 
-    public virtual string[] GetEquippedAndUpgradableComponent(string category)
+    public virtual UpgradableComponent[][] GetUpgradableComponent()
     {
-        string[] currentlyEquippedComponent = {"none", ""};
-        return currentlyEquippedComponent;
+        return upgradeOptions;
     }
 }
 
@@ -101,25 +102,25 @@ public class Motorbike : Vehicle
         // Engine upgrade options
         upgradeOptions[(int)MotorbikeUpgradableComponents.Engine] = new UpgradableComponent[]
         {
-            new UpgradableComponent("Engine", "Combustion Engine", 0, true, true, "none"),
-            new UpgradableComponent("Engine", "Hybrid Engine", 200, false, false, "none"),
-            new UpgradableComponent("Engine", "Electric Motor", 300, false, false, "none")
+            new UpgradableComponent("Engine", "Combustion Engine", 0, true, true, "none", "The conventional engine, provides a balance between power and fuel consumption"),
+            new UpgradableComponent("Engine", "Hybrid Engine", 200, false, false, "none", "Combination of internal combustion engine with electric motor"),
+            new UpgradableComponent("Engine", "Electric Motor", 300, false, false, "none", "Releases zero carbondioxide emission with high efficiency torque")
         };
 
         // Wheels upgrade options
         upgradeOptions[(int)MotorbikeUpgradableComponents.Wheels] = new UpgradableComponent[]
         {
-            new UpgradableComponent("Wheels", "Steel Rims", 0, true, true, "none"),
-            new UpgradableComponent("Wheels", "Alloy Wheels", 200, false, false, "none"),
-            new UpgradableComponent("Wheels", "Magnesium Alloy Rims", 300, false, false, "none")
+            new UpgradableComponent("Wheels", "Steel Rims", 0, true, true, "none", "Standard rim, nothing special"),
+            new UpgradableComponent("Wheels", "Alloy Wheels", 200, false, false, "none", "Higher speed and torque, and higher fuel efficiency"),
+            new UpgradableComponent("Wheels", "Magnesium Alloy Rims", 300, false, false, "none", "Lighter with better acceleration")
         };
 
         // Exhaust System upgrade options
         upgradeOptions[(int)MotorbikeUpgradableComponents.ExhaustSystem] = new UpgradableComponent[]
         {
-            new UpgradableComponent("Exhaust System", "Standard", 0, true, true, "none"),
-            new UpgradableComponent("Exhaust System", "Exhaust Tuning", 100, false, false, "none"),
-            new UpgradableComponent("Exhaust System", "Remove", 0, false, false, "Electric Motor")
+            new UpgradableComponent("Exhaust System", "Standard", 0, true, true, "none", "Basic exhaust system with nothing special instead of air pollution"),
+            new UpgradableComponent("Exhaust System", "Exhaust Tuning", 100, false, false, "none", "Airflow optimization and better engine performance"),
+            new UpgradableComponent("Exhaust System", "Remove", 0, false, false, "Electric Motor", "Can only be removed after upgrading engine to Electric Motor")
         };
     }
 
@@ -130,6 +131,16 @@ public class Motorbike : Vehicle
 
     public override void UpgradeVehicle(string upgradeType)
     {
+        //Get vehicle's properties based on chosen engine
+        for (int i = 0; i < upgradeOptions[(int)MotorbikeUpgradableComponents.Engine].Length; i++)
+        {
+            if (upgradeOptions[(int)MotorbikeUpgradableComponents.Engine][i].isChosen)
+            {
+                engineType = upgradeOptions[(int)MotorbikeUpgradableComponents.Engine][i].name;
+                break;
+            }
+        }
+
         switch (upgradeType)
         {
             case "Engine":
@@ -253,7 +264,6 @@ public class Motorbike : Vehicle
                     if (upgradeOptions[i][j].name.Contains(upgradeComponent) && upgradeOptions[i][j].isUnlocked)
                     {
                         upgradeOptions[i][j].isChosen = true;
-                        upgradeOptions[i][j - 1].isChosen = false;
                     }
                     else
                     {
@@ -267,46 +277,20 @@ public class Motorbike : Vehicle
         }
     }
 
-    public override string[] GetEquippedAndUpgradableComponent(string category) //For now it does nothing
+    public static UpgradableComponent[][] GetMotorbikeUpgradableComponent()
     {
-        string[] currentlyEquippedComponent = { "...", "" };
-
-        for (int i = 0; i < upgradeOptions.Length; i++)
-        {
-            if (upgradeOptions[i][0].category.Contains(category))
-            {
-                for (int j = 0; j < upgradeOptions[i].Length; j++)
-                {
-                    if (upgradeOptions[i][j].isChosen)
-                    {
-                        currentlyEquippedComponent[0] = upgradeOptions[i][j].name;
-                        if (j + 1 < upgradeOptions[i].Length)
-                        {
-                            currentlyEquippedComponent[1] = upgradeOptions[i][j + 1].price.ToString();
-                        }
-                        break;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-            }
-            else { continue; }
-        }
-
-        return currentlyEquippedComponent;
+        return upgradeOptions;
     }
 }
 
-public class Car : Vehicle
+public class Truck : Vehicle
 {
     public static string engineType = "Combustion";
     public static string wheelType = "Steel";
     public static string batteryType = "None";
     public static string exhaustSystem = "Standard";
 
-    public enum CarUpgradableComponents
+    public enum TruckUpgradableComponents
     {
         Engine,
         Wheels,
@@ -314,47 +298,47 @@ public class Car : Vehicle
         ExhaustSystem
     }
 
-    public Car(float speed, float MPG, float fuel, string feature, int capacity)
+    public Truck(float speed, float MPG, float fuel, string feature, int capacity)
         : base(speed, MPG, fuel, feature, capacity)
     {
         upgradeOptions = new UpgradableComponent[4][];
 
         // Engine upgrade options
-        upgradeOptions[(int)CarUpgradableComponents.Engine] = new UpgradableComponent[]
+        upgradeOptions[(int)TruckUpgradableComponents.Engine] = new UpgradableComponent[]
         {
-            new UpgradableComponent("Engine", "Combustion", 0, true, true, "none"),
-            new UpgradableComponent("Engine", "Hybrid", 200, false, false, "none"),
-            new UpgradableComponent("Engine", "Electric", 300, false, false, "none")
+            new UpgradableComponent("Engine", "Combustion", 0, true, true, "none", "Standard engine, releases a lot of carbon dioxide"),
+            new UpgradableComponent("Engine", "Hybrid", 200, false, false, "none", "The combination between gastroline and electric motor, reduces emissions"),
+            new UpgradableComponent("Engine", "Electric", 300, false, false, "none", "Vinfast")
         };
 
         // Wheels upgrade options
-        upgradeOptions[(int)CarUpgradableComponents.Wheels] = new UpgradableComponent[]
+        upgradeOptions[(int)TruckUpgradableComponents.Wheels] = new UpgradableComponent[]
         {
-            new UpgradableComponent("Wheels", "Steel", 0, true, true, "none"),
-            new UpgradableComponent("Wheels", "Carbon Fiber", 200, false, false, "none"),
-            new UpgradableComponent("Wheels", "Titanium", 300, false, false, "none")
+            new UpgradableComponent("Wheels", "Steel", 0, true, true, "none", "The heavier it is, the more impact on fuel efficiency and handling"),
+            new UpgradableComponent("Wheels", "Carbon Fiber", 200, false, false, "none", "Lighter and offer high strength"),
+            new UpgradableComponent("Wheels", "Titanium", 300, false, false, "none", "Teen Titans")
         };
 
         // Battery upgrade options
-        upgradeOptions[(int)CarUpgradableComponents.Battery] = new UpgradableComponent[]
+        upgradeOptions[(int)TruckUpgradableComponents.Battery] = new UpgradableComponent[]
         {
-            new UpgradableComponent("Battery", "None", 0, true, true, "none"),
-            new UpgradableComponent("Battery", "Lithium", 200, false, false, "none"),
-            new UpgradableComponent("Battery", "Sodium", 300, false, false, "none")
+            new UpgradableComponent("Battery", "None", 0, true, true, "none", "Battery can be installed after upgrading to electric motor"),
+            new UpgradableComponent("Battery", "Lithium", 200, false, false, "none", "High energy storage density and lightweight, has good longevity"),
+            new UpgradableComponent("Battery", "Sodium", 300, false, false, "none", "More abundant and sustainable")
         };
 
         // Exhaust System upgrade options
-        upgradeOptions[(int)CarUpgradableComponents.ExhaustSystem] = new UpgradableComponent[]
+        upgradeOptions[(int)TruckUpgradableComponents.ExhaustSystem] = new UpgradableComponent[]
         {
-            new UpgradableComponent("Exhaust System", "Standard", 0, true, true, "none"),
-            new UpgradableComponent("Exhaust System", "Exhaust Tuning", 100, false, false, "none"),
-            new UpgradableComponent("Exhaust System", "Remove", 0, false, false, "Electric")
+            new UpgradableComponent("Exhaust System", "Standard", 0, true, true, "none", "Emission cannon"),
+            new UpgradableComponent("Exhaust System", "Exhaust Tuning", 100, false, false, "none", "Reduces and filters out harmful emissions for a cleaner ride"),
+            new UpgradableComponent("Exhaust System", "Remove", 0, false, false, "Electric", "Automatically removed after upgrading engine to Electric Moto")
         };
     }
 
     public override void StartVehicle()
     {
-        Debug.Log("Car started");
+        Debug.Log("Truck started");
     }
 
     public override void UpgradeVehicle(string upgradeType)
@@ -425,7 +409,7 @@ public class Car : Vehicle
             default: break;
         }
 
-        Debug.Log($"Car {upgradeType} upgraded");
+        Debug.Log($"Truck {upgradeType} upgraded");
     }
 
     public override void UnlockUpgradeComponent(string upgradeCategory, string upgradeComponent)
@@ -483,6 +467,10 @@ public class Car : Vehicle
             }
             else { continue; }
         }
+    }
+    public static UpgradableComponent[][] GetTruckUpgradableComponent() //For now it does nothing
+    {
+        return upgradeOptions;
     }
 }
 

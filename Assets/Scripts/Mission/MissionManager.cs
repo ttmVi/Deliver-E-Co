@@ -57,8 +57,8 @@ public class MissionManager : MonoBehaviour
         }
 
         //Chapter 1 missions
-        AddNewMission($"Pick up the package from {pickUpLocations[0]} and drop it off at {dropOffLocations[1]}", pickUpLocations[0], dropOffLocations[1], 100f, 100, 50);
-        AddNewMission($"Pick up the parcel from {pickUpLocations[0]} and deliver it to {dropOffLocations[1]}", pickUpLocations[1], dropOffLocations[2], 100f, 100, 50);
+        AddNewMission($"Pick up the package from {GameObject.Find("Storage").transform.GetChild(0).gameObject} and drop it off at {dropOffLocations[3]}", GameObject.Find("Storage").transform.GetChild(0).gameObject, dropOffLocations[3], 100f, 100, 50);
+        AddNewMission($"Pick up the parcel from {pickUpLocations[1]} and deliver it to {dropOffLocations[6]}", pickUpLocations[1], dropOffLocations[6], 100f, 100, 50);
     }
 
     // Update is called once per frame
@@ -74,7 +74,7 @@ public class MissionManager : MonoBehaviour
                 {
                     completedMissions.Add(availableMissions[i]);
                     availableMissions.RemoveAt(i);
-                    continue;
+                    break;
                 }
             }
 
@@ -85,7 +85,7 @@ public class MissionManager : MonoBehaviour
                 if (acceptedMissions[i].timeRemaining <= 0)
                 {
                     acceptedMissions[i].FailMission();
-                    continue;
+                    break;
                 }
             }
 
@@ -117,7 +117,8 @@ public class MissionManager : MonoBehaviour
         pickUpLocations.Remove(pickUpLocation);
         dropOffLocations.Remove(dropOffLocation);
 
-        Debug.Log($"New mission added: {mission.description}");
+        Debug.Log("Pick up locations: " + $"{pickUpLocation.name}");
+        AudioManager.audioManager.PlayPopUpOrderSound();
     }
 
     public void GenerateRandomMissions(int numberOfMissionsGenerated)
@@ -129,9 +130,9 @@ public class MissionManager : MonoBehaviour
             GameObject randomDropOff = dropOffLocations[Random.Range(0, dropOffLocations.Count)];
             dropOffLocations.Add(randomPickUp);
 
-            float TimeLimit = (randomPickUp.transform.position - randomDropOff.transform.position).magnitude * 3 / VehicleManager.playerVehicle.vehicleSpeed + 50f;
-            int randomReward = Random.Range(100, 1000);
-            int randomPenalty = Random.Range(50, 200);
+            float TimeLimit = (randomPickUp.transform.position - randomDropOff.transform.position).magnitude * 4 / VehicleManager.playerVehicle.vehicleSpeed + 20f;
+            int randomReward = Random.Range(100, 300);
+            int randomPenalty = Random.Range(75, 150);
             string description = $"Pick up the package from {randomPickUp.name} and drop it off at {randomDropOff.name}";
 
             AddNewMission(description, randomPickUp, randomDropOff, TimeLimit, randomReward, randomPenalty);
@@ -189,9 +190,9 @@ public class MissionManager : MonoBehaviour
 
                 completedMissions.Add(acceptedMissions[i]);
                 acceptedMissions.RemoveAt(i);
+                break;
             }
-            
-            if (acceptedMissions[i].isFailed)
+            else if (acceptedMissions[i].isFailed)
             {
                 MoneyManager.money -= acceptedMissions[i].penalty;
 
@@ -200,7 +201,7 @@ public class MissionManager : MonoBehaviour
 
                 completedMissions.Add(acceptedMissions[i]);
                 acceptedMissions.RemoveAt(i);
-
+                break;
             }
         }
     }

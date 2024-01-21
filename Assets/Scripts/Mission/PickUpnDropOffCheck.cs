@@ -19,7 +19,9 @@ public class PickUpnDropOffCheck : MonoBehaviour
         status = GameObject.Find("Status").GetComponent<TextMeshProUGUI>();
         status.text = "";
 
-        audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
+        gameObject.AddComponent<AudioSource>();
+
+        //audioSource = GetComponent<AudioSource>();
         soundEffects = GameObject.Find("Direction").GetComponent<PathFinding>().soundEffects;
 
         for (int i = 0; i < MissionManager.availableMissions.Count; i++)
@@ -46,13 +48,14 @@ public class PickUpnDropOffCheck : MonoBehaviour
                     }
                     else
                     {
-                        PlayPickUpSound();
+                        //PlayPickUpSound();
+                        AudioManager.audioManager.PlayPickUpOrderSound();
 
                         status.text = "Package is picked up";
                         mission.isPickedUp = true;
                         PathFinding.currentCapacity++;
                         StartCoroutine(WaitForStatus());
-                        audioSource.Stop();
+                        //audioSource.Stop();
                     }
                 }
             }
@@ -60,14 +63,15 @@ public class PickUpnDropOffCheck : MonoBehaviour
             {
                 if (CheckPickUpAndDropOff(mission.dropOffLocation.GetComponent<BoxCollider>()))
                 {
-                    PlayDropOffSound();
+                    //PlayDropOffSound();
+                    AudioManager.audioManager.PlayDropOffOrderSound();
 
                     status.text = "Package is dropped off";
                     mission.isDroppedOff = true;
                     mission.isCompleted = mission.isDroppedOff;
                     PathFinding.currentCapacity--;
                     StartCoroutine(WaitForStatus());
-                    audioSource.Stop();
+                    //audioSource.Stop();
                 }
             }
         }

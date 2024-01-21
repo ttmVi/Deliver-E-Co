@@ -18,7 +18,7 @@ public class GasStation : MonoBehaviour
         {
             if (RefillingEnergy(GetComponent<BoxCollider>()))
             {
-                PathFinding.RefillEnergy();
+                GameObject.Find("Direction").GetComponent<PathFinding>().RefillEnergy();
                 Debug.Log("Refilling energy");
             }
         }
