@@ -18,6 +18,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip openMapSound;
     [SerializeField] AudioClip closeMapSound;
 
+    [SerializeField] AudioClip AQIWarningSound;
+
     [SerializeField] AudioClip losingSound;
     [SerializeField] AudioClip winningSound;
 
@@ -60,6 +62,12 @@ public class AudioManager : MonoBehaviour
     public void PlayDropOffOrderSound()
     {
         AudioSource.PlayClipAtPoint(dropOffOrderSound, Camera.main.transform.position);
+    }
+
+    public IEnumerator PlayAQIWarningSound()
+    {
+        AudioSource.PlayClipAtPoint(AQIWarningSound, Camera.main.transform.position);
+        yield return new WaitForSeconds(1);
     }
 
     public void PlayOpenMapSound()

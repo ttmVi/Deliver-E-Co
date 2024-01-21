@@ -28,15 +28,9 @@ public class VehicleManager : MonoBehaviour
     [SerializeField] Sprite[] lockedSprites;
     [SerializeField] Sprite[] unlockedSprites;
     [SerializeField] Sprite[] upgradingSprites;
-    [SerializeField] Sprite[] motorbikeEngineSprites;
-    [SerializeField] Sprite[] motorbikeWheelsSprites;
-    [SerializeField] Sprite[] motorbikeExhaustSprites;
     [SerializeField] Sprite[] motorbikeComponentsSprites;
-    [SerializeField] Sprite[] truckEngineSprites;
-    [SerializeField] Sprite[] truckWheelsSprites;
-    [SerializeField] Sprite[] truckBatterySprites;
-    [SerializeField] Sprite[] truckExhaustSprites;
     [SerializeField] Sprite[] truckComponentsSprites;
+    [SerializeField] Sprite[] componentsStatusSprites;
     private int currentVehicleIndex = 0;
 
     public Vehicle.UpgradableComponent[][] upgradableComponents;
@@ -279,6 +273,7 @@ public class VehicleManager : MonoBehaviour
                 Image icon = componentOptions.transform.GetChild(i).GetChild(0).GetComponent<Image>();
                 TextMeshProUGUI name = componentOptions.transform.GetChild(i).GetChild(1).GetComponent<TextMeshProUGUI>();
                 TextMeshProUGUI description = componentOptions.transform.GetChild(i).GetChild(2).GetComponent<TextMeshProUGUI>();
+                Image componentStatus = componentOptions.transform.GetChild(i).GetChild(3).GetComponent<Image>();
                 TextMeshProUGUI button = componentOptions.transform.GetChild(i).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
 
                 icon.sprite = motorbikeComponentsSprites[currentUpgradableIndex * upgradableComponents[currentUpgradableIndex].Length + i];
@@ -288,15 +283,21 @@ public class VehicleManager : MonoBehaviour
 
                 if (!upgradableComponents[currentUpgradableIndex][i].isUnlocked)
                 {
-                    button.text = "Unlock";
+                    componentStatus.sprite = componentsStatusSprites[0];
+                    componentStatus.SetNativeSize();
+                    button.text = $"{upgradableComponents[currentUpgradableIndex][i].price}";
                 }
                 else if (!upgradableComponents[currentUpgradableIndex][i].isChosen)
                 {
-                    button.text = "Choose";
+                    componentStatus.sprite = componentsStatusSprites[1];
+                    componentStatus.SetNativeSize();
+                    button.text = "Equip";
                 }
                 else
                 {
-                    button.text = "Chosen";
+                    componentStatus.sprite = componentsStatusSprites[2];
+                    componentStatus.SetNativeSize();
+                    button.text = "";
                 }
             }
         }
@@ -329,6 +330,7 @@ public class VehicleManager : MonoBehaviour
                 Image icon = componentOptions.transform.GetChild(i).GetChild(0).GetComponent<Image>();
                 TextMeshProUGUI name = componentOptions.transform.GetChild(i).GetChild(1).GetComponent<TextMeshProUGUI>();
                 TextMeshProUGUI description = componentOptions.transform.GetChild(i).GetChild(2).GetComponent<TextMeshProUGUI>();
+                Image componentStatus = componentOptions.transform.GetChild(i).GetChild(3).GetComponent<Image>();
                 TextMeshProUGUI button = componentOptions.transform.GetChild(i).GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>();
 
                 icon.sprite = truckComponentsSprites[currentUpgradableIndex * upgradableComponents[currentUpgradableIndex].Length + i];
@@ -338,15 +340,21 @@ public class VehicleManager : MonoBehaviour
 
                 if (!upgradableComponents[currentUpgradableIndex][i].isUnlocked)
                 {
-                    button.text = "Unlock";
+                    componentStatus.sprite = componentsStatusSprites[0];
+                    componentStatus.SetNativeSize();
+                    button.text = $"{upgradableComponents[currentUpgradableIndex][i].price}";
                 }
                 else if (!upgradableComponents[currentUpgradableIndex][i].isChosen)
                 {
-                    button.text = "Choose";
+                    componentStatus.sprite = componentsStatusSprites[1];
+                    componentStatus.SetNativeSize();
+                    button.text = "Equip";
                 }
                 else
                 {
-                    button.text = "Chosen";
+                    componentStatus.sprite = componentsStatusSprites[2];
+                    componentStatus.SetNativeSize();
+                    button.text = "";
                 }
             }
         }

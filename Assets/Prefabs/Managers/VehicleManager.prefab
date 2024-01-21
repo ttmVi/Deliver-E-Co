@@ -71,18 +71,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 07a36aeb76b83994c8bc17b8c38bbdd6, type: 3}
   - {fileID: 21300000, guid: af7b7287e939bd7498f369227715dbfd, type: 3}
   - {fileID: 21300000, guid: af7b7287e939bd7498f369227715dbfd, type: 3}
-  motorbikeEngineSprites:
-  - {fileID: 21300000, guid: 254eb757e27b471439e314287ff7ae50, type: 3}
-  - {fileID: 21300000, guid: 215c54a3b12d5244d850e3221de5752e, type: 3}
-  - {fileID: 21300000, guid: 739238c4d61e6954b90927d2ed773e3c, type: 3}
-  motorbikeWheelsSprites:
-  - {fileID: 21300000, guid: c758a5c3d6bb5c94981de9d0caf11037, type: 3}
-  - {fileID: 21300000, guid: 9887577e4d254c64d8b0ee4549f5d954, type: 3}
-  - {fileID: 21300000, guid: 112327816590d2f4ca99a8abc1ca42f1, type: 3}
-  motorbikeExhaustSprites:
-  - {fileID: 21300000, guid: b1c2189bb06179b49aa82c196417f243, type: 3}
-  - {fileID: 21300000, guid: e20d03429ef7166408bf486cbc573035, type: 3}
-  - {fileID: 21300000, guid: 60912788e888ca44b989e20192cb4085, type: 3}
   motorbikeComponentsSprites:
   - {fileID: 21300000, guid: 254eb757e27b471439e314287ff7ae50, type: 3}
   - {fileID: 21300000, guid: 215c54a3b12d5244d850e3221de5752e, type: 3}
@@ -90,22 +78,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c758a5c3d6bb5c94981de9d0caf11037, type: 3}
   - {fileID: 21300000, guid: 9887577e4d254c64d8b0ee4549f5d954, type: 3}
   - {fileID: 21300000, guid: 112327816590d2f4ca99a8abc1ca42f1, type: 3}
-  - {fileID: 21300000, guid: b1c2189bb06179b49aa82c196417f243, type: 3}
-  - {fileID: 21300000, guid: e20d03429ef7166408bf486cbc573035, type: 3}
-  - {fileID: 21300000, guid: 60912788e888ca44b989e20192cb4085, type: 3}
-  truckEngineSprites:
-  - {fileID: 21300000, guid: 254eb757e27b471439e314287ff7ae50, type: 3}
-  - {fileID: 21300000, guid: 215c54a3b12d5244d850e3221de5752e, type: 3}
-  - {fileID: 21300000, guid: 739238c4d61e6954b90927d2ed773e3c, type: 3}
-  truckWheelsSprites:
-  - {fileID: 21300000, guid: c758a5c3d6bb5c94981de9d0caf11037, type: 3}
-  - {fileID: 21300000, guid: 9887577e4d254c64d8b0ee4549f5d954, type: 3}
-  - {fileID: 21300000, guid: 112327816590d2f4ca99a8abc1ca42f1, type: 3}
-  truckBatterySprites:
-  - {fileID: 21300000, guid: 205cd39a36daa9449b3eab63305babfd, type: 3}
-  - {fileID: 21300000, guid: a8e259fc16bee1e48815e66ad63da5f4, type: 3}
-  - {fileID: 21300000, guid: 476214b699a27fe4f84f96a44ccd537d, type: 3}
-  truckExhaustSprites:
   - {fileID: 21300000, guid: b1c2189bb06179b49aa82c196417f243, type: 3}
   - {fileID: 21300000, guid: e20d03429ef7166408bf486cbc573035, type: 3}
   - {fileID: 21300000, guid: 60912788e888ca44b989e20192cb4085, type: 3}
@@ -122,6 +94,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b1c2189bb06179b49aa82c196417f243, type: 3}
   - {fileID: 21300000, guid: e20d03429ef7166408bf486cbc573035, type: 3}
   - {fileID: 21300000, guid: 60912788e888ca44b989e20192cb4085, type: 3}
+  componentsStatusSprites:
+  - {fileID: 21300000, guid: a6ce5da487982b44cb22ecdd757ef935, type: 3}
+  - {fileID: 21300000, guid: 824c6ce27c795f148bf051846a2bb049, type: 3}
+  - {fileID: 21300000, guid: 986611edbe50e754ebb6460deb4b7e0c, type: 3}
 --- !u!82 &2263897762979500093
 AudioSource:
   m_ObjectHideFlags: 0

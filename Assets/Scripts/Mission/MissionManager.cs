@@ -118,6 +118,7 @@ public class MissionManager : MonoBehaviour
         dropOffLocations.Remove(dropOffLocation);
 
         Debug.Log("Pick up locations: " + $"{pickUpLocation.name}");
+        AudioManager.audioManager.PlayPopUpOrderSound();
     }
 
     public void GenerateRandomMissions(int numberOfMissionsGenerated)
@@ -189,7 +190,7 @@ public class MissionManager : MonoBehaviour
 
                 completedMissions.Add(acceptedMissions[i]);
                 acceptedMissions.RemoveAt(i);
-                continue;
+                break;
             }
             else if (acceptedMissions[i].isFailed)
             {
@@ -200,7 +201,7 @@ public class MissionManager : MonoBehaviour
 
                 completedMissions.Add(acceptedMissions[i]);
                 acceptedMissions.RemoveAt(i);
-                continue;
+                break;
             }
         }
     }
