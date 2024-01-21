@@ -45,7 +45,7 @@ public class MissionUIUpdate : MonoBehaviour
         missionInfoPanel = GameObject.Find("Mission Info Panel");
         missionInfo = GameObject.Find("Description Text").GetComponent<TextMeshProUGUI>();
         missionStatus = GameObject.Find("Status Text").GetComponent<TextMeshProUGUI>();
-        status = GameObject.Find("Status").GetComponent<TextMeshProUGUI>();
+        status = GameObject.Find("Mission Status").GetComponent<TextMeshProUGUI>();
         missionReward = GameObject.Find("Reward Text").GetComponent<TextMeshProUGUI>();
         missionTime = GameObject.Find("Time Text").GetComponent<TextMeshProUGUI>();
 

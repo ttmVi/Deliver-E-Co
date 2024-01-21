@@ -19,6 +19,7 @@ public class PathFinding : MonoBehaviour
 
     private bool changingLane = false;
     private bool turning = false;
+    private float rotatingDuration = 0.5f;
     public static bool isMoving;
 
     VehicleAnimation vehicleAnimation;
@@ -226,10 +227,28 @@ public class PathFinding : MonoBehaviour
 
     IEnumerator SmoothRotating(GameObject rotatingObject, float targetAngle, GameObject rotationCenter)
     {
-        turning = true;
         float rotationSpeed = 165f;
 
         //yield return new WaitForSeconds(0.5f);
+
+        float rotatingObjectStartAngle = rotatingObject.transform.rotation.eulerAngles.y;
+        float rotationCenterStartAngle = rotationCenter.transform.rotation.eulerAngles.y;
+        float time = 0f;
+
+        while (time < rotatingDuration)
+        {
+            turning = true;
+            //rotatingObject.transform.RotateAround(rotationCenter.transform.position, Vector3.up, time / rotatingDuration);
+            //rotationCenter.transform.RotateAround(rotationCenter.transform.position, Vector3.up, time / rotatingDuration);
+            rotationCenter.transform.localEulerAngles = new Vector3(rotationCenter.transform.localEulerAngles.x, Mathf.Lerp(rotationCenterStartAngle, rotationCenterStartAngle + targetAngle, time / rotatingDuration), rotationCenter.transform.localEulerAngles.z);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        turning = false;
+        vehicleAnimation.SetTurningLeft(false);
+        vehicleAnimation.SetTurningRight(false);
+        rotationCenter.transform.localEulerAngles = new Vector3(rotationCenter.transform.localEulerAngles.x, rotationCenterStartAngle + targetAngle, rotationCenter.transform.localEulerAngles.z);
+        //transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, startAngle + targetAngle, transform.localEulerAngles.z);
 
         while (turning)
         {
@@ -237,18 +256,16 @@ public class PathFinding : MonoBehaviour
             {
                 float step = rotationSpeed * (targetAngle / Mathf.Abs(targetAngle)) * Time.deltaTime;
                 rotatingObject.transform.RotateAround(rotationCenter.transform.position, Vector3.up, step);
-                rotationCenter.transform.RotateAround(rotatingObject.transform.position, Vector3.up, step);
+                //rotationCenter.transform.RotateAround(rotatingObject.transform.position, Vector3.up, step);
                 targetAngle -= step;
             }
             else
             {
                 rotatingObject.transform.RotateAround(rotationCenter.transform.position, Vector3.up, targetAngle);
-                rotationCenter.transform.RotateAround(rotatingObject.transform.position, Vector3.up, targetAngle);
+                //rotationCenter.transform.RotateAround(rotatingObject.transform.position, Vector3.up, targetAngle);
                 targetAngle = 0;
                 Debug.Log("finish rotation");
                 turning = false;
-                vehicleAnimation.SetTurningLeft(false);
-                vehicleAnimation.SetTurningRight(false);
             }
             yield return null;
         }

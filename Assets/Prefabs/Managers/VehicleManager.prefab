@@ -55,7 +55,7 @@ MonoBehaviour:
   clickSound: {fileID: 8300000, guid: 719206065607efd49aeb2e1a07d8e510, type: 3}
   otherClickingSound: {fileID: 8300000, guid: 8654dd9f8daf2f4408ac7bc5e5b17e6f, type: 3}
   vehicles: 00000000010000000200000003000000
-  vehiclePrices: 0000000064000000e803000000000000
+  vehiclePrices: 6400000058020000f00a000000000000
   lockedSprites:
   - {fileID: 21300000, guid: fddae5bb658a39a40ba9f3cc352b9416, type: 3}
   - {fileID: 21300000, guid: df6e1e945eda3ce4a9428f3cf69d924d, type: 3}

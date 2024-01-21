@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
 {
-    public static int money = 4000;
+    public static int money = 300;
     public int startingMoney = 0;
     private int lastMoneyCount = 0;
 

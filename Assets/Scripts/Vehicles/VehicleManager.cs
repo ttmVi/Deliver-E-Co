@@ -580,11 +580,13 @@ public class VehicleManager : MonoBehaviour
         {
             vehicleCanvas.SetActive(true);
             AQIBar.SetActive(true);
+            moneyBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(-732, 289, 0);
         }
         else
         {
             upgradeCanvas.SetActive(true);
             AQIBar.SetActive(true);
+            moneyBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(-732, 289, 0);
         }
         confirmWindow.SetActive(false);
     }
