@@ -69,7 +69,7 @@ public class TimeManager : MonoBehaviour
             while (levelTimeLimit > 0)
             {
                 levelTimeLimit--;
-                timeText.text = $"Time: {levelTimeLimit.ToString()}";
+                UpdateTime();
 
                 yield return new WaitForSeconds(1);
 
@@ -86,6 +86,14 @@ public class TimeManager : MonoBehaviour
             levelTimeLimit = 200f;
             timeText = null;
         }
+    }
+
+    public void UpdateTime()
+    {
+        timeText = GameObject.Find("Time Limit").GetComponent<TextMeshProUGUI>();
+        float minutes = Mathf.FloorToInt(levelTimeLimit / 60);
+        float seconds = Mathf.FloorToInt(levelTimeLimit % 60);
+        timeText.text = $"{minutes.ToString("00")}:{seconds.ToString("00")}";
     }
 
     public IEnumerator Playing20SecondsWarning()
