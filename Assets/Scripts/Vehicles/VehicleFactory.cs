@@ -25,7 +25,7 @@ public class VehicleFactory
                     vehicle = new Bicycle(2.25f, 100f, -1f, "package", 2); // (Speed, MPG, fuel, feature, capacity)
                     break;
                 case VehicleType.Motorbike:
-                    vehicle = new Motorbike(5f, 55f, 10f, "package", 4); // (Speed, MPG, fuel, feature, capacity)
+                    vehicle = new Motorbike(4f, 55f, 10f, "package", 4); // (Speed, MPG, fuel, feature, capacity)
                     break;
                 case VehicleType.Truck:
                     vehicle = new Truck(7f, 35f, 20f, "package", 10); // (Speed, MPG, fuel, feature, capacity)

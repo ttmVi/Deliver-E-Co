@@ -191,7 +191,7 @@ public class VehicleManager : MonoBehaviour
 
             speed.fillAmount = previewVehicle.vehicleSpeed / 10f;
             mpg.fillAmount = 1 - previewVehicle.vehicleMPG / 100f;
-            fuel.fillAmount = previewVehicle.vehicleFuel / 100f;
+            fuel.fillAmount = previewVehicle.vehicleFuel / 50f;
             capacity.fillAmount = previewVehicle.vehicleCapacity / 10f;
         }
         else if (currentVehicleType == VehicleType.Updating)
