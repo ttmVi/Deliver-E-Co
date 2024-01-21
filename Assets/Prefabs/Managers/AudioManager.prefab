@@ -53,6 +53,11 @@ MonoBehaviour:
   dropOffOrderSound: {fileID: 8300000, guid: 9d933feafd4b1d445ba487d20ccf43c8, type: 3}
   openMapSound: {fileID: 8300000, guid: 2adbbfe2f32f45c4cb5574dc13a09e72, type: 3}
   closeMapSound: {fileID: 8300000, guid: f3107f958b380bc439eff1976a8be2fe, type: 3}
+  AQIWarningSound: {fileID: 8300000, guid: dfafdc7d8b144fd4d8bb8b1759b00a1b, type: 3}
+  time20SecondsLeftSound: {fileID: 8300000, guid: 14229c07fbd06c34bbd64ff7d5f653fb,
+    type: 3}
+  time10SecondsLeftSound: {fileID: 8300000, guid: c8d56adf4eb6b7b45baeb6dec3575b82,
+    type: 3}
   losingSound: {fileID: 8300000, guid: 4d8a1610590fd874ea0310771d8e6e30, type: 3}
   winningSound: {fileID: 8300000, guid: d3a2d82ed61d43e4fadacd430dde0bec, type: 3}
 --- !u!82 &-1225882807367042734

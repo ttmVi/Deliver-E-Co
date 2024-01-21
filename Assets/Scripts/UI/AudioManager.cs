@@ -20,6 +20,9 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] AudioClip AQIWarningSound;
 
+    [SerializeField] AudioClip time20SecondsLeftSound;
+    [SerializeField] AudioClip time10SecondsLeftSound;
+
     [SerializeField] AudioClip losingSound;
     [SerializeField] AudioClip winningSound;
 
@@ -56,28 +59,37 @@ public class AudioManager : MonoBehaviour
 
     public void PlayPickUpOrderSound()
     {
-        AudioSource.PlayClipAtPoint(pickUpOrderSound, Camera.main.transform.position);
+        AudioSource.PlayClipAtPoint(pickUpOrderSound, GameObject.Find("Player").transform.position);
     }
 
     public void PlayDropOffOrderSound()
     {
-        AudioSource.PlayClipAtPoint(dropOffOrderSound, Camera.main.transform.position);
+        AudioSource.PlayClipAtPoint(dropOffOrderSound, GameObject.Find("Player").transform.position);
     }
 
-    public IEnumerator PlayAQIWarningSound()
+    public void PlayAQIWarningSound()
     {
-        AudioSource.PlayClipAtPoint(AQIWarningSound, Camera.main.transform.position);
-        yield return new WaitForSeconds(1);
+        AudioSource.PlayClipAtPoint(AQIWarningSound, GameObject.Find("Player").transform.position);
+    }
+
+    public void PlayTime20SecondsLeftSound()
+    {
+        AudioSource.PlayClipAtPoint(time20SecondsLeftSound, GameObject.Find("Player").transform.position);
+    }
+
+    public void PlayTime10SecondsLeftSound()
+    {
+        AudioSource.PlayClipAtPoint(time10SecondsLeftSound, GameObject.Find("Player").transform.position);
     }
 
     public void PlayOpenMapSound()
     {
-        AudioSource.PlayClipAtPoint(openMapSound, Camera.main.transform.position);
+        AudioSource.PlayClipAtPoint(openMapSound, GameObject.Find("Player").transform.position);
     }
 
     public void PlayCloseMapSound()
     {
-        AudioSource.PlayClipAtPoint(closeMapSound, Camera.main.transform.position);
+        AudioSource.PlayClipAtPoint(closeMapSound, GameObject.Find("Player").transform.position);
     }
 
     public void PlayLosingSound()

@@ -15,6 +15,7 @@ public class AQICalculation : MonoBehaviour
     public float timeAQIStays;
 
     private bool isChangingColor = false;
+    private bool isPlayingWarning = false;
 
     // Start is called before the first frame update
     void Start()
@@ -93,6 +94,11 @@ public class AQICalculation : MonoBehaviour
         else if ((realAQI_Index > 6250f && realAQI_Index <= 6251f) && !isChangingColor)
         {
             StartCoroutine(UpdateEnvironmentLights(HexToColor("b0414a"), 5f)); //dark red
+        }
+
+        if (!isPlayingWarning && realAQI_Index >= 6250f)
+        {
+            StartCoroutine(WarningAQI());
         }
 
         if (realAQI_Index >= 7000f)
@@ -185,5 +191,13 @@ public class AQICalculation : MonoBehaviour
         }
 
         return new Color(r / 255f, g / 255f, b / 255f, a / 255f);
+    }
+
+    public IEnumerator WarningAQI()
+    {
+        isPlayingWarning = true;
+        AudioManager.audioManager.PlayAQIWarningSound();
+        yield return new WaitForSeconds(1f);
+        isPlayingWarning = false;
     }
 }

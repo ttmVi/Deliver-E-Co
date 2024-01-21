@@ -140,7 +140,6 @@ public class GameSceneManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        AudioManager.audioManager.PlayLosingSound();
         while (!losingCanvas.activeSelf)
         {
             GameObject.Find("ResourcesManager").GetComponent<AQICalculation>().EndDayCheck();
@@ -149,7 +148,7 @@ public class GameSceneManager : MonoBehaviour
             break;
         }
         losingCanvas.SetActive(true);
-
+        AudioManager.audioManager.PlayLosingSound();
 
         TextMeshProUGUI completedMissionsCount = GameObject.Find("CompletedMission Count").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI moneyLost = GameObject.Find("Money Lost").GetComponent<TextMeshProUGUI>();
@@ -178,7 +177,6 @@ public class GameSceneManager : MonoBehaviour
             audioSource.enabled = false;
         }
 
-        AudioManager.audioManager.PlayWinningSound();
         while (!winningCanvas.activeSelf)
         {
             GameObject.Find("ResourcesManager").GetComponent<AQICalculation>().EndDayCheck();
@@ -186,6 +184,8 @@ public class GameSceneManager : MonoBehaviour
         }
 
         winningCanvas.SetActive(true);
+        AudioManager.audioManager.PlayWinningSound();
+
         TextMeshProUGUI completedMissionsCount = GameObject.Find("CompletedMission Count").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI moneyEarned = GameObject.Find("Money Earned").GetComponent<TextMeshProUGUI>();
 
