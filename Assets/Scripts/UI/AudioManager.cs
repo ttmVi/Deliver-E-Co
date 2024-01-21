@@ -26,6 +26,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip losingSound;
     [SerializeField] AudioClip winningSound;
 
+    [SerializeField] AudioClip mainMenuBGM;
+    [SerializeField] AudioClip[] vehicleSelectionBGM;
+    [SerializeField] AudioClip[] mainGameplayBGM;
+
     void Awake()
     {
         audioManager = this;
@@ -100,5 +104,26 @@ public class AudioManager : MonoBehaviour
     public void PlayWinningSound()
     {
         AudioSource.PlayClipAtPoint(winningSound, Camera.main.transform.position);
+    }
+
+    public IEnumerator PlayMainMenuBGM()
+    {
+        audioSource.clip = mainMenuBGM;
+        audioSource.Play();
+        yield return new WaitForSeconds(mainMenuBGM.length);
+    }
+
+    public void PlayVehicleSelectionBGM()
+    {
+        audioSource.clip = vehicleSelectionBGM[Mathf.FloorToInt(Random.Range(0, 1.99f))];
+        audioSource.loop = true;
+        audioSource.Play();
+    }
+
+    public void PlayMainGameplayBGM()
+    {
+        audioSource.clip = mainGameplayBGM[Mathf.FloorToInt(Random.Range(0, 2.99f))];
+        audioSource.loop = true;
+        audioSource.Play();
     }
 }

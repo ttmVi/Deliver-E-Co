@@ -54,6 +54,16 @@ public class GameSceneManager : MonoBehaviour
             {
                 gasStation.AddComponent<GasStation>();
             }
+
+            //AudioManager.audioManager.PlayMainGameplayBGM();
+        }
+        else if (SceneManager.GetActiveScene().name == "Vehicle Customize")
+        {
+            AudioManager.audioManager.PlayVehicleSelectionBGM();
+        }
+        else if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            AudioManager.audioManager.PlayMainMenuBGM();
         }
         //missionManager.GetComponent<MissionManager>().enabled = false;
         //missionManager.GetComponent<MissionUIUpdate>().enabled = false;

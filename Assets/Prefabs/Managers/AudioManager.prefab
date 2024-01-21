@@ -60,6 +60,14 @@ MonoBehaviour:
     type: 3}
   losingSound: {fileID: 8300000, guid: 4d8a1610590fd874ea0310771d8e6e30, type: 3}
   winningSound: {fileID: 8300000, guid: d3a2d82ed61d43e4fadacd430dde0bec, type: 3}
+  mainMenuBGM: {fileID: 8300000, guid: cfffd48470ff7ed4098514cb672d4a3f, type: 3}
+  vehicleSelectionBGM:
+  - {fileID: 8300000, guid: b209a4a77e3574e4281042c194be135e, type: 3}
+  - {fileID: 8300000, guid: b5b20eafddbf8c34aa525c165102e94e, type: 3}
+  mainGameplayBGM:
+  - {fileID: 8300000, guid: 8ee06d8d62978ab49b89f38bcebcf4b0, type: 3}
+  - {fileID: 8300000, guid: 58cca19c07a6a564c80f023e6bbdf19e, type: 3}
+  - {fileID: 8300000, guid: d0dd7dd9a5b4a224f9b28ffb80db2fca, type: 3}
 --- !u!82 &-1225882807367042734
 AudioSource:
   m_ObjectHideFlags: 0
@@ -74,7 +82,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
