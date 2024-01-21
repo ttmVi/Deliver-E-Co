@@ -11,6 +11,8 @@ public class GameSceneManager : MonoBehaviour
 {
     public static GameSceneManager gameSceneManager;
 
+    //private GameObject manual;
+
     public GameObject mapCanvas;
 
     private static GameObject losingCanvas;
@@ -54,7 +56,7 @@ public class GameSceneManager : MonoBehaviour
                 gasStation.AddComponent<GasStation>();
             }
 
-            //AudioManager.audioManager.PlayMainGameplayBGM();
+            AudioManager.audioManager.PlayMainGameplayBGM();
         }
         else if (SceneManager.GetActiveScene().name == "Vehicle Customize")
         {
@@ -63,6 +65,7 @@ public class GameSceneManager : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "Main Menu")
         {
             AudioManager.audioManager.PlayMainMenuBGM();
+            //manual = GameObject.Find("Manual");
         }
         //missionManager.GetComponent<MissionManager>().enabled = false;
         //missionManager.GetComponent<MissionUIUpdate>().enabled = false;
@@ -105,6 +108,11 @@ public class GameSceneManager : MonoBehaviour
             AudioManager.audioManager.PlayOpenMapSound();
             mapIsLoaded = true;
         }
+    }
+
+    public void LoadManual()
+    {
+        Application.OpenURL("https://drive.google.com/file/d/1SUnNK543u9tRYq5uEt5pS4qoELoBGHbT/view?usp=sharing");
     }
 
     public static void StartDelivering()
@@ -253,6 +261,7 @@ public class GameSceneManager : MonoBehaviour
     public void EndGame()
     {
         Debug.Log("You lost! Remember to check for the AQI index and keep it as low as possible!");
+        Application.Quit();
     }
 
     public IEnumerator Notification(string notif)
