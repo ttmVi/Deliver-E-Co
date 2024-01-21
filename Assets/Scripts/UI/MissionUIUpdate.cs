@@ -374,6 +374,11 @@ public class MissionUIUpdate : MonoBehaviour
             {
                 GetMissionInfoText(missionToUpdate);
             }
+            else
+            {
+                Destroy(GameObject.Find($"PickUpLocation_{missionToUpdate.missionID}"));
+                Destroy(GameObject.Find($"DropOffLocation_{missionToUpdate.missionID}"));
+            }
 
             yield return new WaitForSeconds(0.5f); // Update every 0.5 seconds
         }
