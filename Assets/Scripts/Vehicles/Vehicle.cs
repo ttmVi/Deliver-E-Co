@@ -214,7 +214,7 @@ public class Motorbike : Vehicle
                 else if (exhaustSystem.Contains("Exhaust Tuning"))
                 {
                     vehicleMPG += 20f;
-                    vehicleFuel += 2f; ;
+                    vehicleFuel += 2f;
                 }
                 else if (exhaustSystem.Contains("Remove"))
                 {
