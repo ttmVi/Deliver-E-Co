@@ -455,7 +455,6 @@ public class Truck : Vehicle
                     if (upgradeOptions[i][j].name.Contains(upgradeComponent) && upgradeOptions[i][j].isUnlocked)
                     {
                         upgradeOptions[i][j].isChosen = true;
-                        upgradeOptions[i][j - 1].isChosen = false;
                     }
                     else
                     {
