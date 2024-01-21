@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Vehicle;
 using static VehicleFactory;
 
 public class VehicleManager : MonoBehaviour
@@ -24,7 +25,7 @@ public class VehicleManager : MonoBehaviour
 
     public VehicleType[] vehicles = { VehicleType.Bicycle, VehicleType.Motorbike, VehicleType.Truck, VehicleType.Updating };
     public static bool[] vehicleIsUnlocked = { false, false, false, false };
-    public int[] vehiclePrices = { 0, 400, 2500, 0 };
+    public int[] vehiclePrices = { 0, 400, 4000, 0 };
     [SerializeField] Sprite[] lockedSprites;
     [SerializeField] Sprite[] unlockedSprites;
     [SerializeField] Sprite[] upgradingSprites;
@@ -109,8 +110,8 @@ public class VehicleManager : MonoBehaviour
                 currentUpgradableIndex++;
                 audioSource.clip = upgradeSwitchingSound;
                 audioSource.Play();
+                DisplayVehicleUpgradeComponent();
             }
-            DisplayVehicleUpgradeComponent();
         }
         else
         {
@@ -130,22 +131,23 @@ public class VehicleManager : MonoBehaviour
                 currentUpgradableIndex--;
                 audioSource.clip = upgradeSwitchingSound;
                 audioSource.Play();
+                DisplayVehicleUpgradeComponent();
             }
-            DisplayVehicleUpgradeComponent();
         }
         else
         {
             if (currentVehicleIndex == 0)
             {
                 currentVehicleIndex = vehicles.Length - 1;
+                DisplayVehicleProperties();
             }
             else
             {
                 currentVehicleIndex--;
+                DisplayVehicleProperties();
             }
             audioSource.clip = vehicleSwitchingSound;
             audioSource.Play();
-            DisplayVehicleProperties();
         }
     }
 
@@ -157,6 +159,43 @@ public class VehicleManager : MonoBehaviour
 
         VehicleType currentVehicleType = vehicles[currentVehicleIndex];
         Vehicle previewVehicle = GetVehicleProperties(currentVehicleType);
+
+        if (currentVehicleType == VehicleType.Motorbike)
+        {
+            upgradableComponents = Motorbike.GetMotorbikeUpgradableComponent();
+            /*upgradableComponents = new UpgradableComponent[3][];
+
+            // Engine upgrade options
+            upgradableComponents[(int)MotorbikeUpgradableComponents.Engine] = new UpgradableComponent[]
+            {
+            new UpgradableComponent("Engine", "Combustion Engine", 0, true, true, "none", "The conventional engine, provides a balance between power and fuel consumption"),
+            new UpgradableComponent("Engine", "Hybrid Engine", 200, false, false, "none", "Combination of internal combustion engine with electric motor"),
+            new UpgradableComponent("Engine", "Electric Motor", 300, false, false, "none", "Releases zero carbondioxide emission with high efficiency torque")
+            };
+
+            // Wheels upgrade options
+            upgradableComponents[(int)MotorbikeUpgradableComponents.Wheels] = new UpgradableComponent[]
+            {
+            new UpgradableComponent("Wheels", "Steel Rims", 0, true, true, "none", "Standard rim, nothing special"),
+            new UpgradableComponent("Wheels", "Alloy Wheels", 200, false, false, "none", "Higher speed and torque, and higher fuel efficiency"),
+            new UpgradableComponent("Wheels", "Magnesium Alloy Rims", 300, false, false, "none", "Lighter with better acceleration")
+            };
+
+            // Exhaust System upgrade options
+            upgradableComponents[(int)MotorbikeUpgradableComponents.ExhaustSystem] = new UpgradableComponent[]
+            {
+            new UpgradableComponent("Exhaust System", "Standard", 0, true, true, "none", "Basic exhaust system with nothing special instead of air pollution"),
+            new UpgradableComponent("Exhaust System", "Exhaust Tuning", 100, false, false, "none", "Airflow optimization and better engine performance"),
+            new UpgradableComponent("Exhaust System", "Remove", 0, false, false, "Electric Motor", "Can only be removed after upgrading engine to Electric Motor")
+            };*/
+
+            Debug.Log(upgradableComponents.Length);
+        }
+        else if (currentVehicleType == VehicleType.Truck)
+        {
+            upgradableComponents = Truck.GetTruckUpgradableComponent();
+        }
+
         if (vehicleIsUnlocked[currentVehicleIndex])
         {
             locked.SetActive(false);
@@ -176,14 +215,6 @@ public class VehicleManager : MonoBehaviour
 
             if (currentVehicleType != VehicleType.Bicycle)
             {
-                if (currentVehicleType == VehicleType.Motorbike)
-                {
-                    upgradableComponents = Motorbike.GetMotorbikeUpgradableComponent();
-                }
-                else if (currentVehicleType == VehicleType.Truck)
-                {
-                    upgradableComponents = Truck.GetTruckUpgradableComponent();
-                }
                 //selectButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(275, tempPos.y, tempPos.z);
                 upgradeButton.SetActive(true);
             }
@@ -191,7 +222,7 @@ public class VehicleManager : MonoBehaviour
 
             speed.fillAmount = previewVehicle.vehicleSpeed / 10f;
             mpg.fillAmount = 1 - previewVehicle.vehicleMPG / 100f;
-            fuel.fillAmount = previewVehicle.vehicleFuel / 35f;
+            fuel.fillAmount = previewVehicle.vehicleFuel / 25f;
             capacity.fillAmount = previewVehicle.vehicleCapacity / 10f;
         }
         else if (currentVehicleType == VehicleType.Updating)
@@ -217,10 +248,6 @@ public class VehicleManager : MonoBehaviour
             moneyBar.GetComponent<RectTransform>().anchoredPosition = new Vector3(-732, 289, 0);
             vehicleImage.sprite = lockedSprites[currentVehicleIndex];
             vehicleImage.SetNativeSize();
-            //displayedVehicleProperties.text = $"Vehicle: {currentVehicleType}\nSpeed: {previewVehicle.vehicleSpeed}\nMPG: {previewVehicle.vehicleMPG}\nFuel Capacity: {previewVehicle.vehicleFuel}\nPackage Capacity: {previewVehicle.vehicleCapacity}";
-            //selectButtonText.text = $"Price: {vehiclePrices[currentVehicleIndex]}";
-
-            //selectButton.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, tempPos.y, tempPos.z);
             upgradeButton.SetActive(false);
 
             //speed.fillAmount = previewVehicle.vehicleSpeed / 10f;
@@ -250,6 +277,8 @@ public class VehicleManager : MonoBehaviour
         if (currentVehicleType == VehicleType.Motorbike)
         {
             //upgradableComponents = new string[] { "Engine", "Wheel", "Exhaust System" };
+            upgradableComponents = Motorbike.GetMotorbikeUpgradableComponent();
+            Debug.Log(upgradableComponents.Length);
 
             currentVehicle.sprite = upgradingSprites[1];
             currentVehicle.SetNativeSize();
@@ -303,6 +332,8 @@ public class VehicleManager : MonoBehaviour
         }
         else if (currentVehicleType == VehicleType.Truck)
         {
+            upgradableComponents = Truck.GetTruckUpgradableComponent();
+
             //upgradableComponents = Truck.GetTruckUpgradableComponent();
             currentVehicle.sprite = upgradingSprites[2];
             currentVehicle.SetNativeSize();
