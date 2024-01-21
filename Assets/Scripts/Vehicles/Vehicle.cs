@@ -323,8 +323,8 @@ public class Truck : Vehicle
         upgradeOptions[(int)TruckUpgradableComponents.Battery] = new UpgradableComponent[]
         {
             new UpgradableComponent("Battery", "None", 0, true, true, "none", "Battery can be installed after upgrading to electric motor"),
-            new UpgradableComponent("Battery", "Lithium", 200, false, false, "none", "High energy storage density and lightweight, has good longevity"),
-            new UpgradableComponent("Battery", "Sodium", 300, false, false, "none", "More abundant and sustainable")
+            new UpgradableComponent("Battery", "Lithium", 200, false, false, "Electric", "High energy storage density and lightweight, has good longevity"),
+            new UpgradableComponent("Battery", "Sodium", 300, false, false, "Electric", "More abundant and sustainable")
         };
 
         // Exhaust System upgrade options
