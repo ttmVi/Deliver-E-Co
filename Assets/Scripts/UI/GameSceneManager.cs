@@ -12,11 +12,11 @@ public class GameSceneManager : MonoBehaviour
     public static GameSceneManager gameSceneManager;
 
     public GameObject mapCanvas;
-    public GameObject backToCustomizing;
 
     private static GameObject losingCanvas;
     private static GameObject winningCanvas;
     private GameObject pausingCanvas;
+    private GameObject notification;
 
     public TextMeshProUGUI loseText;
 
@@ -29,15 +29,14 @@ public class GameSceneManager : MonoBehaviour
         mapCanvas = GameObject.Find("Map Canvas");
         mapCanvas.SetActive(false);
 
-        backToCustomizing = GameObject.Find("Back To Customizing");
-        backToCustomizing.SetActive(false);
-
         if (SceneManager.GetActiveScene().name == "Main Moving Scene")
         {
             losingCanvas = GameObject.Find("Losing Canvas");
             losingCanvas.SetActive(false);
             winningCanvas = GameObject.Find("Winning Canvas");
             winningCanvas.SetActive(false);
+            notification = GameObject.Find("Notification");
+            notification.SetActive(false);
             pausingCanvas = GameObject.Find("Pausing Canvas");
             pausingCanvas.SetActive(false);
 
@@ -97,14 +96,12 @@ public class GameSceneManager : MonoBehaviour
         if (mapIsLoaded)
         {
             mapCanvas.SetActive(false);
-            backToCustomizing.SetActive(true);
             AudioManager.audioManager.PlayCloseMapSound();
             mapIsLoaded = false;
         }
         else
         {
             mapCanvas.SetActive(true);
-            backToCustomizing.SetActive(false);
             AudioManager.audioManager.PlayOpenMapSound();
             mapIsLoaded = true;
         }
@@ -126,8 +123,6 @@ public class GameSceneManager : MonoBehaviour
 
     public static void StartCustomizing()
     {
-        //if (MissionManager.missionManager.successfulMissionCount >= MissionManager.missionManager.requiredSuccessfulMissions)
-        //{
         AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
         foreach (var audioSource in audioSources)
         {
@@ -135,8 +130,7 @@ public class GameSceneManager : MonoBehaviour
         }
 
         SceneManager.LoadScene("Vehicle Customize");
-            VehicleManager.playerVehicle = null;
-        //}
+        VehicleManager.playerVehicle = null;
     }
 
     public static IEnumerator LoseLevel(string loseReason)
@@ -244,8 +238,40 @@ public class GameSceneManager : MonoBehaviour
         }
     }
 
+    public void ForceEndDay()
+    {
+        if (MissionManager.missionManager.successfulMissionCount < MissionManager.missionManager.requiredSuccessfulMissions)
+        {
+            StartCoroutine(Notification("You didn't complete enough orders!"));
+        }
+        else
+        {
+            StartCustomizing();
+        }
+    }
+
     public void EndGame()
     {
         Debug.Log("You lost! Remember to check for the AQI index and keep it as low as possible!");
+    }
+
+    public IEnumerator Notification(string notif)
+    {
+        GameObject resumeButton = GameObject.Find("Resume Button");
+        GameObject exitButton = GameObject.Find("Exit Button");
+
+        resumeButton.SetActive(false);
+        exitButton.SetActive(false);
+        notification.SetActive(true);
+
+        TextMeshProUGUI notificationText = GameObject.Find("Notification").GetComponent<TextMeshProUGUI>();
+        notificationText.text = notif;
+
+        yield return new WaitForSeconds(3f);
+        notificationText.text = "";
+
+        notification.SetActive(false);
+        resumeButton.SetActive(true);
+        exitButton.SetActive(true);
     }
 }
