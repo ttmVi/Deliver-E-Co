@@ -103,7 +103,7 @@ public class AQICalculation : MonoBehaviour
 
         if (realAQI_Index >= 7000f)
         {
-            //Lose game
+            StartCoroutine(GameSceneManager.EndGame());
         }
         //AQIBar.fillAmount = realAQI_Index / 7500f;
     }

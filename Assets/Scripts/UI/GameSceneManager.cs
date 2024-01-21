@@ -258,9 +258,13 @@ public class GameSceneManager : MonoBehaviour
         }
     }
 
-    public void EndGame()
+    public static IEnumerator EndGame()
     {
         Debug.Log("You lost! Remember to check for the AQI index and keep it as low as possible!");
+        yield return new WaitForSeconds(5f);
+        
+        Debug.Log("Exiting game...");
+        yield return new WaitForSeconds(3f);
         Application.Quit();
     }
 
