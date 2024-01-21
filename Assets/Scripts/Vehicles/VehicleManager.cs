@@ -408,6 +408,8 @@ public class VehicleManager : MonoBehaviour
         upgradedVehicle.UnlockUpgradeComponent(upgradableComponents[currentUpgradableIndex][componentIndex].category, upgradableComponents[currentUpgradableIndex][componentIndex].name);
         upgradedVehicle.ChooseUpgradeComponent(upgradableComponents[currentUpgradableIndex][componentIndex].category, upgradableComponents[currentUpgradableIndex][componentIndex].name);
 
+        MoneyManager.money -= upgradableComponents[currentUpgradableIndex][componentIndex].price;
+
         DisplayVehicleUpgradeComponent();
 
         audioSource.clip = upgradingSound;
