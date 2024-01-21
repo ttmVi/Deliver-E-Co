@@ -159,7 +159,7 @@ public class Motorbike : Vehicle
 
                 if (engineType.Contains("Combustion"))
                 {
-                    vehicleMPG = 55f;
+                    vehicleMPG = 50f;
                     vehicleFuel = 10f;
                 }
                 else if (engineType.Contains("Hybrid"))
@@ -213,7 +213,7 @@ public class Motorbike : Vehicle
                 }
                 else if (exhaustSystem.Contains("Exhaust Tuning"))
                 {
-                    vehicleMPG += 10f;
+                    vehicleMPG += 20f;
                     vehicleFuel += 2f; ;
                 }
                 else if (exhaustSystem.Contains("Remove"))
