@@ -122,8 +122,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMainGameplayBGM()
     {
-        audioSource.clip = mainGameplayBGM[Mathf.FloorToInt(Random.Range(0, 2.99f))];
-        audioSource.loop = true;
-        audioSource.Play();
+        //audioSource.clip = mainGameplayBGM[Mathf.FloorToInt(Random.Range(0, 2.99f))];
+        //audioSource.loop = true;
+        //audioSource.Play();
     }
 }

@@ -77,12 +77,12 @@ public class PathFinding : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (velDirection != Vector3.zero)
+        if (velDirection != Vector3.zero && energy != -1f)
         {
             energy -= Time.deltaTime * 0.05f;
         }
 
-        if (energy <= 0)
+        if (energy <= 0 && energy != -1f)
         {
             StartCoroutine(GameSceneManager.LoseLevel("Where's all the energy..."));
         }
